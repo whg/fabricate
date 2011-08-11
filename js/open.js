@@ -158,7 +158,7 @@ var keycontainer = document.createElement("section")
 keycontainer.setAttribute("id", "key_container")
 container.appendChild(keycontainer)
 
-xmlreq("data/tag_types.json", function(req) {
+xmlreq("settings/tag_types.json", function(req) {
 	//add title
 	var ktitle = document.createElement("h3")
 	ktitle.innerHTML = "Key:"
