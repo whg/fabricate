@@ -1,0 +1,26 @@
+[
+ {
+  "link": "pedro&sybil", 
+  "name": "Pedro & Sybil", 
+  "tags": [
+   "hardware", 
+   "software", 
+   "visual"
+  ]
+ }, 
+ {
+  "link": "sudoku", 
+  "name": "Sudoku", 
+  "tags": [
+   "software"
+  ]
+ }, 
+ {
+  "link": "timelapse", 
+  "name": "TimeLapse", 
+  "tags": [
+   "software", 
+   "visual"
+  ]
+ }
+]
