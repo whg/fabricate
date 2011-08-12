@@ -1,5 +1,6 @@
 name: Pedro & Sybil
 tags: hardware, software, visual
 
-<h2>Pedro & Sybil</h2>
+<h1>Pedro & Sybil</h1>
+<h2>A hardware/software marriage</h2>
 <p>begin one</p>

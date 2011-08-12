@@ -6,15 +6,13 @@ body.appendChild(container)
 /* - - - command prompt - - -  */
 
 var keyboardcontainer = document.createElement("section")
-keyboardcontainer.setAttribute("id", "keyboard_container")
+keyboardcontainer.setAttribute("id", "keyboard")
 container.appendChild(keyboardcontainer)
 
 var keyinstructions = document.createElement("p")
 keyinstructions.className = "instructions"
 keyinstructions.innerHTML = "you can navigate this site with your keyboard"
 keyboardcontainer.appendChild(keyinstructions)
-
-/* var keyinstructions = "you can navigate this site with your keyboard" */
 
 var promptcontainer = document.createElement("div")
 promptcontainer.setAttribute("id", "prompt_container")
@@ -39,159 +37,49 @@ commandresult.setAttribute("id", "command_result")
 commandresult.className = "command_line"
 keyboardcontainer.appendChild(commandresult)
 
-function writeinstructions() {
-
-	var icounter = 0;
-	
-	command.value = ""
-	
-	var t = setInterval(function() {
-		command.value += keyinstructions.charAt(icounter++)
-		
-		if(icounter == keyinstructions.length) {
-			clearInterval(t)		
-/* 			asdf) */
-/* 			setTimeout(writeinstructions, 1200) */
-			keyinstructions = "you can..."
-		}
-		log(icounter + "yoooooo")
-	}, 75)
-}
 
 /* writeinstructions() */
 
 command.focus()
 
-/* - - - items - - -  */
+/* - - - ITEMS - - -  */
 
 var itemscontainer = document.createElement("section")
-itemscontainer.setAttribute("id", "items_container")
+itemscontainer.setAttribute("id", "items")
 container.appendChild(itemscontainer)
 
+//when an item is hovered over, its tags are 
+//appended to this list, which is then used to remove
+//the highlight
 var highlighted = []
+
+//all items are added to this list, 
+//it's used for autocompletion
 var sections = []
 
-//add items
-xmlreq("data/items.json", function(req) {
-	
-	var items = parseJSON(req.responseText)
-	
-	//add the items to DOM
-	for (var i = 0; i < items.length; i++) {
-		
-		//create the elements
-		var holdingdiv = document.createElement("div")
-		holdingdiv.className = "item"
-		holdingdiv.role = ""	
-		
-		//add link to child's title
-		holdingdiv.title = items[i].link	
-		
-		var itemtable = document.createElement("table")
-		itemtable.className = "item"
-		
-		//add name to table title: this is what 
-		//shows when the mouse hovers over the element...
-		itemtable.title = items[i].name
-	
-		var row = document.createElement("tr")
-		
-		//fill the elements, first the name
-		var name = items[i].name
-		var title = document.createElement("td")
-		title.innerHTML = name
-		row.appendChild(title)
-		
-		//also add name to sections list
-		sections.push(name)		
-
-		//the tags
-		for (var j = 0; j < items[i].tags.length; j++) {
-			var tagtd = document.createElement("td")
-			var tag = document.createElement("div")
-			tag.className = "tag " + items[i].tags[j]
-			tagtd.appendChild(tag)
-			row.appendChild(tagtd)
-			
-			//set title of div to tag names
-			holdingdiv.role+= items[i].tags[j] + ((j < items[i].tags.length-1) ? "," : "")
-			
-		}
-		
-		
-		//append elements
-		itemtable.appendChild(row)
-		holdingdiv.appendChild(itemtable)
-		itemscontainer.appendChild(holdingdiv)
-		
-		holdingdiv.onmouseover = function() {
-			var ts = this.role.split(',')
-			for (var k = 0; k < ts.length; k++) {
-				var t = document.getElementById(ts[k].toString())
-				t.className += " light"
-				highlighted.push(t)
-			}
-			this.firstChild.className+= " highlight"
-		} 
-		
-		holdingdiv.onmouseout = function() {
-			for (var k = 0; k < highlighted.length; k++) {
-				highlighted[k].className = "key_item"
-			}
-			this.firstChild.className = "item"
-
-		}
-		
-		
-		holdingdiv.onmousedown = function() {
-			log(this.title)
-			location.hash = this.title
-		}
-		
-	}
-}) 
+//add items to itemscontainer
+//all events are handled in function
+additems(itemscontainer, checkhash)
 
 
-/* - - - keys - - -  */
+/* - - - KEYS - - -  */
 
 var keycontainer = document.createElement("section")
-keycontainer.setAttribute("id", "key_container")
+keycontainer.setAttribute("id", "key")
 container.appendChild(keycontainer)
 
-xmlreq("settings/tag_types.json", function(req) {
-	//add title
-	var ktitle = document.createElement("h3")
-	ktitle.innerHTML = "Key:"
-	keycontainer.appendChild(ktitle)
-	
-	var items = parseJSON(req.responseText)
-	
-	for (var i = 0; i < items.length; i++) {
-		
-		//create the elements
-		var keydiv = document.createElement("div")
-		keydiv.className = "key_item"
-		keydiv.setAttribute("id", items[i].name.toLowerCase())
-		
-		var p = document.createElement("p")
-		p.innerHTML = items[i].name + ":"
-		
-		var tag = document.createElement("div")
-		tag.className = "tag " + items[i].name.toLowerCase()
-		
-		keydiv.appendChild(p)
-		keydiv.appendChild(tag)
-		keycontainer.appendChild(keydiv)
-	} 
-})
+addkey(keycontainer)
 
-/*
-var footer = document.createElement("footer")
-footer.innerHTML = "if you want to have a laugh, check out the source"
-container.appendChild(footer)
-*/
+/* - - - PAGE - - -  */
 
-command.focus()
+var pagecontainer = document.createElement("section")
+pagecontainer.setAttribute("id", "page")
+container.appendChild(pagecontainer)
+
+
+
+
+
 command.focus()
 
 command.onblur = function() {
@@ -216,7 +104,7 @@ document.onkeydown = function(e) {
 	switch(e.keyCode) {
 	
 		case 13: //enter
-			log(command.value)
+			processcommand(command.value)
 			command.value = ""
 			break
 			
@@ -242,5 +130,26 @@ document.onkeydown = function(e) {
 	
 
 }
+
+
+
+function writeinstructions() {
+
+	var icounter = 0;
+	
+	command.value = ""
+	
+	var t = setInterval(function() {
+		command.value += keyinstructions.charAt(icounter++)
+		
+		if(icounter == keyinstructions.length) {
+			clearInterval(t)		
+/* 			setTimeout(writeinstructions, 1200) */
+			keyinstructions = "you can..."
+		}
+		log(icounter + "yoooooo")
+	}, 75)
+}
+
 
 log("end go")
