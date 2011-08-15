@@ -1,7 +1,7 @@
 html {
 	letter-spacing: 0.1em;
 	font-size: 0.9em;
-	font-family: "Courier New", Courier, Monaco, monospace;
+	font-family: "Courier New", Courier, monospace;
 /* 	white-space: nowrap; */
 	height: 100%;
 
@@ -20,7 +20,7 @@ body {
 	color: #ff385a;
 }
 
-.tag {
+.dot {
 	width: 0.5em;
 	height: 0.5em;
 	border-radius: 0.5em;
@@ -48,7 +48,7 @@ body {
 }
 
 #container {
-	margin: 0px 50px;
+	padding: 0px 50px;
 	max-width: 640px;
 	margin: 0 auto;
 	background-color: #fff;
@@ -71,14 +71,6 @@ table {
 	width: 100%;
 }
 
-.item_element {
-/* 	padding: 10px 10px; */
-   	                      
-	border-style: none;
-   	                      
-	margin: 0 auto;
-/* 	width: 50%; */
-}
 
 table.item {
 
@@ -86,22 +78,20 @@ table.item {
 	text-align: center;
 	margin: 0 auto;
 	border-radius: 5px;
+	padding: 5px 10px;
+	margin: 5px 10px;
 }
 
 div.item {
 	display: inline-block;
 	white-space: nowrap;
 /* 	border-radius: 10px; */
-	margin: 10px 20px;
-
-	cursor: pointer;
+/* 	margin: 10px 20px; */
+	cursor: pointer;   
+	font-size: 1em                 
 }
 
-.highlight {
-	background-color: #676767;
-	color: #f9f9f9;
-   	                    
-}
+
 
 
 h3 {
@@ -113,8 +103,9 @@ h3 {
 	padding: 40px 0px;
 }
 
-#key {
+#key, #tags {
 	margin-top: 0.5em;
+	white-space: normal;
 /*
 	background: #eee;
 	max-width: 600px;
@@ -127,12 +118,40 @@ h3 {
 */
 }
 
+#tags h3 {
+	font-size: 0.8em;
+}
+
+div.tag_item {
+	white-space: nowrap;
+	display: inline-block;
+	margin: 0.2em 0.5em;
+	padding: 0.2em 0.5em;
+	font-size: 0.8em;
+	background-color: #f8f8f8;
+	border-radius: 5px;
+	color: #444;
+}
+
+/*
+.tag_item {
+	text-overflow: ellipsis;
+	display: inline;
+/* 	white-space: nowrap; */
+}
+*/
+
+.span {
+	white-space: nowrap;
+}
+
 .key_item {
 	display: inline-block;
 	white-space: normal;
 	padding: 5px 10px;
 	margin: 1px;
 	border-radius: 5px;
+	cursor: pointer;   
 }
 
 div.key_item p {
@@ -142,8 +161,12 @@ div.key_item p {
 }
 
 .light {
-	background: #eee;
-/* 	color: #fff;	 */
+	background: #e7e7e7;
+}
+
+.dark {
+	background-color: #9a9a9a;
+	color: white;  	
 }
 
 footer {
@@ -243,4 +266,15 @@ span.command_line {
 #page p {
 	margin: 10px 0px;
 	font-size: 0.9em;
+}
+
+article {
+	padding-bottom: 20px;
+	border-color: #353535;
+	border-style: dotted;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	margin: 50px 0px;
 }

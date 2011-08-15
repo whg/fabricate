@@ -14,8 +14,8 @@ function log(stuff) {
 }
 
 
-var body = document.body
-var head = document.head
+var body = document.getElementsByTagName("body")[0]
+var head = document.getElementsByTagName("head")[0]
 
 
 
@@ -24,19 +24,19 @@ var head = document.head
 //charset
 var charset = document.createElement("meta")
 charset.setAttribute("charset", "utf-8")
-head.appendChild(charset)
+document.head.appendChild(charset)
 
 //stylesheet
 var css = document.createElement("link")
 css.setAttribute("rel", "stylesheet")
 css.setAttribute("href", "css/stylesheet.css")
-head.appendChild(css)
+document.head.appendChild(css)
 
 //apparently this helps with things in IE
 var iet = document.createElement("meta")
 iet.setAttribute("http-equiv", "X-UA-Compatible")
 iet.setAttribute("content", "IE=edge,chrome=1")
-head.appendChild(iet)
+document.head.appendChild(iet)
 
 //set title
 document.title = "wgallia"
@@ -44,5 +44,5 @@ document.title = "wgallia"
 //add functions which in turn adds the script to call them...
 var funcs = document.createElement("script")
 funcs.src = "js/functions.js"
-head.appendChild(funcs)
+document.head.appendChild(funcs)
 

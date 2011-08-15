@@ -1,7 +1,7 @@
 
 var container = document.createElement("div")
 container.setAttribute("id", "container")
-body.appendChild(container)
+document.body.appendChild(container)
 
 /* - - - command prompt - - -  */
 
@@ -37,6 +37,10 @@ commandresult.setAttribute("id", "command_result")
 commandresult.className = "command_line"
 keyboardcontainer.appendChild(commandresult)
 
+var commandhelp = document.createElement("p")
+commandhelp.innerHTML = "to use this thing, first you must turn it on..."
+commandresult.appendChild(commandhelp)
+commandhelp.style.display = "none"
 
 /* writeinstructions() */
 
@@ -48,35 +52,44 @@ var itemscontainer = document.createElement("section")
 itemscontainer.setAttribute("id", "items")
 container.appendChild(itemscontainer)
 
-//when an item is hovered over, its tags are 
-//appended to this list, which is then used to remove
-//the highlight
+//keep track of highlighted elements
 var highlighted = []
 
 //all items are added to this list, 
 //it's used for autocompletion
 var sections = []
 
+var categories = []
+
 //add items to itemscontainer
 //all events are handled in function
+//checkhash callback is passed...
 additems(itemscontainer, checkhash)
 
 
-/* - - - KEYS - - -  */
+/* - - - KEY/CATEGORIES - - -  */
 
 var keycontainer = document.createElement("section")
 keycontainer.setAttribute("id", "key")
 container.appendChild(keycontainer)
 
-addkey(keycontainer)
+addkey(keycontainer, checkhash)
+
+/* - - - TAGS - - -  */
+
+var tagscontainer = document.createElement("section")
+tagscontainer.setAttribute("id", "tags")
+container.appendChild(tagscontainer)
+
+addtags(tagscontainer)
+
+/* log(JSON) */
 
 /* - - - PAGE - - -  */
 
 var pagecontainer = document.createElement("section")
 pagecontainer.setAttribute("id", "page")
 container.appendChild(pagecontainer)
-
-
 
 
 
@@ -97,7 +110,7 @@ document.onkeydown = function(e) {
 	
 	command.focus() 
 	
-	log(e.keyCode + " and " + e.charCode)
+/* 	log(e.keyCode + " and " + e.charCode) */
 	
 	
 
@@ -128,7 +141,7 @@ document.onkeydown = function(e) {
 			break
 	}
 	
-
+/* 	commandhelp.style.display = "inline" */
 }
 
 
