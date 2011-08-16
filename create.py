@@ -6,75 +6,130 @@
 import os
 import json
 
+data = []
+items = []
+cats = set()
+tags = set()
+
 def getlist(line):
 	things = line.split(":")[1]
 	return things.split(",")
 
-items = []
-tags = set()
-
-for dirpath, dirnames, filenames in os.walk("sections"):
-	for filename in filenames:
-		
-		with open(dirpath + "/" + filename, 'r') as f:
+def readfiles(directory):
+	
+	files = []
+	
+	for dirpath, dirnames, filenames in os.walk(directory):
+		for filename in filenames:
 			
-			lines = f.readlines()
-
-			#do some checks
-			assert lines[0][0:4] == "name"
-			assert lines[1][0:4] == "cats"
-			assert lines[2][0:4] == "tags"
-						
-			#do name
-			itemname = lines[0].split(":")[1].strip()			
-			tempitem = [("name", itemname)]
-
-			#make link; name in lowercase with no space
-			link = itemname.lower()
-			link = link.translate(None, " ")
-			tempitem.append(("link", link))
-			
-			#categories are added to dictionary as a list
-			catsline = getlist(lines[1])
-			categories = []
-			for category in catsline:
-				categories.append(category.strip())
-			
-			tempitem.append(("categories", categories))
-			
-			#tags are also a list...
-			#keep track of the different tags, by adding them to the tags set
-			tagsline = getlist(lines[2])
-			itemtags = []
-			for tag in tagsline:
-				itemtags.append(tag.strip())
-				tags.add(tag.strip())
+			with open(dirpath + "/" + filename, 'r') as f:
 				
-			tempitem.append(("tags", itemtags))
+				files.append(f.readlines())
+				
+				f.close()
+	
+	return files
+	
+def checkfiles(files):
+	for lines in files:
+		assert lines[0][0:4] == "name"
+		assert lines[1][0:4] == "cats"
+		assert lines[2][0:4] == "tags"
+	
+def additems(files):
+	
+	for lines	in files:			
+							
+		#do name
+		itemname = lines[0].split(":")[1].strip()			
+		tempitem = [("name", itemname)]
+	
+		#make link; name in lowercase with no space
+		link = itemname.lower()
+		link = link.translate(None, " ")
+		tempitem.append(("link", link))
+		
+		#categories are added to dictionary as a list
+		catsline = getlist(lines[1])
+		categories = []
+		for category in catsline:
+			categories.append(category.strip())
+			cats.add(category.strip())
+		
+		tempitem.append(("cats", categories))
+		
+		#tags are also a list...
+		#keep track of the different tags, by adding them to the tags set
+		tagsline = getlist(lines[2])
+		itemtags = []
+		for tag in tagsline:
+			itemtags.append(tag.strip())
+			tags.add(tag.strip())
 			
-			#now add temp item as a dictionary (json object)			
-			items.append(dict(tempitem))	
+		tempitem.append(("tags", itemtags))
+		
+		#now add temp item as a dictionary (json object)			
+		items.append(dict(tempitem))	
+	
+		
+		#get the rest of the content and put it in a string
+		content = "".join(lines[3:])
+		
+		#now write the file...
+		with open("data/" + link, 'w') as g:
+			g.write(content)
+			g.close()
 
+	data.append(("items", items))
+		
+		
+
+#this creates a dictionary of each category and tag
+#with it's corresponding item(s)
+def addcatsandtags():
+	
+	catsdict = dict([(cat, []) for cat in cats])
+	tagsdict = dict([(tag, []) for tag in tags])
+	
+	for item in items:
+		name = item["link"]
+		
+		for cat in item["cats"]:
+			catsdict[cat].append(name)
 			
-			#get the rest of the content and put it in a string
-			content = "".join(lines[3:])
+		for tag in item["tags"]:
+			tagsdict[tag].append(name)
+
+	
+	data.extend([("cats", catsdict), ("tags", tagsdict)])
+		
+def addtags():
+	data.append(("tags", list(tags)))
 			
-			#now write the file...
-			with open("data/" + link, 'w') as g:
-				g.write(content)
-				g.close()
-						
-			f.close()
-			
+def writeJSON(content, filename):
+	with open(filename, 'w') as f:
+		json.dump(content, f, indent=True)
 	
 
-#now write the items.json file...
-with open("data/items.json", 'w') as f:
-	json.dump(items, f, indent=True)
+
+
+if __name__ == "__main__":
+
+	files = readfiles("sections")
 	
+	checkfiles(files)
 	
-#now write tags.json
-with open("data/tags.json", 'w') as f:
-	json.dump(list(tags), f, indent=True)
+	additems(files)
 	
-print tags
+# 	for i in items:
+# 		print i
+
+	addcatsandtags()
+# 	addtags()
+	
+	#now write the items.json file...
+	writeJSON(dict(data), "data/data.json")
+	
+# 	writeJSON(list(tags), "data/tags.json")
+	
+

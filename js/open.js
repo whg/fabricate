@@ -42,54 +42,38 @@ commandhelp.innerHTML = "to use this thing, first you must turn it on..."
 commandresult.appendChild(commandhelp)
 commandhelp.style.display = "none"
 
-/* writeinstructions() */
 
-command.focus()
+/* - - - CONTAINERS - - -  */
 
-/* - - - ITEMS - - -  */
+var itemcontainer = document.createElement("section")
+itemcontainer.setAttribute("id", "items")
+container.appendChild(itemcontainer)
 
-var itemscontainer = document.createElement("section")
-itemscontainer.setAttribute("id", "items")
-container.appendChild(itemscontainer)
-
-//keep track of highlighted elements
-var highlighted = []
-
-//all items are added to this list, 
-//it's used for autocompletion
-var sections = []
-
-var categories = []
-
-//add items to itemscontainer
-//all events are handled in function
-//checkhash callback is passed...
-additems(itemscontainer, checkhash)
-
-
-/* - - - KEY/CATEGORIES - - -  */
-
-var keycontainer = document.createElement("section")
-keycontainer.setAttribute("id", "key")
-container.appendChild(keycontainer)
-
-addkey(keycontainer, checkhash)
-
-/* - - - TAGS - - -  */
+var catscontainer = document.createElement("section")
+catscontainer.setAttribute("id", "cats")
+container.appendChild(catscontainer)
 
 var tagscontainer = document.createElement("section")
 tagscontainer.setAttribute("id", "tags")
 container.appendChild(tagscontainer)
 
-addtags(tagscontainer)
-
-/* log(JSON) */
-
-/* - - - PAGE - - -  */
-
 var pagecontainer = document.createElement("section")
 pagecontainer.setAttribute("id", "page")
 container.appendChild(pagecontainer)
+
+//sections are the names of items, cats and tags
+var sections = []
+
+//keep track of highlighted elements
+var highlighted = []
+
+//a list of the tagitem divs 
+var tagdivs = []
+
+//now get the data...
+//this function then calls the adding funtions
+getdata()
+
 
 
 

@@ -103,7 +103,7 @@ h3 {
 	padding: 40px 0px;
 }
 
-#key, #tags {
+#cats, #tags {
 	margin-top: 0.5em;
 	white-space: normal;
 /*
@@ -120,6 +120,7 @@ h3 {
 
 #tags h3 {
 	font-size: 0.8em;
+	margin: 1em;
 }
 
 div.tag_item {
@@ -128,9 +129,10 @@ div.tag_item {
 	margin: 0.2em 0.5em;
 	padding: 0.2em 0.5em;
 	font-size: 0.8em;
-	background-color: #f8f8f8;
+/* 	background-color: #efefef; */
 	border-radius: 5px;
-	color: #444;
+/* 	color: #111; */
+	cursor: pointer;
 }
 
 /*
@@ -145,7 +147,7 @@ div.tag_item {
 	white-space: nowrap;
 }
 
-.key_item {
+.cat_item {
 	display: inline-block;
 	white-space: normal;
 	padding: 5px 10px;
@@ -154,18 +156,18 @@ div.tag_item {
 	cursor: pointer;   
 }
 
-div.key_item p {
+div.cat_item p {
 	font-size: 0.8em;
 	margin: 0px 5px;
 	display: inline-block;
 }
 
 .light {
-	background: #e7e7e7;
+	background-color: #e7e7e7;
 }
 
 .dark {
-	background-color: #9a9a9a;
+	background-color: #888;
 	color: white;  	
 }
 
@@ -270,7 +272,7 @@ span.command_line {
 
 article {
 	padding-bottom: 20px;
-	border-color: #353535;
+	border-color: #999;
 	border-style: dotted;
 	border-left-width: 0px;
 	border-bottom-width: 1px;

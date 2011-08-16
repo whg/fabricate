@@ -30,7 +30,7 @@ function autocomplete(input, result) {
 		}	
 	}
 	
-	//if multiple tokens, process last one 
+	//if multiple tokens, process the last  
 	else {
 
 		var lastword = tokens.pop()
@@ -101,12 +101,14 @@ function processcommand(input) {
 			for (var j = 0; j < sections.length; j++) {
 				//check for valid argument
 				if(argument == sections[j]) {
-					showpage(lowercasenospace(argument), pagecontainer)
+					var elem = document.getElementById(lowercasenospace(argument))
+					showpage(elem, pagecontainer)
+					location.hash = lowercasenospace(argument)
 					return
 				}
 			}
 			//if argument is not valid, display message
-			commandresult.innerHTML = argument + ": could not find page"
+			commandresult.innerHTML = argument + ": could not find section"
 			return
 		}
 	}
@@ -119,204 +121,304 @@ function processcommand(input) {
 
 /* - - - - - - CREATION - - - - - -  */
 
-//fetches and displays the keys
+function getdata(cb) {
+	xhreq("data/data.json", function(req) {
+		
+		var data = parseJSON(req.responseText)
+		
+		// add all content
+		
+		additems(data.items, itemcontainer)
+		addcats(data.cats, catscontainer)
+		addtags(data.tags, tagscontainer)
+		
+	})
+}
 
-function addkey(parent, cb) {
-	xhreq("settings/categories.json", function(req) {
-		//add title
-		var ktitle = document.createElement("h3")
-		ktitle.innerHTML = "Key:"
-		parent.appendChild(ktitle)
+function start() {
+	
+}
+
+/* - - - ADD ITEMS - - -  */
+// creates the items and adds the event handling functions
+// attributes:
+// 						id = name
+//						tags = tags
+//						cats = cats
+//						items = self/name 
+
+function additems(items, parent) {
+
+	//add the items to DOM
+	for (var i = 0; i < items.length; i++) {
 		
-		var items = parseJSON(req.responseText)
+		//create the elements
+		var holdingdiv = document.createElement("div")
+		holdingdiv.className = "item"
+		holdingdiv.role = ""	
 		
-		for (var i = 0; i < items.length; i++) {
-			
-			//create the elements
-			var keydiv = document.createElement("div")
-			keydiv.className = "key_item"
-			keydiv.setAttribute("id", items[i].name.toLowerCase())
-			
-			var p = document.createElement("p")
-			p.innerHTML = items[i].name + ":"
-			
+		holdingdiv.setAttribute("id", items[i].link)
+		holdingdiv.setAttribute("items", items[i].link)
+		
+		var itemtable = document.createElement("table")
+		itemtable.className = "item"
+		
+		//add name to table title: this is what 
+		//shows when the mouse hovers over the element...
+		itemtable.title = items[i].name
+	
+		var row = document.createElement("tr")
+		
+		//fill the elements, first the name
+		var name = items[i].name
+		var title = document.createElement("td")
+		title.innerHTML = name
+		row.appendChild(title)
+				
+
+		//the item's categories
+		for (var j = 0; j < items[i].cats.length; j++) {
+			var tagtd = document.createElement("td")
 			var tag = document.createElement("div")
-			tag.className = "dot " + items[i].name.toLowerCase()
-			
-			keydiv.appendChild(p)
-			keydiv.appendChild(tag)
-			parent.appendChild(keydiv)
-			
-			//add to categories array
-			categories.push(items[i].name)
-			
-			keydiv.onmouseover = function() {
-				var itemdivs = getitemdivs()
-				var thistag = this.getAttribute("id")
-				highlighted = []
-				
-				for (var i = 0; i < itemdivs.length; i++) {
-					var cats = itemdivs[i].role.split(',')
-					for (var j = 0; j < cats.length; j++) {
-						if(thistag === cats[j]) {
-							itemdivs[i].firstChild.className = "item dark"
-							this.className = "key_item light"
-							highlighted.push(itemdivs[i])
-						}
-					}
-				}
-			}
-			
-			keydiv.onmouseout = function() {
-				for(var i = 0; i < highlighted.length; i++) {
-					highlighted[i].firstChild.className = "item"
-				}
-				highlighted = []
-				this.className = "key_item"
-			}
-			
-			keydiv.onclick = function() {
-				pagecontainer.innerHTML = ""
-				for(var i = 0; i < highlighted.length; i++) {
-					location.hash = this.getAttribute("id")
-					appendpage(highlighted[i].name, pagecontainer)
-				}
-			}
-			
+			tag.className = "dot " + items[i].cats[j]
+			tagtd.appendChild(tag)
+			row.appendChild(tagtd)
 		}
 		
-		//now call callback
-		if(cb) {
-			cb()
+		var itemcats = arraytostring(items[i].cats)
+		holdingdiv.setAttribute("cats", itemcats)
+		
+		//the item's tags
+		var itemtags = arraytostring(items[i].tags)
+		holdingdiv.setAttribute("tags", itemtags)
+		
+		//append elements
+		itemtable.appendChild(row)
+		holdingdiv.appendChild(itemtable)
+		
+		//add to parent (function argument)
+		parent.appendChild(holdingdiv)
+		
+		//add the item to sections list
+		sections.push(items[i].name)
+		
+		/* 		- - - 	MOUSEOVER - - -  */
+		
+		holdingdiv.onmouseover = function() {
+		
+			//find the cats
+			var cs = this.getAttribute("cats").split(",")
+			//highlight the cats, keep track of the highlighted ones,
+			//with the element and the original class name
+			for (var i = 0; i < cs.length; i++) {
+				var t = document.getElementById(cs[i])
+				highlighted.push([t, t.className])
+				t.className += " light"
+			}
+			
+			//do the tags...
+			//only relevant tags are shown, all others are hidden
+			
+			//first hide them all
+			for (var i = 0; i < tagdivs.length; i++) {
+				tagdivs[i].style.display = "none"
+			}
+			
+			var ts = this.getAttribute("tags").split(",")
+			log(ts)
+			for (var i = 0; i < ts.length; i++) {
+				var t = document.getElementById(lowercasenospace(ts[i]))
+				t.style.display = "inline-block"
+				t.className += " dark"
+			}
+			
+			//style this one
+			this.firstChild.className+= " dark"
 		} 
-	})
+			
+		/* 		- - - MOUSEOUT - - -  */
+				
+		holdingdiv.onmouseout = function() {
+			
+			//reset all highlighted back to original class
+			for (var k = 0; k < highlighted.length; k++) {
+				highlighted[k][0].className = highlighted[k][1]
+			}
+			highlighted = []
+			
+			//reset tags
+			for (var i = 0; i < tagdivs.length; i++) {
+				tagdivs[i].style.display = "inline-block"
+				tagdivs[i].className = "tag_item"
+			}
+			
+			this.firstChild.className = "item"
+		}
+		
+		/* 		- - - MOUSEDOWN - - -  */
+
+		holdingdiv.onmousedown = function() {
+			location.hash = this.getAttribute("id")
+			showpage(this, pagecontainer)
+		}
+		
+	}
+	
 }
 
-//fetches and displays all items...
-//data is appended to parent argument
+/* - - - ADD CATS - - -  */
+//creates and adds categories
+//has items attribute which container a list of 
+//items the category is associated with
 
-function additems(parent, cb) {
-	xhreq("data/items.json", function(req) {
-		
-		var items = parseJSON(req.responseText)
-		
-		//add the items to DOM
-		for (var i = 0; i < items.length; i++) {
-			
-			//create the elements
-			var holdingdiv = document.createElement("div")
-			holdingdiv.className = "item"
-			holdingdiv.role = ""	
-			
-			//add link to child's title
-			holdingdiv.name = items[i].link	
-			
-			var itemtable = document.createElement("table")
-			itemtable.className = "item"
-			
-			//add name to table title: this is what 
-			//shows when the mouse hovers over the element...
-			itemtable.title = items[i].name
-		
-			var row = document.createElement("tr")
-			
-			//fill the elements, first the name
-			var name = items[i].name
-			var title = document.createElement("td")
-			title.innerHTML = name
-			row.appendChild(title)
-			
-			//also add name to sections list
-			sections.push(name)		
+function addcats(cats, parent) {
+
+	//add title
+	var ktitle = document.createElement("h3")
+	ktitle.innerHTML = "Key:"
+	parent.appendChild(ktitle)
+
 	
-			//the item's categories
-			for (var j = 0; j < items[i].categories.length; j++) {
-				var tagtd = document.createElement("td")
-				var tag = document.createElement("div")
-				tag.className = "dot " + items[i].categories[j]
-				tagtd.appendChild(tag)
-				row.appendChild(tagtd)
-				
-				//set title of div to tag names
-				holdingdiv.role+= items[i].categories[j] + ((j < items[i].categories.length-1) ? "," : "")
-			}
-			
-			holdingdiv.setAttribute("cats", holdingdiv.role)
-				
-			//append elements
-			itemtable.appendChild(row)
-			holdingdiv.appendChild(itemtable)
-			
-			//add to parent (function argument)
-			parent.appendChild(holdingdiv)
-			
-			holdingdiv.onmouseover = function() {
-				var ts = this.role.split(',')
-				for (var k = 0; k < ts.length; k++) {
-					var t = document.getElementById(ts[k].toString())
-					t.className += " light"
-					highlighted.push(t)
-				}
-				this.firstChild.className+= " dark"
-			} 
-			
-			holdingdiv.onmouseout = function() {
-				for (var k = 0; k < highlighted.length; k++) {
-					highlighted[k].className = "key_item"
-				}
-				highlighted = []
-				this.firstChild.className = "item"
+	for (var cat in cats) {
 	
+		//create the elements
+		var keydiv = document.createElement("div")
+		keydiv.className = "cat_item"
+		keydiv.setAttribute("id", cat)
+		
+		//set the items that are part of cat
+		var catitems = arraytostring(cats[cat])
+		keydiv.setAttribute("items", catitems)
+		
+		//write the text, with the first letter uppercase
+		var p = document.createElement("p")
+		p.innerHTML = cat[0].toUpperCase() + cat.substr(1) + ":"
+		
+		//add the dot...
+		var tag = document.createElement("div")
+		tag.className = "dot " + cat
+		
+		//append all elements
+		keydiv.appendChild(p)
+		keydiv.appendChild(tag)
+		parent.appendChild(keydiv)
+		
+		//add to sections list
+		sections.push(cat)
+		
+		/* 		- - - MOUSEOVER - - -  */
+		
+		keydiv.onmouseover = function() {
+			var is = this.getAttribute("items").split(",")
+			for (var i = 0; i < is.length; i++) {
+				var it = document.getElementById(is[i])
+				it.firstChild.className+= " dark"
+				highlighted.push(it)
 			}
-			
-			
-			holdingdiv.onmousedown = function() {
-				location.hash = this.name
-				showpage(this.name, pagecontainer)
-				log(this.getAttribute("cats"))
-			}
-			
+			this.className+= " light"
 		}
 		
-		//now call callback
-		if(cb) {
-			cb()
+		/* 		- - - MOUSEOUT - - -  */
+		
+		keydiv.onmouseout = function() {
+			for(var i = 0; i < highlighted.length; i++) {
+				highlighted[i].firstChild.className = "item"
+			}
+			highlighted = []
+			this.className = "cat_item"
 		}
-	}) 
+		
+		/* 		- - - MOUSEDOWN - - -  */
+		
+		keydiv.onmousedown = function() {
+			pagecontainer.innerHTML = ""
+			showpage(this, pagecontainer)
+			location.hash = this.getAttribute("id")
+		}
+		
+	}
+
 }
 
-function addtags(parent) {
+/* - - - ADD TAGS - - -  */
+//creates and adds tags
+//each tag has items attribute, like the cats
 
-	xhreq("data/tags.json", function(req) {
+function addtags(tags, parent) {
 	
-		var items = parseJSON(req.responseText)
+	var t = document.createElement("h3")
+	t.innerHTML = "Tags:"
+	parent.appendChild(t)
+	
+	for (tag in tags) {
 		
-		var t = document.createElement("h3")
-		t.innerHTML = "Tags:"
-		parent.appendChild(t)
+		var tdiv = document.createElement("div")
+		tdiv.className = "tag_item"
+		tdiv.setAttribute("id", lowercasenospace(tag))
 		
-		for (var i = 0; i < items.length; i++) {
+		//set the items that are part of tag
+		var tagitems = arraytostring(tags[tag])
+		tdiv.setAttribute("items", tagitems)
+		
+		var span = document.createElement("span")
+		span.innerHTML = tag
+		
+		tdiv.appendChild(span)
+		parent.appendChild(tdiv)
+		
+		tagdivs.push(tdiv)
+		
+		//add to sections
+		sections.push(tag)
+		
+		/* 		- - - MOUSEOVER - - -  */
+		
+		tdiv.onmouseover = function() {
+			var is = this.getAttribute("items").split(",")
+			for (var i = 0; i < is.length; i++) {
+				var it = document.getElementById(is[i])
+				it.firstChild.className+= " dark"
+				highlighted.push(it)
+			}
 			
-			var tdiv = document.createElement("div")
-			tdiv.className = "tag_item"
-			tdiv.setAttribute("name", items[i])
-			
-			var span = document.createElement("span")
-			span.innerHTML = items[i]
-			
-			tdiv.appendChild(span)
-			parent.appendChild(tdiv)
-			
+			this.className += " light"
 		}
 		
-	})
+		/* 		- - - MOUSEOUT - - -  */
+		
+		tdiv.onmouseout = function() {
+			for(var i = 0; i < highlighted.length; i++) {
+				highlighted[i].firstChild.className = "item"
+			}
+			highlighted = []
+			
+			this.className = "tag_item"
+		}
+		
+		/* 		- - - MOUSEDOWN - - -  */
+		
+		tdiv.onmousedown = function() {
+			pagecontainer.innerHTML = ""
+			showpage(this, pagecontainer)
+			location.hash = this.getAttribute("id")
+		}
+	}
+		
 }
 
 
 //fetches and displays page content inside parent
-function showpage(name, parent) {
+//by looking at the items attribute of the given element
+//all items, cats and tags all have an items attribute, 
+//items themselves have one, which is themselves
+function showpage(element, parent) {
 	parent.innerHTML = ""
-	appendpage(name, parent)
+	var is = element.getAttribute("items").split(",")
+	
+	for(var i = 0; i < is.length; i++) {
+		appendpage(is[i], parent)
+	}
+	
 }
 
 function appendpage(name, parent) {
@@ -328,6 +430,14 @@ function appendpage(name, parent) {
 }
 
 /* - - - - - - HELPERS - - - - - -  */
+
+function arraytostring(a) {
+	var result = ""
+	for (var i = 0; i < a.length; i++) {
+		result+= a[i] + ((i < a.length-1) ? "," : "")
+	}
+	return result
+}
 
 function getitemtags(item) {
 /* 	return  */
