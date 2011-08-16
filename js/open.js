@@ -74,8 +74,8 @@ var tagdivs = []
 //this function then calls the adding funtions
 getdata()
 
-
-
+var hashset = ""
+var startedchange = false
 
 command.focus()
 
@@ -95,7 +95,6 @@ document.onkeydown = function(e) {
 	command.focus() 
 	
 /* 	log(e.keyCode + " and " + e.charCode) */
-	
 	
 
 	switch(e.keyCode) {
@@ -148,5 +147,24 @@ function writeinstructions() {
 	}, 75)
 }
 
+var hashcheck = setInterval(function() { 
+/*
+	log(hashset + " " + location.hash.substr(1))
+
+	if(checkhash()) {
+		clearInterval(hashcheck)
+		log("cleared")
+	}
+*/
+	if(hashset != location.hash.substr(1)) {
+		
+		var e = document.getElementById(location.hash.substr(1))
+		
+		if(e && !startedchange) {
+			showpage(e, pagecontainer, false)
+		}
+	}
+	log("a")
+}, 150)
 
 log("end go")

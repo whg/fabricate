@@ -132,6 +132,8 @@ function getdata(cb) {
 		addcats(data.cats, catscontainer)
 		addtags(data.tags, tagscontainer)
 		
+		checkhash()
+		
 	})
 }
 
@@ -151,6 +153,9 @@ function additems(items, parent) {
 
 	//add the items to DOM
 	for (var i = 0; i < items.length; i++) {
+		
+		var a = document.createElement("a")
+		a.href = "#" + items[i].link
 		
 		//create the elements
 		var holdingdiv = document.createElement("div")
@@ -195,9 +200,10 @@ function additems(items, parent) {
 		//append elements
 		itemtable.appendChild(row)
 		holdingdiv.appendChild(itemtable)
-		
+		a.appendChild(holdingdiv)
+
 		//add to parent (function argument)
-		parent.appendChild(holdingdiv)
+		parent.appendChild(a)
 		
 		//add the item to sections list
 		sections.push(items[i].name)
@@ -225,7 +231,6 @@ function additems(items, parent) {
 			}
 			
 			var ts = this.getAttribute("tags").split(",")
-			log(ts)
 			for (var i = 0; i < ts.length; i++) {
 				var t = document.getElementById(lowercasenospace(ts[i]))
 				t.style.display = "inline-block"
@@ -258,7 +263,7 @@ function additems(items, parent) {
 		/* 		- - - MOUSEDOWN - - -  */
 
 		holdingdiv.onmousedown = function() {
-			location.hash = this.getAttribute("id")
+/* 			location.hash = this.getAttribute("id") */
 			showpage(this, pagecontainer)
 		}
 		
@@ -281,6 +286,9 @@ function addcats(cats, parent) {
 	
 	for (var cat in cats) {
 	
+		var a = document.createElement("a")
+		a.href = "#" + cat
+	
 		//create the elements
 		var keydiv = document.createElement("div")
 		keydiv.className = "cat_item"
@@ -301,7 +309,8 @@ function addcats(cats, parent) {
 		//append all elements
 		keydiv.appendChild(p)
 		keydiv.appendChild(tag)
-		parent.appendChild(keydiv)
+		a.appendChild(keydiv)
+		parent.appendChild(a)
 		
 		//add to sections list
 		sections.push(cat)
@@ -333,7 +342,7 @@ function addcats(cats, parent) {
 		keydiv.onmousedown = function() {
 			pagecontainer.innerHTML = ""
 			showpage(this, pagecontainer)
-			location.hash = this.getAttribute("id")
+/* 			location.hash = this.getAttribute("id") */
 		}
 		
 	}
@@ -351,6 +360,9 @@ function addtags(tags, parent) {
 	parent.appendChild(t)
 	
 	for (tag in tags) {
+	
+		var a = document.createElement("a")
+		a.href = "#" + tag
 		
 		var tdiv = document.createElement("div")
 		tdiv.className = "tag_item"
@@ -364,12 +376,15 @@ function addtags(tags, parent) {
 		span.innerHTML = tag
 		
 		tdiv.appendChild(span)
-		parent.appendChild(tdiv)
+		a.appendChild(tdiv)
+		parent.appendChild(a)
 		
-		tagdivs.push(tdiv)
 		
 		//add to sections
 		sections.push(tag)
+		//and tagdivs
+		tagdivs.push(tdiv)
+
 		
 		/* 		- - - MOUSEOVER - - -  */
 		
@@ -400,25 +415,35 @@ function addtags(tags, parent) {
 		tdiv.onmousedown = function() {
 			pagecontainer.innerHTML = ""
 			showpage(this, pagecontainer)
-			location.hash = this.getAttribute("id")
+/* 			location.hash = this.getAttribute("id") */
 		}
 	}
 		
+	parent.style.height = parent.offsetHeight
 }
 
+window.onpushstate = function() {
+	log("aaa")
+}
 
 //fetches and displays page content inside parent
 //by looking at the items attribute of the given element
 //all items, cats and tags all have an items attribute, 
 //items themselves have one, which is themselves
-function showpage(element, parent) {
+function showpage(element, parent, pushstate) {
+	hashset = element.getAttribute("id")
 	parent.innerHTML = ""
 	var is = element.getAttribute("items").split(",")
 	
 	for(var i = 0; i < is.length; i++) {
+		startedchange = true
 		appendpage(is[i], parent)
 	}
+	if(pushstate == "undefined") {
+		window.history.pushState("", "")
+	}
 	
+
 }
 
 function appendpage(name, parent) {
@@ -426,6 +451,7 @@ function appendpage(name, parent) {
 		var article = document.createElement("article")	
 		article.innerHTML += req.responseText
 		parent.appendChild(article)
+		startedchange = false
 	})
 }
 
@@ -439,9 +465,6 @@ function arraytostring(a) {
 	return result
 }
 
-function getitemtags(item) {
-/* 	return  */
-}
 
 function parseJSON(text) {
 	if(JSON) {
@@ -457,48 +480,16 @@ function lowercasenospace(text) {
 function checkhash() {
 	//if there is a hash, load that page
 	if(location.hash != "") {
-		
-		//do sections
-		for (var i = 0; i < sections.length; i++) {
-			if(location.hash == ("#" + lowercasenospace(sections[i]))) {
-				showpage(lowercasenospace(sections[i]), pagecontainer)
-				log("added " + sections[i])
-				return
-			}
-		}
-		
-		//do categories
-		for (var i = 0; i < categories.length; i++) {
-			if(location.hash == ("#" + lowercasenospace(categories[i]))) {
-				var itemdivs = getitemdivs()
-				var thistag = lowercasenospace(categories[i])
-				
-				for (var j = 0; j < itemdivs.length; j++) {
-					for (var k = 0; k < itemtags.length; k++) {
-						if(itemtags[k] == thistag) {
-							appendpage(itemdivs[j].name, pagecontainer)
-						}
-					}
-				}
-				
-			}
-		}
-	}
-}
-
-//returns all items - their div
-function getitemdivs() {
-	var divs = document.getElementsByTagName("div")
-	var itemdivs = []
-
-	for (var i = 0; i < divs.length; i++) {
-		if(divs[i].className === "item") {
-			itemdivs.push(divs[i])
-		}
-	}
 	
-	return itemdivs
+		var elem = document.getElementById(location.hash.substr(1))
+		
+		if(elem) {
+			showpage(elem, pagecontainer)
+			return true
+		}
+	}
 }
+
 
 /* - - - XMLHttpResponse - - -  */
 //thanks to ppk for these

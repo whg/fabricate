@@ -71,6 +71,12 @@ table {
 	width: 100%;
 }
 
+a {
+	color: #111;
+}
+
+a:hover {
+}
 
 table.item {
 
@@ -106,16 +112,10 @@ h3 {
 #cats, #tags {
 	margin-top: 0.5em;
 	white-space: normal;
-/*
-	background: #eee;
-	max-width: 600px;
-	margin: 20px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	margin: 0 auto;
-	padding: 5px;
-*/
+}
+
+#tags {
+	height: 80px;
 }
 
 #tags h3 {
@@ -280,3 +280,5 @@ article {
 	border-top-width: 0px;
 	margin: 50px 0px;
 }
+
+
