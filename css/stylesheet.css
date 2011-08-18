@@ -1,19 +1,25 @@
+
+@font-face {
+	font-family: Marvel;
+	font-style: normal;
+  font-weight: 400;
+	src: url("Marvel.ttf")
+}
+
+
 html {
 	letter-spacing: 0.1em;
-	font-size: 0.9em;
-	font-family: "Courier New", Courier, monospace;
-/* 	white-space: nowrap; */
-	height: 100%;
+	font-size: 1em;
+	font-family: 'Marvel', sans-serif;
 
+	height: 100%;
+	overflow-y: scroll;
 }
 
 body {
-/* 	margin: 50px; */
 	text-align: center;
-/* 	background-color: #333; */
 	margin: 0px;
 	height: 100%;
-
 }
 
 .red {
@@ -21,9 +27,15 @@ body {
 }
 
 .dot {
-	width: 0.5em;
-	height: 0.5em;
-	border-radius: 0.5em;
+	/*
+width: 0.55em;
+	height: 0.55em;
+	-moz-border-radius: 0.55em;
+	border-radius: 0.55em;
+*/
+	width: 8px;
+	height: 8px;
+	border-radius: 8px;
 	display: inline-block;
 }
 
@@ -56,53 +68,48 @@ body {
 }
 
 #items {
-/* 	background: gray; */
 	max-width: 800px;
 	margin: 0 auto;
-/* 	text-align: center; */
 	white-space: normal;
-	
-}
 
-table {
-}
-
-.table_row {
-	width: 100%;
 }
 
 a {
 	color: #111;
+	cursor: pointer;
+	text-decoration: none;
+	
 }
 
 a:hover {
 }
 
 table.item {
-
 	line-height: 1em;
 	text-align: center;
 	margin: 0 auto;
+	-moz-border-radius: 5px;
 	border-radius: 5px;
 	padding: 5px 10px;
 	margin: 5px 10px;
+
 }
 
 div.item {
 	display: inline-block;
 	white-space: nowrap;
-/* 	border-radius: 10px; */
-/* 	margin: 10px 20px; */
 	cursor: pointer;   
-	font-size: 1em                 
+	font-size: 1em;
+	zoom: 1;
+	color: #333;
+/* 	*display: inline; */
 }
 
 
-
-
-h3 {
+#cats h3 {
 	margin: 0px;
 	font-size: 1em;
+	font-weight: bold;
 }
 
 #keyboard {
@@ -114,13 +121,11 @@ h3 {
 	white-space: normal;
 }
 
-#tags {
-	height: 80px;
-}
-
-#tags h3 {
-	font-size: 0.8em;
-	margin: 1em;
+#tags h3, #cats h3 {
+	margin-top: 1em;
+	font-size: 1em;
+	font-weight: bold;
+	color: #111;
 }
 
 div.tag_item {
@@ -129,19 +134,12 @@ div.tag_item {
 	margin: 0.2em 0.5em;
 	padding: 0.2em 0.5em;
 	font-size: 0.8em;
-/* 	background-color: #efefef; */
+	-moz-border-radius: 5px;
 	border-radius: 5px;
-/* 	color: #111; */
 	cursor: pointer;
 }
 
-/*
-.tag_item {
-	text-overflow: ellipsis;
-	display: inline;
-/* 	white-space: nowrap; */
-}
-*/
+
 
 .span {
 	white-space: nowrap;
@@ -152,22 +150,23 @@ div.tag_item {
 	white-space: normal;
 	padding: 5px 10px;
 	margin: 1px;
+	-moz-border-radius: 5px;
 	border-radius: 5px;
 	cursor: pointer;   
 }
 
 div.cat_item p {
-	font-size: 0.8em;
+	font-size: 0.9em;
 	margin: 0px 5px;
 	display: inline-block;
 }
 
 .light {
-	background-color: #e7e7e7;
+	background-color: #dedede;
 }
 
 .dark {
-	background-color: #888;
+	background-color: #6f6f6f;
 	color: white;  	
 }
 
@@ -181,7 +180,7 @@ footer {
 }
 
 p.instructions {
-	font-size: 0.75em;
+	font-size: 0.85em;
 }
 
 #prompt_container {
@@ -199,8 +198,9 @@ p.instructions {
 	font-style: normal;
 	font-weight: normal;
 	display: inherit;
+	-moz-border-radius:7px;
 	border-radius: 7px;
-	padding: 2px;
+	padding: 2px 4px;
 	font-size: 0.75em;
 	color: #000;
 	background: #fffe7b;
@@ -234,14 +234,6 @@ span.command_line {
 }
 
 #page {
-/*
-	border-color: #4f4f4f;
-	border-style: dotted;
-	border-left-width: 1px;
-	border-bottom-width: 0px;
-	border-right-width: 1px;
-	border-top-width: 0px;
-*/
 	margin: 30px 0px;
 	width: inherit;
 }
@@ -267,7 +259,7 @@ span.command_line {
 
 #page p {
 	margin: 10px 0px;
-	font-size: 0.9em;
+	font-size: 0.95em;
 }
 
 article {
@@ -279,6 +271,9 @@ article {
 	border-right-width: 0px;
 	border-top-width: 0px;
 	margin: 50px 0px;
+	width: 100%;
 }
 
-
+img.fit {
+	width: auto;
+}

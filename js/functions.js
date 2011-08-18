@@ -1,7 +1,7 @@
 /* - - - - - - COMMAND LINE - - - - - -  */
 
 var open_commands = ["cd", "move", "goto", "open"]
-var misc_commands = ["home", "help", "back"]
+var misc_commands = ["home", "help", "back", "forward"]
 var commands = open_commands.concat(misc_commands)
 
 commands = commands.sort()
@@ -86,16 +86,23 @@ function findcompletions(input_word, compare_against) {
 
 function processcommand(input) {	
 	var tokens = input.split(" ")
+	
 	if(tokens[0] == "" && tokens.length == 1) {
+		//if there is no command...
 		return
 	} 
+	
 	var command = tokens[0]
-	var argument = input.substr(input.indexOf(" ")+1, input.length-1)
+	var argument = 0
+	if(tokens.length > 1) {
+		argument = input.substr(input.indexOf(" ")+1, input.length-1)
+	}
 
 	log("command = " + "'" + command + "'")
 	log("argument = " + argument)
 	
-	//move
+	/* 	- - - MOVE COMMANDS - - -  */
+
 	for (var i = 0; i < open_commands.length; i++) {
 		if(command === open_commands[i]) {
 			for (var j = 0; j < sections.length; j++) {
@@ -103,12 +110,39 @@ function processcommand(input) {
 				if(argument == sections[j]) {
 					var elem = document.getElementById(lowercasenospace(argument))
 					showpage(elem, pagecontainer)
-					location.hash = lowercasenospace(argument)
+					location.hash = "!" + lowercasenospace(argument)
 					return
 				}
 			}
 			//if argument is not valid, display message
 			commandresult.innerHTML = argument + ": could not find section"
+			return
+		}
+	}
+	
+	/* 	- - - HISTORY COMMANDS - - -  */
+
+	if(command == "back") {
+		//if no argument go back one page
+		if(!argument) {
+			window.history.back()
+			return
+		}		
+		//if there is an argument, parse it
+		else {
+			//history.go() doesn't throw an error when passed NaN,
+			//so there is no error checking here as everything happens gracefully
+			window.history.go(-(parseInt(argument)))
+			return
+		}
+	}
+	
+	if(command == "forward") {
+		if(!argument) {
+			window.history.forward()
+			return
+		}	else {
+			window.history.go(parseInt(argument))
 			return
 		}
 	}
@@ -155,7 +189,7 @@ function additems(items, parent) {
 	for (var i = 0; i < items.length; i++) {
 		
 		var a = document.createElement("a")
-		a.href = "#" + items[i].link
+		a.href = "#!" + items[i].link
 		
 		//create the elements
 		var holdingdiv = document.createElement("div")
@@ -227,14 +261,14 @@ function additems(items, parent) {
 			
 			//first hide them all
 			for (var i = 0; i < tagdivs.length; i++) {
-				tagdivs[i].style.display = "none"
+/* 				tagdivs[i].style.display = "none" */
 			}
 			
 			var ts = this.getAttribute("tags").split(",")
 			for (var i = 0; i < ts.length; i++) {
 				var t = document.getElementById(lowercasenospace(ts[i]))
-				t.style.display = "inline-block"
-				t.className += " dark"
+/* 				t.style.display = "inline-block" */
+				t.className += " light"
 			}
 			
 			//style this one
@@ -287,7 +321,7 @@ function addcats(cats, parent) {
 	for (var cat in cats) {
 	
 		var a = document.createElement("a")
-		a.href = "#" + cat
+		a.href = "#!" + cat
 	
 		//create the elements
 		var keydiv = document.createElement("div")
@@ -362,7 +396,7 @@ function addtags(tags, parent) {
 	for (tag in tags) {
 	
 		var a = document.createElement("a")
-		a.href = "#" + tag
+		a.href = "#!" + tag
 		
 		var tdiv = document.createElement("div")
 		tdiv.className = "tag_item"
@@ -439,11 +473,14 @@ function showpage(element, parent, pushstate) {
 		startedchange = true
 		appendpage(is[i], parent)
 	}
+	
+	//make a new history instance if we are moving forward...
+	///ie there is no 3rd argument
 	if(pushstate == "undefined") {
 		window.history.pushState("", "")
 	}
-	
-
+	settitle(hashset)
+	log("showed")
 }
 
 function appendpage(name, parent) {
@@ -465,6 +502,9 @@ function arraytostring(a) {
 	return result
 }
 
+function settitle(word) {
+	document.title = maintitle + " : " +  word
+}
 
 function parseJSON(text) {
 	if(JSON) {
@@ -490,6 +530,42 @@ function checkhash() {
 	}
 }
 
+/* - - - INFO FOR PROMPT - - -  */
+
+var keyboardinfo = 
+"<p>UNIX users, do what comes naturally <br/> \
+- <br/> \
+To open a page type: open &lt;name-of-page><br/> \
+e.g. open flaunt <br/> \
+You can use tab to autocomplete both commands and arguments, \
+if there is more than one possible completion, it will list them. \
+So, to use 'open', just type o and press tab. \
+</p>"
+
+function showinfo() {
+	if(promptinfo.innerHTML == "info") {
+		commandresult.innerHTML = keyboardinfo
+		promptinfo.innerHTML = "close"
+	}
+	else {
+		commandresult.innerHTML = ""
+		promptinfo.innerHTML = "info"
+	}
+}
+
+var icounter = 0;
+var typer
+function writeinstructions() {
+	log(keyinstructions)
+	log(commandresult)
+	typer = setInterval(function() {
+		commandresult.innerHTML += keyboardinfo.charAt(icounter++)
+		
+		if(icounter == keyinstructions.length) {
+			clearInterval(typer)		
+		}
+	}, 75)
+}
 
 /* - - - XMLHttpResponse - - -  */
 //thanks to ppk for these

@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# - - - - - health warning - - - - - 
-# this code is not very easy to read
 
 import os
 import json
@@ -110,8 +108,27 @@ def writeJSON(content, filename):
 	with open(filename, 'w') as f:
 		json.dump(content, f, indent=True)
 	
-
-
+def crawlablehomepage():
+	itemnames = [ i['name'] for i in items ]
+	
+	with open("templates/homehead.html") as f:
+		head = f.readlines()
+		
+	
+	with open("pages/crawl.html", 'w') as f:
+	
+		for line in head:
+			f.write(line)
+	
+		f.write("\n<p>Projects include:</p>\n")
+		
+		for item in itemnames:
+			f.write('<a href="#!' + item.lower() + '">' + item + '</a>\n')
+			
+		f.write("</body>\n</html>")
+		
+		f.close()
+		
 
 if __name__ == "__main__":
 
@@ -120,16 +137,12 @@ if __name__ == "__main__":
 	checkfiles(files)
 	
 	additems(files)
-	
-# 	for i in items:
-# 		print i
 
 	addcatsandtags()
-# 	addtags()
 	
-	#now write the items.json file...
+	crawlablehomepage()
+	
+	#all data is stored in one json file
 	writeJSON(dict(data), "data/data.json")
-	
-# 	writeJSON(list(tags), "data/tags.json")
-	
+		
 

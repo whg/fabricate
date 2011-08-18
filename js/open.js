@@ -30,6 +30,7 @@ promptcontainer.appendChild(command)
 var promptinfo = document.createElement("div")
 promptinfo.setAttribute("id", "prompt_info")
 promptinfo.innerHTML = "info"
+promptinfo.onmousedown = showinfo
 promptcontainer.appendChild(promptinfo)
 
 var commandresult = document.createElement("div")
@@ -79,22 +80,19 @@ var startedchange = false
 
 command.focus()
 
-command.onblur = function() {
-	log("blurrr")
-}
-
 var disable_command = false
 
 document.onkeydown = function(e) {
-
-	//block arrow keys if users has quit the command line
-	if(e.keyCode > 36 && e.keyCode < 41) {
-		return
+	
+	if(disable_command && e.keyCode != 27) {
+		return true
 	}
+	
+	log(e.keyCode + " and " + e.charCode)
+
 	
 	command.focus() 
 	
-/* 	log(e.keyCode + " and " + e.charCode) */
 	
 
 	switch(e.keyCode) {
@@ -108,63 +106,70 @@ document.onkeydown = function(e) {
 			if(!disable_command) {
 				
 				autocomplete(command.value, commandresult)
-			
-				e.preventDefault()
-				return false
+				
+				e.preventDefault() //this is for firefox
+				setTimeout(function() { command.focus() }, 100) //this is for opera
+				return false //this is for IE
+				//not sure which one is for webkit browsers....
+				//don't we love web developments
 			}
 			break
 			
 		case 27: //esc
-			disable_command = true;
-			command.blur()
+			if(!disable_command) {
+				disable_command = true
+				command.blur()
+				log("disabled")
+			} 
+			else {
+				disable_command = false;
+				command.focus()
+				log("enabled")
+			}
 			break
 			
-		default:
-			disable_command = false
-			break
 	}
-	
-/* 	commandhelp.style.display = "inline" */
+
+}
+
+document.onhashchange = function() {
+	log("damn...")
+}
+
+document.onclick = function() {
+	command.focus()
 }
 
 
 
-function writeinstructions() {
-
-	var icounter = 0;
+window.onresize = function() {
+	log(pagecontainer.offsetWidth)
 	
-	command.value = ""
-	
-	var t = setInterval(function() {
-		command.value += keyinstructions.charAt(icounter++)
-		
-		if(icounter == keyinstructions.length) {
-			clearInterval(t)		
-/* 			setTimeout(writeinstructions, 1200) */
-			keyinstructions = "you can..."
-		}
-		log(icounter + "yoooooo")
-	}, 75)
+	var imgs = document.getElementsByTagName("img")
+	log(imgs)
+	for(var i = 0; i < imgs.length; i++) {
+		imgs[i].style.width = pagecontainer.offsetWidth + "px"
+	}
 }
 
 var hashcheck = setInterval(function() { 
-/*
-	log(hashset + " " + location.hash.substr(1))
 
-	if(checkhash()) {
-		clearInterval(hashcheck)
-		log("cleared")
-	}
-*/
-	if(hashset != location.hash.substr(1)) {
+	if(hashset != location.hash.substr(2)) {
 		
-		var e = document.getElementById(location.hash.substr(1))
+		//if there is no hash, that means we want the
+		//homepage, so clear the pagecontainer  and
+		//set and empyty hash
+		if(location.hash == "") {
+			hashset = ""
+			pagecontainer.innerHTML = ""
+		}
+		
+		var e = document.getElementById(location.hash.substr(2))
 		
 		if(e && !startedchange) {
 			showpage(e, pagecontainer, false)
+			log("from check")
 		}
 	}
-	log("a")
-}, 150)
-
-log("end go")
+	
+}, 250)
