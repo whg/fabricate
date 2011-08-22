@@ -1,7 +1,7 @@
 /* - - - - - - COMMAND LINE - - - - - -  */
 
 var open_commands = ["cd", "move", "goto", "open"]
-var misc_commands = ["home", "help", "back", "forward"]
+var misc_commands = ["help", "back", "forward"]
 var commands = open_commands.concat(misc_commands)
 
 commands = commands.sort()
@@ -27,6 +27,7 @@ function autocomplete(input, result) {
 		} 
 		else {
 			result.innerHTML = r.join(" ")
+			promptinfo.innerHTML = "info"
 		}	
 	}
 	
@@ -45,6 +46,7 @@ function autocomplete(input, result) {
 			tokens.push(lastword)		
 			//and write options
 			result.innerHTML = r.join(" ")
+			promptinfo.innerHTML = "info"
 		}		
 		
 		//write the prompt, with either corrected or original
@@ -100,26 +102,7 @@ function processcommand(input) {
 
 	log("command = " + "'" + command + "'")
 	log("argument = " + argument)
-	
-	/* 	- - - MOVE COMMANDS - - -  */
-
-	for (var i = 0; i < open_commands.length; i++) {
-		if(command === open_commands[i]) {
-			for (var j = 0; j < sections.length; j++) {
-				//check for valid argument
-				if(argument == sections[j]) {
-					var elem = document.getElementById(lowercasenospace(argument))
-					showpage(elem, pagecontainer)
-					location.hash = "!" + lowercasenospace(argument)
-					return
-				}
-			}
-			//if argument is not valid, display message
-			commandresult.innerHTML = argument + ": could not find section"
-			return
-		}
-	}
-	
+		
 	/* 	- - - HISTORY COMMANDS - - -  */
 
 	if(command == "back") {
@@ -146,6 +129,27 @@ function processcommand(input) {
 			return
 		}
 	}
+	
+				
+	/* 	- - - MOVE COMMANDS - - -  */
+
+	for (var i = 0; i < open_commands.length; i++) {
+		if(command === open_commands[i]) {
+			for (var j = 0; j < sections.length; j++) {
+				//check for valid argument
+				if(argument == sections[j]) {
+					var elem = document.getElementById(lowercasenospace(argument))
+					showpage(elem, pagecontainer)
+					location.hash = "!" + lowercasenospace(argument)
+					return
+				}
+			}
+			//if argument is not valid, display message
+			commandresult.innerHTML = argument + ": could not find section"
+			return
+		}
+	}
+	
 	
 	//if we get here, command is not valid
 	commandresult.innerHTML = command + ": command not found"
@@ -253,7 +257,7 @@ function additems(items, parent) {
 			for (var i = 0; i < cs.length; i++) {
 				var t = document.getElementById(cs[i])
 				highlighted.push([t, t.className])
-				t.className += " light"
+				t.className += " dark"
 			}
 			
 			//do the tags...
@@ -268,11 +272,11 @@ function additems(items, parent) {
 			for (var i = 0; i < ts.length; i++) {
 				var t = document.getElementById(lowercasenospace(ts[i]))
 /* 				t.style.display = "inline-block" */
-				t.className += " light"
+				t.className += " dark"
 			}
 			
 			//style this one
-			this.firstChild.className+= " dark"
+			this.firstChild.className+= " light"
 		} 
 			
 		/* 		- - - MOUSEOUT - - -  */
@@ -322,11 +326,12 @@ function addcats(cats, parent) {
 	
 		var a = document.createElement("a")
 		a.href = "#!" + cat
-	
+		
 		//create the elements
 		var keydiv = document.createElement("div")
 		keydiv.className = "cat_item"
 		keydiv.setAttribute("id", cat)
+		keydiv.title = cat[0].toUpperCase() + cat.substr(1)
 		
 		//set the items that are part of cat
 		var catitems = arraytostring(cats[cat])
@@ -386,6 +391,8 @@ function addcats(cats, parent) {
 /* - - - ADD TAGS - - -  */
 //creates and adds tags
 //each tag has items attribute, like the cats
+//tags can be multiple words, but their id and link is
+//always lowercase with no space
 
 function addtags(tags, parent) {
 	
@@ -396,11 +403,12 @@ function addtags(tags, parent) {
 	for (tag in tags) {
 	
 		var a = document.createElement("a")
-		a.href = "#!" + tag
+		a.href = "#!" + lowercasenospace(tag)
 		
 		var tdiv = document.createElement("div")
 		tdiv.className = "tag_item"
 		tdiv.setAttribute("id", lowercasenospace(tag))
+		tdiv.title = tag
 		
 		//set the items that are part of tag
 		var tagitems = arraytostring(tags[tag])
@@ -533,13 +541,18 @@ function checkhash() {
 /* - - - INFO FOR PROMPT - - -  */
 
 var keyboardinfo = 
-"<p>UNIX users, do what comes naturally <br/> \
+"<p>UNIX users, do what comes naturally</p> \
 - <br/> \
-To open a page type: open &lt;name-of-page><br/> \
-e.g. open flaunt <br/> \
-You can use tab to autocomplete both commands and arguments, \
-if there is more than one possible completion, it will list them. \
-So, to use 'open', just type o and press tab. \
+<p>Format: &lt;command> &lt;argument><br/> </p>\
+<p>e.g. open visual </p> \
+<p>Use tab to autocomplete both commands and arguments. \
+Arguments can be items, sections or tags.</p> \
+-<br/> \
+<p>To open a page, use either open, goto, cd or move</p> \
+<p>History navigation can be done with back and forward, \
+if an argument is given then it will move that number of pages.</p> \
+-<br/> \
+<p>To resume normal keyboard functionality in your browser, press ESC</p> \
 </p>"
 
 function showinfo() {
@@ -565,6 +578,16 @@ function writeinstructions() {
 			clearInterval(typer)		
 		}
 	}, 75)
+}
+
+/* - - - IMAGES - - -  */
+
+//sets all images in document to the width of fit_element
+function scaleimages(fit_element) {
+	var imgs = document.getElementsByTagName("img")
+	for(var i = 0; i < imgs.length; i++) {
+		imgs[i].style.width = fit_element.offsetWidth + "px"
+	}
 }
 
 /* - - - XMLHttpResponse - - -  */

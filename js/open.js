@@ -143,14 +143,12 @@ document.onclick = function() {
 
 
 window.onresize = function() {
-	log(pagecontainer.offsetWidth)
-	
-	var imgs = document.getElementsByTagName("img")
-	log(imgs)
-	for(var i = 0; i < imgs.length; i++) {
-		imgs[i].style.width = pagecontainer.offsetWidth + "px"
-	}
+	scaleimages(pagecontainer)
 }
+
+//scale images to begin as well
+log("imgs = " + document.getElementsByTagName("img"))
+scaleimages(pagecontainer)
 
 var hashcheck = setInterval(function() { 
 

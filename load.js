@@ -33,8 +33,13 @@ head.appendChild(charset)
 //stylesheet
 var css = document.createElement("link")
 css.setAttribute("rel", "stylesheet")
-css.setAttribute("href", "css/stylesheet.css")
+css.setAttribute("href", "css/stylesheet.css") 
 head.appendChild(css)
+
+var fonts = document.createElement("link")
+fonts.setAttribute("rel", "stylesheet")
+fonts.setAttribute("href", "http://fonts.googleapis.com/css?family=Marvel")
+/* head.appendChild(fonts) */
 
 //apparently this helps with things in IE
 var iet = document.createElement("meta")

@@ -3,14 +3,14 @@
 	font-family: Marvel;
 	font-style: normal;
   font-weight: 400;
-	src: url("Marvel.ttf")
+	src: url("Marvel-Regular.ttf")
 }
 
 
 html {
 	letter-spacing: 0.1em;
 	font-size: 1em;
-	font-family: 'Marvel', sans-serif;
+	font-family: 'Marvel', 'Courier New', monospace;
 
 	height: 100%;
 	overflow-y: scroll;
@@ -106,23 +106,26 @@ div.item {
 }
 
 
+/*
 #cats h3 {
 	margin: 0px;
 	font-size: 1em;
 	font-weight: bold;
 }
+*/
 
 #keyboard {
-	padding: 40px 0px;
+	padding: 20px 0px 40px 0px;
 }
 
 #cats, #tags {
-	margin-top: 0.5em;
+/* 	margin-top: 0.5em; */
 	white-space: normal;
 }
 
 #tags h3, #cats h3 {
-	margin-top: 1em;
+/* 	margin-top: 0.5em; */
+	margin: 0.4em;
 	font-size: 1em;
 	font-weight: bold;
 	color: #111;
@@ -131,9 +134,9 @@ div.item {
 div.tag_item {
 	white-space: nowrap;
 	display: inline-block;
-	margin: 0.2em 0.5em;
-	padding: 0.2em 0.5em;
-	font-size: 0.8em;
+	margin: 0.2em 0.4em;
+	padding: 0.2em 0.4em;
+	font-size: 0.9em;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	cursor: pointer;
@@ -156,17 +159,18 @@ div.tag_item {
 }
 
 div.cat_item p {
-	font-size: 0.9em;
+	font-size: 0.95em;
 	margin: 0px 5px;
 	display: inline-block;
 }
 
-.light {
-	background-color: #dedede;
+.dark {
+	color: white;
+	background-color: #686868;
 }
 
-.dark {
-	background-color: #6f6f6f;
+.light {
+	background-color: #c9c9c9;
 	color: white;  	
 }
 
@@ -275,5 +279,5 @@ article {
 }
 
 img.fit {
-	width: auto;
+	width: 640px;
 }
