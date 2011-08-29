@@ -88,7 +88,7 @@ def addcatsandtags():
 	
 	catsdict = dict([(cat, []) for cat in cats])
 	tagsdict = dict([(tag, []) for tag in tags])
-	
+
 	for item in items:
 		name = item["link"]
 		

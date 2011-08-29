@@ -14,11 +14,6 @@ function log(stuff) {
 }
 
 
-log("start")
-
-if(document.head) {
-	log("nooo")
-}
 
 head = document.getElementsByTagName("head")[0]
 body = document.getElementsByTagName("body")[0]
@@ -53,6 +48,6 @@ document.title = maintitle
 
 //add functions which in turn adds the script to call them...
 var funcs = document.createElement("script")
-funcs.src = "js/functions.js"
+funcs.src = "./js/functions.js"
 head.appendChild(funcs)
 

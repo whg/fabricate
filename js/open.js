@@ -73,7 +73,7 @@ var tagdivs = []
 
 //now get the data...
 //this function then calls the adding funtions
-getdata()
+performdata()
 
 var hashset = ""
 var startedchange = false
@@ -137,7 +137,6 @@ document.onhashchange = function() {
 }
 
 document.onclick = function() {
-	command.focus()
 }
 
 
@@ -147,8 +146,9 @@ window.onresize = function() {
 }
 
 //scale images to begin as well
-log("imgs = " + document.getElementsByTagName("img"))
-scaleimages(pagecontainer)
+/* log("imgs = " + document.getElementsByTagName("img")) */
+
+
 
 var hashcheck = setInterval(function() { 
 

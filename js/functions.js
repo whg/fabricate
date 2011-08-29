@@ -27,7 +27,6 @@ function autocomplete(input, result) {
 		} 
 		else {
 			result.innerHTML = r.join(" ")
-			promptinfo.innerHTML = "info"
 		}	
 	}
 	
@@ -46,13 +45,14 @@ function autocomplete(input, result) {
 			tokens.push(lastword)		
 			//and write options
 			result.innerHTML = r.join(" ")
-			promptinfo.innerHTML = "info"
 		}		
 		
 		//write the prompt, with either corrected or original
 		command.value = tokens.join(" ")
 
 	}
+	//this is some housework
+	promptinfo.innerHTML = "info"
 
 }
 
@@ -159,8 +159,8 @@ function processcommand(input) {
 
 /* - - - - - - CREATION - - - - - -  */
 
-function getdata(cb) {
-	xhreq("data/data.json", function(req) {
+function performdata() {
+	xhreq("./data/data.json", function(req) {
 		
 		var data = parseJSON(req.responseText)
 		
@@ -172,10 +172,10 @@ function getdata(cb) {
 		
 		checkhash()
 		
-	})
+	});
 }
 
-function start() {
+function test() {
 	
 }
 
@@ -223,7 +223,7 @@ function additems(items, parent) {
 		for (var j = 0; j < items[i].cats.length; j++) {
 			var tagtd = document.createElement("td")
 			var tag = document.createElement("div")
-			tag.className = "dot " + items[i].cats[j]
+			tag.className = "dot " + lowercasenospace(items[i].cats[j])
 			tagtd.appendChild(tag)
 			row.appendChild(tagtd)
 		}
@@ -265,14 +265,15 @@ function additems(items, parent) {
 			
 			//first hide them all
 			for (var i = 0; i < tagdivs.length; i++) {
-/* 				tagdivs[i].style.display = "none" */
+				tagdivs[i].style.display = "none"
 			}
 			
 			var ts = this.getAttribute("tags").split(",")
 			for (var i = 0; i < ts.length; i++) {
 				var t = document.getElementById(lowercasenospace(ts[i]))
-/* 				t.style.display = "inline-block" */
-				t.className += " dark"
+				t.style.display = "inline-block"
+				t.style.color = "white"
+				t.style.backgroundColor = "#686868"
 			}
 			
 			//style this one
@@ -293,6 +294,8 @@ function additems(items, parent) {
 			for (var i = 0; i < tagdivs.length; i++) {
 				tagdivs[i].style.display = "inline-block"
 				tagdivs[i].className = "tag_item"
+				tagdivs[i].style.color = "black"
+				tagdivs[i].style.backgroundColor = "#eee"
 			}
 			
 			this.firstChild.className = "item"
@@ -323,15 +326,16 @@ function addcats(cats, parent) {
 
 	
 	for (var cat in cats) {
-	
+		
 		var a = document.createElement("a")
-		a.href = "#!" + cat
+		a.href = "#!" + lowercasenospace(cat)
 		
 		//create the elements
 		var keydiv = document.createElement("div")
 		keydiv.className = "cat_item"
-		keydiv.setAttribute("id", cat)
-		keydiv.title = cat[0].toUpperCase() + cat.substr(1)
+		keydiv.setAttribute("id", lowercasenospace(cat))
+/* 		keydiv.title = cat[0].toUpperCase() + cat.substr(1) */
+		keydiv.title = cat
 		
 		//set the items that are part of cat
 		var catitems = arraytostring(cats[cat])
@@ -339,11 +343,11 @@ function addcats(cats, parent) {
 		
 		//write the text, with the first letter uppercase
 		var p = document.createElement("p")
-		p.innerHTML = cat[0].toUpperCase() + cat.substr(1) + ":"
+		p.innerHTML = cat + ":"
 		
 		//add the dot...
 		var tag = document.createElement("div")
-		tag.className = "dot " + cat
+		tag.className = "dot " + lowercasenospace(cat)
 		
 		//append all elements
 		keydiv.appendChild(p)
@@ -398,7 +402,7 @@ function addtags(tags, parent) {
 	
 	var t = document.createElement("h3")
 	t.innerHTML = "Tags:"
-	parent.appendChild(t)
+/* 	parent.appendChild(t) */
 	
 	for (tag in tags) {
 	
@@ -438,7 +442,9 @@ function addtags(tags, parent) {
 				highlighted.push(it)
 			}
 			
-			this.className += " light"
+/* 			this.className += " light" */
+			this.style.color = "white"
+			this.style.backgroundColor = "#c9c9c9"
 		}
 		
 		/* 		- - - MOUSEOUT - - -  */
@@ -449,7 +455,9 @@ function addtags(tags, parent) {
 			}
 			highlighted = []
 			
-			this.className = "tag_item"
+/* 			this.className = "tag_item" */
+			this.style.color = "black"
+			this.style.backgroundColor = "#eee"
 		}
 		
 		/* 		- - - MOUSEDOWN - - -  */
@@ -465,7 +473,7 @@ function addtags(tags, parent) {
 }
 
 window.onpushstate = function() {
-	log("aaa")
+	log("pushed state")
 }
 
 //fetches and displays page content inside parent
@@ -487,7 +495,21 @@ function showpage(element, parent, pushstate) {
 	if(pushstate == "undefined") {
 		window.history.pushState("", "")
 	}
-	settitle(hashset)
+	
+	//set the title to the id of the element that called this.
+	settitle(element.getAttribute("id"))
+	
+	//scale the images, wait for them to load... 
+	//i think 0.8s is long enough
+	setTimeout(function() { 
+		if(pagecontainer.offsetWidth < 640) {
+			scaleimages(pagecontainer)
+			} 
+			
+			//this is something for the itoa section
+			clickingascii()
+		}, 800);
+		
 	log("showed")
 }
 
@@ -505,7 +527,7 @@ function appendpage(name, parent) {
 function arraytostring(a) {
 	var result = ""
 	for (var i = 0; i < a.length; i++) {
-		result+= a[i] + ((i < a.length-1) ? "," : "")
+		result+= lowercasenospace(a[i]) + ((i < a.length-1) ? "," : "")
 	}
 	return result
 }
@@ -586,8 +608,32 @@ function writeinstructions() {
 function scaleimages(fit_element) {
 	var imgs = document.getElementsByTagName("img")
 	for(var i = 0; i < imgs.length; i++) {
-		imgs[i].style.width = fit_element.offsetWidth + "px"
+		if(imgs[i].className == "fit" || imgs[i].className == "fits") {
+			imgs[i].style.width = fit_element.offsetWidth + "px"
+		}
 	}
+}
+
+function clickingascii() {
+	
+	var imgs = document.getElementsByTagName("img")
+	
+	for (var i = 0; i < imgs.length; i++) {
+		if(imgs[i].getAttribute("type") == "ascii") {
+			imgs[i].onmousedown = function() {
+				if(this.getAttribute("type") == "ascii")  {
+					this.src = "/new/images/atoi/" + this.name + "_img.jpg"
+					this.setAttribute("type", "img")
+				}
+				else {
+					this.src = "/new/images/atoi/" + this.name + "_ascii.png"
+					this.setAttribute("type", "ascii")
+				}	
+			}
+			imgs[i].onmouseover = function() { this.style.cursor = "pointer" }
+		}
+	}
+
 }
 
 /* - - - XMLHttpResponse - - -  */
@@ -611,7 +657,7 @@ function xhreq(url,callback) {
 	}
 	if (req.readyState == 4) return
 	req.send()
-}
+}	
 
 var XMLHttpFactories = [
 	function () {return new XMLHttpRequest()},
@@ -637,6 +683,6 @@ function createXMLHTTPObject() {
 
 //now add the script to add all the contentDocument
 var go = document.createElement("script")
-go.src = "js/open.js"
+go.src = "./js/open.js"
 head.appendChild(go)
 
