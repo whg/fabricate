@@ -1,139 +1,142 @@
 
-var container = document.createElement("div")
-container.setAttribute("id", "container")
-document.body.appendChild(container)
 
-/* - - - command prompt - - -  */
+var container = document.createElement("div");
+container.setAttribute("id", "container");
+document.body.appendChild(container);
 
-var keyboardcontainer = document.createElement("section")
-keyboardcontainer.setAttribute("id", "keyboard")
-container.appendChild(keyboardcontainer)
+/* - - - command prompt - - -  */;
 
-var keyinstructions = document.createElement("p")
-keyinstructions.className = "instructions"
-keyinstructions.innerHTML = "you can navigate this site with your keyboard"
-keyboardcontainer.appendChild(keyinstructions)
+var keyboardcontainer = document.createElement("section");
+keyboardcontainer.setAttribute("id", "keyboard");
+container.appendChild(keyboardcontainer);
 
-var promptcontainer = document.createElement("div")
-promptcontainer.setAttribute("id", "prompt_container")
-keyboardcontainer.appendChild(promptcontainer)
+var keyinstructions = document.createElement("p");
+keyinstructions.className = "instructions";
+keyinstructions.innerHTML = "you can navigate this site with your keyboard";
+keyboardcontainer.appendChild(keyinstructions);
 
-var ps1 = document.createElement("span")
-ps1.innerHTML = "$"
-ps1.className = "command_line"
-promptcontainer.appendChild(ps1)
+var promptcontainer = document.createElement("div");
+promptcontainer.setAttribute("id", "prompt_container");
+keyboardcontainer.appendChild(promptcontainer);
 
-var command = document.createElement("input")
-command.className = "command_line"
-promptcontainer.appendChild(command)
+var ps1 = document.createElement("span");
+ps1.innerHTML = "$";
+ps1.className = "command_line";
+promptcontainer.appendChild(ps1);
 
-var promptinfo = document.createElement("div")
-promptinfo.setAttribute("id", "prompt_info")
-promptinfo.innerHTML = "info"
-promptinfo.onmousedown = showinfo
-promptcontainer.appendChild(promptinfo)
+var command = document.createElement("input");
+command.className = "command_line";
+promptcontainer.appendChild(command);
 
-var commandresult = document.createElement("div")
-commandresult.setAttribute("id", "command_result")
-commandresult.className = "command_line"
-keyboardcontainer.appendChild(commandresult)
+var promptinfo = document.createElement("div");
+promptinfo.setAttribute("id", "prompt_info");
+promptinfo.innerHTML = "info";
+promptinfo.onmousedown = showinfo;
+promptcontainer.appendChild(promptinfo);
 
-var commandhelp = document.createElement("p")
-commandhelp.innerHTML = "to use this thing, first you must turn it on..."
-commandresult.appendChild(commandhelp)
-commandhelp.style.display = "none"
+var commandresult = document.createElement("div");
+commandresult.setAttribute("id", "command_result");
+commandresult.className = "command_line";
+keyboardcontainer.appendChild(commandresult);
+
+/*
+var commandhelp = document.createElement("p");
+commandhelp.innerHTML = "to use this thing, first you must turn it on...";
+commandresult.appendChild(commandhelp);
+commandhelp.style.display = "none";
+*/
 
 
-/* - - - CONTAINERS - - -  */
+/* - - - CONTAINERS - - -  */;
 
-var itemcontainer = document.createElement("section")
-itemcontainer.setAttribute("id", "items")
-container.appendChild(itemcontainer)
+var itemcontainer = document.createElement("nav");
+itemcontainer.setAttribute("id", "items");
+container.appendChild(itemcontainer);
 
-var catscontainer = document.createElement("section")
-catscontainer.setAttribute("id", "cats")
-container.appendChild(catscontainer)
+var catscontainer = document.createElement("section");
+catscontainer.setAttribute("id", "cats");
+container.appendChild(catscontainer);
 
-var tagscontainer = document.createElement("section")
-tagscontainer.setAttribute("id", "tags")
-container.appendChild(tagscontainer)
+var tagscontainer = document.createElement("section");
+tagscontainer.setAttribute("id", "tags");
+container.appendChild(tagscontainer);
 
-var pagecontainer = document.createElement("section")
-pagecontainer.setAttribute("id", "page")
-container.appendChild(pagecontainer)
+var pagecontainer = document.createElement("section");
+pagecontainer.setAttribute("id", "page");
+container.appendChild(pagecontainer);
 
-//sections are the names of items, cats and tags
-var sections = []
+//sections are the names of items, cats and tags;
+var sections = [];
 
-//keep track of highlighted elements
-var highlighted = []
+//keep track of highlighted elements;
+var highlighted = [];
 
-//a list of the tagitem divs 
-var tagdivs = []
+//a list of the tagitem divs;
+var tagdivs = [];
 
-//now get the data...
-//this function then calls the adding funtions
-performdata()
+//now get the data...;
+//this function then calls the adding funtions;
+performdata();
 
-var hashset = ""
-var startedchange = false
+var hashset = "";
+var startedchange = false;
 
-command.focus()
+command.focus();
 
-var disable_command = false
+var disable_command = false;
 
 document.onkeydown = function(e) {
 	
 	if(disable_command && e.keyCode != 27) {
-		return true
+		return true;
 	}
 	
-	log(e.keyCode + " and " + e.charCode)
+	log(e.keyCode + " and " + e.charCode);
 
 	
-	command.focus() 
+	command.focus();
 	
 	
 
 	switch(e.keyCode) {
 	
-		case 13: //enter
-			processcommand(command.value)
-			command.value = ""
-			break
+		case 13: //enter;
+			processcommand(command.value);
+			command.value = "";
+			break;
 			
-		case 9: //tab
+		case 9: //tab;
 			if(!disable_command) {
 				
-				autocomplete(command.value, commandresult)
+				autocomplete(command.value, commandresult);
 				
 				e.preventDefault() //this is for firefox
 				setTimeout(function() { command.focus() }, 100) //this is for opera
-				return false //this is for IE
+				return false //this is for IE;
 				//not sure which one is for webkit browsers....
-				//don't we love web developments
+				//don't we love web development
 			}
-			break
+			break;
 			
-		case 27: //esc
+		case 27: //esc;
 			if(!disable_command) {
-				disable_command = true
-				command.blur()
-				log("disabled")
+				disable_command = true;
+				command.blur();
+				log("disabled");
 			} 
 			else {
-				disable_command = false;
-				command.focus()
-				log("enabled")
+				disable_command = false;;
+				command.focus();
+				log("enabled");
 			}
-			break
+			break;
 			
 	}
 
 }
 
 document.onhashchange = function() {
-	log("damn...")
+	log("damn...");
 }
 
 document.onclick = function() {
@@ -142,14 +145,15 @@ document.onclick = function() {
 
 
 window.onresize = function() {
-	scaleimages(pagecontainer)
+	scaleimages(pagecontainer);
 }
 
-//scale images to begin as well
+//scale images to begin as well;
 /* log("imgs = " + document.getElementsByTagName("img")) */
 
 
 
+/*
 var hashcheck = setInterval(function() { 
 
 	if(hashset != location.hash.substr(2)) {
@@ -158,16 +162,18 @@ var hashcheck = setInterval(function() {
 		//homepage, so clear the pagecontainer  and
 		//set and empyty hash
 		if(location.hash == "") {
-			hashset = ""
-			pagecontainer.innerHTML = ""
+			hashset = "";
+			pagecontainer.innerHTML = "";
 		}
 		
-		var e = document.getElementById(location.hash.substr(2))
+		var e = document.getElementById(location.hash.substr(2));
 		
 		if(e && !startedchange) {
-			showpage(e, pagecontainer, false)
-			log("from check")
+			showpage(e, pagecontainer, false);
+			log("from check");
 		}
 	}
 	
-}, 250)
+}, 250);
+*/
+

@@ -1,58 +1,58 @@
 /* - - - - - - COMMAND LINE - - - - - -  */
 
-var open_commands = ["cd", "move", "goto", "open"]
-var misc_commands = ["help", "back", "forward"]
-var commands = open_commands.concat(misc_commands)
+var open_commands = ["cd", "move", "goto", "open"];
+var misc_commands = ["help", "back", "forward"];
+var commands = open_commands.concat(misc_commands);
 
-commands = commands.sort()
+commands = commands.sort();
 
 
 function autocomplete(input, result) {
 
 	//clear result
-	result.innerHTML = ""
-	var r = []
+	result.innerHTML = "";
+	var r = [];
 
 	//first split the command into tokens
-	var tokens = input.split(" ")
+	var tokens = input.split(" ");
 	
 	//base command :. autocomplete command
 	if(tokens.length == 1) {
 		
-		r = findcompletions(tokens[0], commands)
+		r = findcompletions(tokens[0], commands);
 		
 		//print out results...
 		if(r.length == 1) {
-			command.value = r[0] + " "
+			command.value = r[0] + " ";
 		} 
 		else {
-			result.innerHTML = r.join(" ")
+			result.innerHTML = r.join(" ");
 		}	
 	}
 	
 	//if multiple tokens, process the last  
 	else {
 
-		var lastword = tokens.pop()
-		r = findcompletions(lastword, sections)
+		var lastword = tokens.pop();
+		r = findcompletions(lastword, sections);
 		
 		if(r.length == 1) {
 			//add only completion to prompt
-			tokens.push(r[0])
+			tokens.push(r[0]);
 		} 
 		else {
 			//return prompt to original
-			tokens.push(lastword)		
+			tokens.push(lastword);
 			//and write options
-			result.innerHTML = r.join(" ")
+			result.innerHTML = r.join(" ");
 		}		
 		
 		//write the prompt, with either corrected or original
-		command.value = tokens.join(" ")
+		command.value = tokens.join(" ");
 
 	}
 	//this is some housework
-	promptinfo.innerHTML = "info"
+	promptinfo.innerHTML = "info";
 
 }
 
@@ -61,72 +61,72 @@ function autocomplete(input, result) {
 //for ease, input can be of the wrong case and still be completed
 function findcompletions(input_word, compare_against) {
 	
-	var results = []
+	var results = [];
 	
 	for (var i = 0; i < compare_against.length; i++) {
-		var moveon = false
+		var moveon = false;
 		for (var j = 0; j < input_word.length; j++) {
 			if(input_word.length <= compare_against[i].length) {
 				if(input_word.toLowerCase().charAt(j) != compare_against[i].toLowerCase().charAt(j)) {
-					moveon = true
+					moveon = true;
 				}	
 			} 
 			else {
-				moveon = true
+				moveon = true;
 			}
 		}
 		
 		if(!moveon) {
-			results.push(compare_against[i])
+			results.push(compare_against[i]);
 		}
 	}
-	return results
+	return results;
 }
 
 // - - -  process the command - - - 
 //takes the input and does stuff...
 
 function processcommand(input) {	
-	var tokens = input.split(" ")
+	var tokens = input.split(" ");
 	
 	if(tokens[0] == "" && tokens.length == 1) {
 		//if there is no command...
-		return
+		return;
 	} 
 	
-	var command = tokens[0]
-	var argument = 0
+	var command = tokens[0];
+	var argument = 0;
 	if(tokens.length > 1) {
-		argument = input.substr(input.indexOf(" ")+1, input.length-1)
+		argument = input.substr(input.indexOf(" ")+1, input.length-1);
 	}
 
-	log("command = " + "'" + command + "'")
-	log("argument = " + argument)
+	log("command = " + "'" + command + "'");
+	log("argument = " + argument);
 		
 	/* 	- - - HISTORY COMMANDS - - -  */
 
 	if(command == "back") {
 		//if no argument go back one page
 		if(!argument) {
-			window.history.back()
-			return
+			window.history.back();
+			return;
 		}		
 		//if there is an argument, parse it
 		else {
 			//history.go() doesn't throw an error when passed NaN,
 			//so there is no error checking here as everything happens gracefully
-			window.history.go(-(parseInt(argument)))
-			return
+			window.history.go(-(parseInt(argument)));
+			return;
 		}
 	}
 	
 	if(command == "forward") {
 		if(!argument) {
-			window.history.forward()
-			return
+			window.history.forward();
+			return;
 		}	else {
-			window.history.go(parseInt(argument))
-			return
+			window.history.go(parseInt(argument));
+			return;
 		}
 	}
 	
@@ -138,46 +138,43 @@ function processcommand(input) {
 			for (var j = 0; j < sections.length; j++) {
 				//check for valid argument
 				if(argument == sections[j]) {
-					var elem = document.getElementById(lowercasenospace(argument))
-					showpage(elem, pagecontainer)
-					location.hash = "!" + lowercasenospace(argument)
-					return
+					var elem = document.getElementById(lowercasenospace(argument));
+					showpage(elem, pagecontainer);
+					location.hash = "!" + lowercasenospace(argument);
+					return;
 				}
 			}
 			//if argument is not valid, display message
-			commandresult.innerHTML = argument + ": could not find section"
-			return
+			commandresult.innerHTML = argument + ": could not find section";
+			return;
 		}
 	}
 	
 	
 	//if we get here, command is not valid
-	commandresult.innerHTML = command + ": command not found"
+	commandresult.innerHTML = command + ": command not found";
 	
 	
 }
 
 /* - - - - - - CREATION - - - - - -  */
 
-function performdata() {
+var performdata = function () {
 	xhreq("./data/data.json", function(req) {
 		
-		var data = parseJSON(req.responseText)
+		var data = parseJSON(req.responseText);
 		
 		// add all content
+		additems(data.items, itemcontainer);
+		addcats(data.cats, catscontainer);
+		addtags(data.tags, tagscontainer);
 		
-		additems(data.items, itemcontainer)
-		addcats(data.cats, catscontainer)
-		addtags(data.tags, tagscontainer)
-		
-		checkhash()
+		//move to the right page if we have a hash
+		checkhash();
 		
 	});
 }
 
-function test() {
-	
-}
 
 /* - - - ADD ITEMS - - -  */
 // creates the items and adds the event handling functions
@@ -192,72 +189,72 @@ function additems(items, parent) {
 	//add the items to DOM
 	for (var i = 0; i < items.length; i++) {
 		
-		var a = document.createElement("a")
-		a.href = "#!" + items[i].link
+		var a = document.createElement("a");
+		a.href = "#!" + items[i].link;
 		
 		//create the elements
-		var holdingdiv = document.createElement("div")
-		holdingdiv.className = "item"
-		holdingdiv.role = ""	
+		var holdingdiv = document.createElement("div");
+		holdingdiv.className = "item";
+		holdingdiv.role = "";
 		
-		holdingdiv.setAttribute("id", items[i].link)
-		holdingdiv.setAttribute("items", items[i].link)
+		holdingdiv.setAttribute("id", items[i].link);
+		holdingdiv.setAttribute("items", items[i].link);
 		
-		var itemtable = document.createElement("table")
-		itemtable.className = "item"
+		var itemtable = document.createElement("table");
+		itemtable.className = "item";
 		
 		//add name to table title: this is what 
 		//shows when the mouse hovers over the element...
-		itemtable.title = items[i].name
+		itemtable.title = items[i].name;
 	
-		var row = document.createElement("tr")
+		var row = document.createElement("tr");
 		
 		//fill the elements, first the name
-		var name = items[i].name
-		var title = document.createElement("td")
-		title.innerHTML = name
-		row.appendChild(title)
+		var name = items[i].name;
+		var title = document.createElement("td");
+		title.innerHTML = "<h2>" + name + "</h2>";
+		row.appendChild(title);
 				
 
 		//the item's categories
 		for (var j = 0; j < items[i].cats.length; j++) {
-			var tagtd = document.createElement("td")
-			var tag = document.createElement("div")
-			tag.className = "dot " + lowercasenospace(items[i].cats[j])
-			tagtd.appendChild(tag)
-			row.appendChild(tagtd)
+			var tagtd = document.createElement("td");
+			var tag = document.createElement("div");
+			tag.className = "dot " + lowercasenospace(items[i].cats[j]);
+			tagtd.appendChild(tag);
+			row.appendChild(tagtd);
 		}
 		
-		var itemcats = arraytostring(items[i].cats)
-		holdingdiv.setAttribute("cats", itemcats)
+		var itemcats = arraytostring(items[i].cats);
+		holdingdiv.setAttribute("cats", itemcats);
 		
 		//the item's tags
-		var itemtags = arraytostring(items[i].tags)
-		holdingdiv.setAttribute("tags", itemtags)
+		var itemtags = arraytostring(items[i].tags);
+		holdingdiv.setAttribute("tags", itemtags);
 		
 		//append elements
-		itemtable.appendChild(row)
-		holdingdiv.appendChild(itemtable)
-		a.appendChild(holdingdiv)
+		itemtable.appendChild(row);
+		holdingdiv.appendChild(itemtable);
+		a.appendChild(holdingdiv);
 
 		//add to parent (function argument)
-		parent.appendChild(a)
+		parent.appendChild(a);
 		
 		//add the item to sections list
-		sections.push(items[i].name)
+		sections.push(items[i].name);
 		
 		/* 		- - - 	MOUSEOVER - - -  */
 		
 		holdingdiv.onmouseover = function() {
 		
 			//find the cats
-			var cs = this.getAttribute("cats").split(",")
+			var cs = this.getAttribute("cats").split(",");
 			//highlight the cats, keep track of the highlighted ones,
 			//with the element and the original class name
 			for (var i = 0; i < cs.length; i++) {
-				var t = document.getElementById(cs[i])
-				highlighted.push([t, t.className])
-				t.className += " dark"
+				var t = document.getElementById(cs[i]);
+				highlighted.push([t, t.className]);
+				t.className += " dark";
 			}
 			
 			//do the tags...
@@ -265,19 +262,20 @@ function additems(items, parent) {
 			
 			//first hide them all
 			for (var i = 0; i < tagdivs.length; i++) {
-				tagdivs[i].style.display = "none"
+				tagdivs[i].style.display = "none";
+/* 				tagdivs[i].style.visibility = "hidden"; */
 			}
 			
-			var ts = this.getAttribute("tags").split(",")
+			var ts = this.getAttribute("tags").split(",");
 			for (var i = 0; i < ts.length; i++) {
-				var t = document.getElementById(lowercasenospace(ts[i]))
-				t.style.display = "inline-block"
-				t.style.color = "white"
-				t.style.backgroundColor = "#686868"
+				var t = document.getElementById(lowercasenospace(ts[i]));
+				t.style.display = "inline-block";
+				t.style.color = "white";
+				t.style.backgroundColor = "#686868";
 			}
 			
 			//style this one
-			this.firstChild.className+= " light"
+			this.firstChild.className+= " light";
 		} 
 			
 		/* 		- - - MOUSEOUT - - -  */
@@ -286,26 +284,26 @@ function additems(items, parent) {
 			
 			//reset all highlighted back to original class
 			for (var k = 0; k < highlighted.length; k++) {
-				highlighted[k][0].className = highlighted[k][1]
+				highlighted[k][0].className = highlighted[k][1];
 			}
-			highlighted = []
+			highlighted = [];
 			
 			//reset tags
 			for (var i = 0; i < tagdivs.length; i++) {
-				tagdivs[i].style.display = "inline-block"
-				tagdivs[i].className = "tag_item"
-				tagdivs[i].style.color = "black"
-				tagdivs[i].style.backgroundColor = "#eee"
+				tagdivs[i].style.display = "inline-block";
+				tagdivs[i].className = "tag_item";
+				tagdivs[i].style.color = "black";
+				tagdivs[i].style.backgroundColor = "#eee";
 			}
 			
-			this.firstChild.className = "item"
+			this.firstChild.className = "item";
 		}
 		
 		/* 		- - - MOUSEDOWN - - -  */
 
 		holdingdiv.onmousedown = function() {
 /* 			location.hash = this.getAttribute("id") */
-			showpage(this, pagecontainer)
+			showpage(this, pagecontainer);
 		}
 		
 	}
@@ -320,71 +318,71 @@ function additems(items, parent) {
 function addcats(cats, parent) {
 
 	//add title
-	var ktitle = document.createElement("h3")
-	ktitle.innerHTML = "Key:"
-	parent.appendChild(ktitle)
+	var ktitle = document.createElement("h3");
+	ktitle.innerHTML = "Key:";
+	parent.appendChild(ktitle);
 
 	
 	for (var cat in cats) {
 		
-		var a = document.createElement("a")
-		a.href = "#!" + lowercasenospace(cat)
+		var a = document.createElement("a");
+		a.href = "#!" + lowercasenospace(cat);
 		
 		//create the elements
-		var keydiv = document.createElement("div")
-		keydiv.className = "cat_item"
-		keydiv.setAttribute("id", lowercasenospace(cat))
+		var keydiv = document.createElement("div");
+		keydiv.className = "cat_item";
+		keydiv.setAttribute("id", lowercasenospace(cat));
 /* 		keydiv.title = cat[0].toUpperCase() + cat.substr(1) */
-		keydiv.title = cat
+		keydiv.title = cat;
 		
 		//set the items that are part of cat
-		var catitems = arraytostring(cats[cat])
-		keydiv.setAttribute("items", catitems)
+		var catitems = arraytostring(cats[cat]);
+		keydiv.setAttribute("items", catitems);
 		
 		//write the text, with the first letter uppercase
-		var p = document.createElement("p")
-		p.innerHTML = cat + ":"
+		var p = document.createElement("p");
+		p.innerHTML = cat + ":";
 		
 		//add the dot...
-		var tag = document.createElement("div")
-		tag.className = "dot " + lowercasenospace(cat)
+		var tag = document.createElement("div");
+		tag.className = "dot " + lowercasenospace(cat);
 		
 		//append all elements
-		keydiv.appendChild(p)
-		keydiv.appendChild(tag)
-		a.appendChild(keydiv)
-		parent.appendChild(a)
+		keydiv.appendChild(p);
+		keydiv.appendChild(tag);
+		a.appendChild(keydiv);
+		parent.appendChild(a);
 		
 		//add to sections list
-		sections.push(cat)
+		sections.push(cat);
 		
 		/* 		- - - MOUSEOVER - - -  */
 		
 		keydiv.onmouseover = function() {
-			var is = this.getAttribute("items").split(",")
+			var is = this.getAttribute("items").split(",");
 			for (var i = 0; i < is.length; i++) {
-				var it = document.getElementById(is[i])
-				it.firstChild.className+= " dark"
-				highlighted.push(it)
+				var it = document.getElementById(is[i]);
+				it.firstChild.className+= " dark";
+				highlighted.push(it);
 			}
-			this.className+= " light"
+			this.className+= " light";
 		}
 		
 		/* 		- - - MOUSEOUT - - -  */
 		
 		keydiv.onmouseout = function() {
 			for(var i = 0; i < highlighted.length; i++) {
-				highlighted[i].firstChild.className = "item"
+				highlighted[i].firstChild.className = "item";
 			}
-			highlighted = []
-			this.className = "cat_item"
+			highlighted = [];
+			this.className = "cat_item";
 		}
 		
 		/* 		- - - MOUSEDOWN - - -  */
 		
 		keydiv.onmousedown = function() {
-			pagecontainer.innerHTML = ""
-			showpage(this, pagecontainer)
+			pagecontainer.innerHTML = "";
+			showpage(this, pagecontainer);
 /* 			location.hash = this.getAttribute("id") */
 		}
 		
@@ -400,80 +398,80 @@ function addcats(cats, parent) {
 
 function addtags(tags, parent) {
 	
-	var t = document.createElement("h3")
-	t.innerHTML = "Tags:"
+	var t = document.createElement("h3");
+	t.innerHTML = "Tags:";
 /* 	parent.appendChild(t) */
 	
 	for (tag in tags) {
 	
-		var a = document.createElement("a")
-		a.href = "#!" + lowercasenospace(tag)
+		var a = document.createElement("a");
+		a.href = "#!" + lowercasenospace(tag);
 		
-		var tdiv = document.createElement("div")
-		tdiv.className = "tag_item"
-		tdiv.setAttribute("id", lowercasenospace(tag))
-		tdiv.title = tag
+		var tdiv = document.createElement("div");
+		tdiv.className = "tag_item";
+		tdiv.setAttribute("id", lowercasenospace(tag));
+		tdiv.title = tag;
 		
 		//set the items that are part of tag
-		var tagitems = arraytostring(tags[tag])
-		tdiv.setAttribute("items", tagitems)
+		var tagitems = arraytostring(tags[tag]);
+		tdiv.setAttribute("items", tagitems);
 		
-		var span = document.createElement("span")
-		span.innerHTML = tag
+		var span = document.createElement("span");
+		span.innerHTML = tag;
 		
-		tdiv.appendChild(span)
-		a.appendChild(tdiv)
-		parent.appendChild(a)
+		tdiv.appendChild(span);
+		a.appendChild(tdiv);
+		parent.appendChild(a);
 		
 		
 		//add to sections
-		sections.push(tag)
+		sections.push(tag);
 		//and tagdivs
-		tagdivs.push(tdiv)
+		tagdivs.push(tdiv);
 
 		
 		/* 		- - - MOUSEOVER - - -  */
 		
 		tdiv.onmouseover = function() {
-			var is = this.getAttribute("items").split(",")
+			var is = this.getAttribute("items").split(",");
 			for (var i = 0; i < is.length; i++) {
-				var it = document.getElementById(is[i])
-				it.firstChild.className+= " dark"
-				highlighted.push(it)
+				var it = document.getElementById(is[i]);
+				it.firstChild.className+= " dark";
+				highlighted.push(it);
 			}
 			
 /* 			this.className += " light" */
-			this.style.color = "white"
-			this.style.backgroundColor = "#c9c9c9"
+			this.style.color = "white";
+			this.style.backgroundColor = "#c9c9c9";
 		}
 		
 		/* 		- - - MOUSEOUT - - -  */
 		
 		tdiv.onmouseout = function() {
 			for(var i = 0; i < highlighted.length; i++) {
-				highlighted[i].firstChild.className = "item"
+				highlighted[i].firstChild.className = "item";
 			}
-			highlighted = []
+			highlighted = [];
 			
 /* 			this.className = "tag_item" */
-			this.style.color = "black"
-			this.style.backgroundColor = "#eee"
+			this.style.color = "black";
+			this.style.backgroundColor = "#eee";
 		}
 		
 		/* 		- - - MOUSEDOWN - - -  */
 		
 		tdiv.onmousedown = function() {
-			pagecontainer.innerHTML = ""
-			showpage(this, pagecontainer)
+			pagecontainer.innerHTML = "";
+			showpage(this, pagecontainer);
 /* 			location.hash = this.getAttribute("id") */
 		}
 	}
 		
-	parent.style.height = parent.offsetHeight
+	parent.style.height = parent.offsetHeight;
 }
 
 window.onpushstate = function() {
-	log("pushed state")
+	log("pushed state");
 }
 
 //fetches and displays page content inside parent
@@ -481,88 +479,88 @@ window.onpushstate = function() {
 //all items, cats and tags all have an items attribute, 
 //items themselves have one, which is themselves
 function showpage(element, parent, pushstate) {
-	hashset = element.getAttribute("id")
-	parent.innerHTML = ""
-	var is = element.getAttribute("items").split(",")
+	hashset = element.getAttribute("id");
+	parent.innerHTML = "";
+	var is = element.getAttribute("items").split(",");
 	
 	for(var i = 0; i < is.length; i++) {
-		startedchange = true
-		appendpage(is[i], parent)
+		startedchange = true;
+		appendpage(is[i], parent);
 	}
 	
 	//make a new history instance if we are moving forward...
 	///ie there is no 3rd argument
 	if(pushstate == "undefined") {
-		window.history.pushState("", "")
+		window.history.pushState("", "");
 	}
 	
 	//set the title to the id of the element that called this.
-	settitle(element.getAttribute("id"))
+	settitle(element.getAttribute("id"));
 	
 	//scale the images, wait for them to load... 
 	//i think 0.8s is long enough
 	setTimeout(function() { 
 		if(pagecontainer.offsetWidth < 640) {
-			scaleimages(pagecontainer)
+			scaleimages(pagecontainer);
 			} 
 			
 			//this is something for the itoa section
-			clickingascii()
+			clickingascii();
 		}, 800);
 		
-	log("showed")
+	log("showed");
 }
 
 function appendpage(name, parent) {
 	xhreq("data/" + name, function(req) {
-		var article = document.createElement("article")	
-		article.innerHTML += req.responseText
-		parent.appendChild(article)
-		startedchange = false
-	})
+		var article = document.createElement("article");
+		article.innerHTML += req.responseText;
+		parent.appendChild(article);
+		startedchange = false;
+	});
 }
 
 /* - - - - - - HELPERS - - - - - -  */
 
 function arraytostring(a) {
-	var result = ""
+	var result = "";
 	for (var i = 0; i < a.length; i++) {
-		result+= lowercasenospace(a[i]) + ((i < a.length-1) ? "," : "")
+		result+= lowercasenospace(a[i]) + ((i < a.length-1) ? "," : "");
 	}
-	return result
+	return result;
 }
 
 function settitle(word) {
-	document.title = maintitle + " : " +  word
+	document.title = maintitle + " : " +  word;
 }
 
-function parseJSON(text) {
+var parseJSON = function (text) {
 	if(JSON) {
-		return JSON.parse(text)
+		return JSON.parse(text);
 	}
-	return eval("(" + text + ")")
+	return eval("(" + text + ")");
 }
 
 function lowercasenospace(text) {
-	return text.toLowerCase().split(" ").join("")
+	return text.toLowerCase().split(" ").join("");
 }
 
 function checkhash() {
 	//if there is a hash, load that page
 	if(location.hash != "") {
 	
-		var elem = document.getElementById(location.hash.substr(1))
+		var elem = document.getElementById(location.hash.substr(2));
 		
 		if(elem) {
-			showpage(elem, pagecontainer)
-			return true
+			showpage(elem, pagecontainer);
+			return true;
 		}
 	}
 }
 
 /* - - - INFO FOR PROMPT - - -  */
 
-var keyboardinfo = 
+var keyboardinfo =
 "<p>UNIX users, do what comes naturally</p> \
 - <br/> \
 <p>Format: &lt;command> &lt;argument><br/> </p>\
@@ -575,62 +573,62 @@ Arguments can be items, sections or tags.</p> \
 if an argument is given then it will move that number of pages.</p> \
 -<br/> \
 <p>To resume normal keyboard functionality in your browser, press ESC</p> \
-</p>"
+</p>";
 
 function showinfo() {
 	if(promptinfo.innerHTML == "info") {
-		commandresult.innerHTML = keyboardinfo
-		promptinfo.innerHTML = "close"
+		commandresult.innerHTML = keyboardinfo;
+		promptinfo.innerHTML = "close";
 	}
 	else {
-		commandresult.innerHTML = ""
-		promptinfo.innerHTML = "info"
+		commandresult.innerHTML = "";
+		promptinfo.innerHTML = "info";
 	}
 }
 
 var icounter = 0;
-var typer
+var typer;
 function writeinstructions() {
-	log(keyinstructions)
-	log(commandresult)
+	log(keyinstructions);
+	log(commandresult);
 	typer = setInterval(function() {
-		commandresult.innerHTML += keyboardinfo.charAt(icounter++)
+		commandresult.innerHTML += keyboardinfo.charAt(icounter++);
 		
 		if(icounter == keyinstructions.length) {
-			clearInterval(typer)		
+			clearInterval(typer);
 		}
-	}, 75)
+	}, 75);
 }
 
 /* - - - IMAGES - - -  */
 
 //sets all images in document to the width of fit_element
 function scaleimages(fit_element) {
-	var imgs = document.getElementsByTagName("img")
+	var imgs = document.getElementsByTagName("img");
 	for(var i = 0; i < imgs.length; i++) {
 		if(imgs[i].className == "fit" || imgs[i].className == "fits") {
-			imgs[i].style.width = fit_element.offsetWidth + "px"
+			imgs[i].style.width = fit_element.offsetWidth + "px";
 		}
 	}
 }
 
 function clickingascii() {
 	
-	var imgs = document.getElementsByTagName("img")
+	var imgs = document.getElementsByTagName("img");
 	
 	for (var i = 0; i < imgs.length; i++) {
 		if(imgs[i].getAttribute("type") == "ascii") {
 			imgs[i].onmousedown = function() {
 				if(this.getAttribute("type") == "ascii")  {
-					this.src = "/new/images/atoi/" + this.name + "_img.jpg"
-					this.setAttribute("type", "img")
+					this.src = "/new/images/atoi/" + this.name + "_img.jpg";
+					this.setAttribute("type", "img");
 				}
 				else {
-					this.src = "/new/images/atoi/" + this.name + "_ascii.png"
-					this.setAttribute("type", "ascii")
+					this.src = "/new/images/atoi/" + this.name + "_ascii.png";
+					this.setAttribute("type", "ascii");
 				}	
 			}
-			imgs[i].onmouseover = function() { this.style.cursor = "pointer" }
+			imgs[i].onmouseover = function() { this.style.cursor = "pointer" };
 		}
 	}
 
@@ -639,24 +637,23 @@ function clickingascii() {
 /* - - - XMLHttpResponse - - -  */
 //thanks to ppk for these
 
-function xhreq(url,callback) {
-	var req = createXMLHTTPObject()
-	if (!req) return
+var xhreq = function (url,callback) {
+	var req = createXMLHTTPObject();
+	if (!req) return;
 	
 	//always use POST for request
-	req.open("POST", url, true)
-/* 	req.setRequestHeader('User-Agent','XMLHTTP/1.0') */
+	req.open("POST", url, true);
 	
 	//set callback
 	req.onreadystatechange = function () {
-		if (req.readyState != 4) return
+		if (req.readyState != 4) return;
 		if (req.status != 200 && req.status != 304) {
-			return
+			return;
 		}
-		callback(req)
+		callback(req);
 	}
-	if (req.readyState == 4) return
-	req.send()
+	if (req.readyState == 4) return;
+	req.send(null);
 }	
 
 var XMLHttpFactories = [
@@ -664,25 +661,25 @@ var XMLHttpFactories = [
 	function () {return new ActiveXObject("Msxml2.XMLHTTP")},
 	function () {return new ActiveXObject("Msxml3.XMLHTTP")},
 	function () {return new ActiveXObject("Microsoft.XMLHTTP")}
-]
+];
 
-function createXMLHTTPObject() {
-	var xmlhttp = false
+var createXMLHTTPObject = function () {
+	var xmlhttp = false;
 	for (var i=0; i < XMLHttpFactories.length; i++) {
 		try {
-			xmlhttp = XMLHttpFactories[i]()
+			xmlhttp = XMLHttpFactories[i]();
 		}
 		catch (e) {
-			continue
+			continue;
 		}
-		break
+		break;
 	}
-	return xmlhttp
+	return xmlhttp;
 }
 
 
 //now add the script to add all the contentDocument
-var go = document.createElement("script")
-go.src = "./js/open.js"
-head.appendChild(go)
+var go = document.createElement("script");
+go.src = "./js/open.js";
+/* head.appendChild(go); */
 
