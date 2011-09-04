@@ -12,6 +12,7 @@ cp toadd to_mod/files
 tar czf to_mod.tar.gz to_mod/
 rm -R to_mod/
 echo "tarred"
+rm toadd
 
 scp to_mod.tar.gz whg@fezz.in:wgallia
 rm to_mod.tar.gz
