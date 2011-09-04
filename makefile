@@ -2,19 +2,22 @@
 
 all:
 	python build/create.py
-	bash build/install.sh
+	bash build/install_core.sh
+	python build/get_mod.py
 	bash build/makesnapshots.sh
+	bash build/send_mod.sh
 
 create:
 	python build/create.py
 
-snaps:
-	bash build/makesnapshots.sh
 
-install:
-#	bash build/install.sh
-	python build/install.py
+install_core:
+	bash build/install_core.sh
+
+update:
+	python build/get_mod.py
+	bash build/makesnapshots.sh
+	bash build/send_mod.sh
 
 clean:
 	rm data/*
-	rm snaps/*

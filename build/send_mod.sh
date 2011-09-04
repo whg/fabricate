@@ -5,10 +5,10 @@ mkdir to_mod
 for file in `cat toadd`; do
 	#copy the file, preserving the directory structure
 	rsync -R $file ./to_mod
+	echo "copied: $file"
 done
-echo "copied files"
 
-mv toadd to_mod/files
+cp toadd to_mod/files
 tar czf to_mod.tar.gz to_mod/
 rm -R to_mod/
 echo "tarred"

@@ -55,4 +55,3 @@ if(!("onhashchange" in window)) {
 var funcs = document.createElement("script");
 funcs.src = "./js/functions.js";
 head.appendChild(funcs);
-

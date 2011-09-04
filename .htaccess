@@ -15,7 +15,7 @@
 ### github.com/paulirish/html5-boilerplate-server-configs
 ###
 
-
+ErrorDocument 404 /snaps/page_not_found.html
 
 # ----------------------------------------------------------------------
 # Better website experience for IE users

@@ -20,11 +20,11 @@ def index(req, _escaped_fragment_="nothing"):
 		
 	#this is a user, using a browser
 	if _escaped_fragment_ == "nothing":	
-		return getfile("pages/index.html")
+		return getfile("snaps/index.html")
 		
 	#this is for the homepage
 	elif _escaped_fragment_ == '':
-		return getfile("pages/crawl.html")
+		return getfile("snaps/crawl.html")
 		
 	#any otherpage
 	else:
@@ -32,10 +32,10 @@ def index(req, _escaped_fragment_="nothing"):
 		fragment = urllib2.unquote(_escaped_fragment_)
 		
 		try:
-			return getfile("pages/" + fragment + ".html")
+			return getfile("snaps/" + fragment + ".html")
 			
 		except:
-			return "oh nooo.....<br/> with " + fragment
+			return getfile("snaps/page_not_found.html")
 		
 		
 # 		return "'" + _escaped_fragment_ + "'" 

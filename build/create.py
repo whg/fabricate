@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 import os
 import json
 
@@ -13,17 +12,20 @@ def getlist(line):
 	things = line.split(":")[1]
 	return things.split(",")
 
+def lowercasenospace(word):
+	w = word.lower()
+	return w.translate(None, " ")
+
+#returns a list of the contents of all files
+#in the passed directory
 def readfiles(directory):
 	
 	files = []
 	
 	for dirpath, dirnames, filenames in os.walk(directory):
 		for filename in filenames:
-			
 			with open(dirpath + "/" + filename, 'r') as f:
-				
 				files.append(f.readlines())
-				
 				f.close()
 	
 	return files
@@ -43,8 +45,7 @@ def additems(files):
 		tempitem = [("name", itemname)]
 	
 		#make link; name in lowercase with no space
-		link = itemname.lower()
-		link = link.translate(None, " ")
+		link = lowercasenospace(itemname)
 		tempitem.append(("link", link))
 		
 		#categories are added to dictionary as a list
@@ -108,23 +109,24 @@ def writeJSON(content, filename):
 	with open(filename, 'w') as f:
 		json.dump(content, f, indent=True)
 	
+#this creates a page that is very plain;
+#so we have a nice search result...
 def crawlablehomepage():
 	itemnames = [ i['name'] for i in items ]
 	
-	with open("templates/homehead.html") as f:
+	with open("snaps/homehead.html") as f:
 		head = f.readlines()
-		
-	
-	with open("pages/crawl.html", 'w') as f:
+			
+	with open("snaps/crawl.html", 'w') as f:
 	
 		for line in head:
 			f.write(line)
-	
-		f.write("\n<p>Projects include:</p>\n")
-		
+		f.write("\n<h3>Projects include:</h3>\n")
 		for item in itemnames:
-			f.write('<a href="#!' + item.lower() + '">' + item + '</a>\n')
-			
+			f.write('<a href="#!' + item.lower() + '">' + item + '</a>\n')			
+		f.write("<h3>Tags</h3>\n")
+		for tag in tags:
+			f.write('<a href="#!' + tag.lower() + '">' + tag + '</a>\n')
 		f.write("</body>\n</html>")
 		
 		f.close()
@@ -141,13 +143,23 @@ def makeindex():
 		for thing in allthings:
 			f.write(thing + "\n")
 		f.close()
-	
 
+#the depends file contains the links that each item has
+#this is used when tests are carried out on items to see
+#if they have been modified, if so all pages depending on 
+#them must be too...
+def makedepends():
+	with open("data/depends", 'w') as f:
+		for item in items:
+			tl = [lowercasenospace(c) for c in item['cats']]
+			tl.extend([lowercasenospace(t) for t in item['tags']])
+			f.write(item["name"] + ":" + ",".join(tl)+"\n")
+			
+	f.close()		
+		
+		
 if __name__ == "__main__":
 
-# 	dirname = os.path.dirname(__file__)
-# # 	dirname = dirname[:-5]
-# 	print os.getcwd() + "/sections"
 
 	files = readfiles(os.getcwd() + "/content/sections")
 	
@@ -161,6 +173,8 @@ if __name__ == "__main__":
 	
 	makeindex()
 	
+	makedepends()
+		
 	#all data is stored in one json file
 	writeJSON(dict(data), "data/data.json")
 		

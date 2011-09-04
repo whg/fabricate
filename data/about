@@ -1,0 +1,14 @@
+
+<hgroup>
+<div class="center"><img src="/content/images/wg_logo.png" alt="Will Gallia" class="logo" /></div>
+<h1>Will Gallia</h1>
+</hgroup>
+
+
+<h3 id="me">Me</h3>
+<p>Born in 1988 I am a male who lives in London. I am pretty interested in computers and programming, though I am usually interested in most things. At the moment (2011) I am a student. You can download my CV <a href="/CV.pdf">here</a>.</p>
+
+<h3 id="site">This Site</h3>
+<p>This site is built and maintained by <a>fabricate</a>, a small collection of JavaScript and Python which compiles and displays my work. The content on the client side is 100% dynamic, check out the source of this page to prove it.</p>
+
+<p>The site is hosted on a VPS with <a href="http://linode.com">Linode</a>.</p>

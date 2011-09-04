@@ -1,0 +1,206 @@
+{
+ "items": [
+  {
+   "cats": [
+    "Hardware", 
+    "Software", 
+    "Image"
+   ], 
+   "link": "pedro&sybil", 
+   "name": "Pedro & Sybil", 
+   "tags": [
+    "C++", 
+    "C", 
+    "Objective-C", 
+    "plotter"
+   ]
+  }, 
+  {
+   "cats": [
+    "Software", 
+    "Sound", 
+    "Image"
+   ], 
+   "link": "av1", 
+   "name": "AV1", 
+   "tags": [
+    "audiovisual", 
+    "Whitney", 
+    "Processing"
+   ]
+  }, 
+  {
+   "cats": [
+    "Software"
+   ], 
+   "link": "tetris", 
+   "name": "Tetris", 
+   "tags": [
+    "Processing"
+   ]
+  }, 
+  {
+   "cats": [
+    "Software", 
+    "Web"
+   ], 
+   "link": "flaunt", 
+   "name": "Flaunt", 
+   "tags": [
+    "PHP", 
+    "MySQL", 
+    "CMS"
+   ]
+  }, 
+  {
+   "cats": [
+    "Image"
+   ], 
+   "link": "cubes&pyramids", 
+   "name": "Cubes & Pyramids", 
+   "tags": [
+    "Illustrator", 
+    "graphics"
+   ]
+  }, 
+  {
+   "cats": [
+    "Image", 
+    "Software", 
+    "Web"
+   ], 
+   "link": "itoa", 
+   "name": "ItoA", 
+   "tags": [
+    "ASCII", 
+    "PHP", 
+    "Python", 
+    "JavaScript"
+   ]
+  }, 
+  {
+   "cats": [
+    "Info"
+   ], 
+   "link": "about", 
+   "name": "About", 
+   "tags": [
+    "site", 
+    "me"
+   ]
+  }, 
+  {
+   "cats": [
+    "Image"
+   ], 
+   "link": "adventuresinsine", 
+   "name": "Adventures in Sine", 
+   "tags": [
+    "Processing"
+   ]
+  }, 
+  {
+   "cats": [
+    "Image"
+   ], 
+   "link": "panorama", 
+   "name": "Panorama", 
+   "tags": [
+    "photography", 
+    "Photoshop"
+   ]
+  }
+ ], 
+ "cats": {
+  "Sound": [
+   "av1"
+  ], 
+  "Web": [
+   "flaunt", 
+   "itoa"
+  ], 
+  "Image": [
+   "pedro&sybil", 
+   "av1", 
+   "cubes&pyramids", 
+   "itoa", 
+   "adventuresinsine", 
+   "panorama"
+  ], 
+  "Info": [
+   "about"
+  ], 
+  "Hardware": [
+   "pedro&sybil"
+  ], 
+  "Software": [
+   "pedro&sybil", 
+   "av1", 
+   "tetris", 
+   "flaunt", 
+   "itoa"
+  ]
+ }, 
+ "tags": {
+  "me": [
+   "about"
+  ], 
+  "Photoshop": [
+   "panorama"
+  ], 
+  "C": [
+   "pedro&sybil"
+  ], 
+  "Processing": [
+   "av1", 
+   "tetris", 
+   "adventuresinsine"
+  ], 
+  "Illustrator": [
+   "cubes&pyramids"
+  ], 
+  "CMS": [
+   "flaunt"
+  ], 
+  "Python": [
+   "itoa"
+  ], 
+  "plotter": [
+   "pedro&sybil"
+  ], 
+  "photography": [
+   "panorama"
+  ], 
+  "JavaScript": [
+   "itoa"
+  ], 
+  "site": [
+   "about"
+  ], 
+  "C++": [
+   "pedro&sybil"
+  ], 
+  "Objective-C": [
+   "pedro&sybil"
+  ], 
+  "Whitney": [
+   "av1"
+  ], 
+  "graphics": [
+   "cubes&pyramids"
+  ], 
+  "MySQL": [
+   "flaunt"
+  ], 
+  "audiovisual": [
+   "av1"
+  ], 
+  "PHP": [
+   "flaunt", 
+   "itoa"
+  ], 
+  "ASCII": [
+   "itoa"
+  ]
+ }
+}
