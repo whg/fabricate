@@ -149,7 +149,7 @@ if __name__ == "__main__":
 # # 	dirname = dirname[:-5]
 # 	print os.getcwd() + "/sections"
 
-	files = readfiles(os.getcwd() + "/sections")
+	files = readfiles(os.getcwd() + "/content/sections")
 	
 	checkfiles(files)
 	

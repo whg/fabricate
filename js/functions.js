@@ -662,5 +662,5 @@ var createXMLHTTPObject = function () {
 //now add the script to add all the contentDocument
 var go = document.createElement("script");
 go.src = "./js/open.js";
-/* head.appendChild(go); */
+head.appendChild(go);
 

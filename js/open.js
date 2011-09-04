@@ -134,90 +134,23 @@ document.onkeydown = function(e) {
 
 }
 
-document.onhashchange = function() {
-	log("damn...");
-}
 
-document.onclick = function() {
-}
 
-/* log("pop state is = " + window.o); */
-
-var popstate = false;
-
-/*
-window.onpopstate = function(e, b) {
-	log("b = " + b);
-	
-	if(("" + b +"") === "undefined") {
-		log("PLEASE WORK!!!!");
-	}
-
-	//this shows the page corresponding to the hash tag
-	//this is because we are using anchor tags...
-	if(location.hash != "") {
-		var elem = document.getElementById(location.hash.substr(2));
-		log("FROM ONPOPSTATE " + location.hash);
-		log(elem);
-		showpage(elem);	
-	}
-	else {
-		log("didn't pop");
-	}
-	popstate = true;
-}
-*/
-
-log(typeof window.onpopstate);
 
 window.onresize = function() {
 	scaleimages(pagecontainer);
 }
 
-if("onhashchange" in window) {
-	log("ON HASH CHANGE IN WINDOW....");
-}
-
+//this event handles navigation...
 window.onhashchange = function(e) {
-	log(e);
-	log(location.hash);
 	if(location.hash != "") {
 		var elem = document.getElementById(location.hash.substr(2));
-		log("FROM ONHASHCHANGE " + location.hash);
 		showpage(elem);	
 	}
 	else {
-		log("didn't pop");
+		pagecontainer.innerHTML = "";
 	}
+
 }
 
-//scale images to begin as well;
-/* log("imgs = " + document.getElementsByTagName("img")) */
 
-
-
-/*
-var hashcheck = setInterval(function() { 
-
-	if(hashset != location.hash.substr(2)) {
-		
-		//if there is no hash, that means we want the
-		//homepage, so clear the pagecontainer  and
-		//set and empyty hash
-		if(location.hash == "") {
-			hashset = "";
-			pagecontainer.innerHTML = "";
-		}
-		
-		var e = document.getElementById(location.hash.substr(2));
-		
-		if(e && !startedchange) {
-			showpage(e, pagecontainer, false);
-			log("from check");
-		}
-	}
-	
-}, 250);
-*/
-
-log("popstate = " + popstate);

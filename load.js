@@ -46,8 +46,13 @@ head.appendChild(iet);
 var maintitle = "wgallia";
 document.title = maintitle;
 
+if(!("onhashchange" in window)) {
+	document.write("no onhashchange");
+}
+
+
 //add functions which in turn adds the script to call them...
 var funcs = document.createElement("script");
 funcs.src = "./js/functions.js";
-/* head.appendChild(funcs); */
+head.appendChild(funcs);
 

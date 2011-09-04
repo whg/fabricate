@@ -8,7 +8,7 @@ tar czf $file .
 echo "created archive"
 
 scp $file whg@fezz.in:wgallia/
-echo "sent file"
+echo "uploaded file"
 
 rm $file
 
