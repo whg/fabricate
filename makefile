@@ -1,6 +1,11 @@
-.PHONY: snaps
+.PHONY: snaps install
 
 all:
+	python build/create.py
+	bash build/makesnapshots.sh
+	bash build/install.sh
+
+create:
 	python build/create.py
 
 snaps:

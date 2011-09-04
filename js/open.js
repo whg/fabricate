@@ -1,5 +1,4 @@
 
-
 var container = document.createElement("div");
 container.setAttribute("id", "container");
 document.body.appendChild(container);
@@ -91,7 +90,7 @@ document.onkeydown = function(e) {
 		return true;
 	}
 	
-	log(e.keyCode + " and " + e.charCode);
+/* 	log(e.keyCode + " and " + e.charCode); */
 
 	
 	command.focus();
@@ -142,10 +141,54 @@ document.onhashchange = function() {
 document.onclick = function() {
 }
 
+/* log("pop state is = " + window.o); */
 
+var popstate = false;
+
+/*
+window.onpopstate = function(e, b) {
+	log("b = " + b);
+	
+	if(("" + b +"") === "undefined") {
+		log("PLEASE WORK!!!!");
+	}
+
+	//this shows the page corresponding to the hash tag
+	//this is because we are using anchor tags...
+	if(location.hash != "") {
+		var elem = document.getElementById(location.hash.substr(2));
+		log("FROM ONPOPSTATE " + location.hash);
+		log(elem);
+		showpage(elem);	
+	}
+	else {
+		log("didn't pop");
+	}
+	popstate = true;
+}
+*/
+
+log(typeof window.onpopstate);
 
 window.onresize = function() {
 	scaleimages(pagecontainer);
+}
+
+if("onhashchange" in window) {
+	log("ON HASH CHANGE IN WINDOW....");
+}
+
+window.onhashchange = function(e) {
+	log(e);
+	log(location.hash);
+	if(location.hash != "") {
+		var elem = document.getElementById(location.hash.substr(2));
+		log("FROM ONHASHCHANGE " + location.hash);
+		showpage(elem);	
+	}
+	else {
+		log("didn't pop");
+	}
 }
 
 //scale images to begin as well;
@@ -177,3 +220,4 @@ var hashcheck = setInterval(function() {
 }, 250);
 */
 
+log("popstate = " + popstate);

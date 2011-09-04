@@ -13,7 +13,7 @@ l=`cat data/index | wc -l`
 trim() { echo $1; }
 
 ll=$(trim $l)
-echo $l
+echo "creating snapshots..."
 ext=".html"
 
 for item in $items; do

@@ -139,7 +139,7 @@ function processcommand(input) {
 				//check for valid argument
 				if(argument == sections[j]) {
 					var elem = document.getElementById(lowercasenospace(argument));
-					showpage(elem, pagecontainer);
+					showpage(elem);
 					location.hash = "!" + lowercasenospace(argument);
 					return;
 				}
@@ -298,13 +298,7 @@ function additems(items, parent) {
 			
 			this.firstChild.className = "item";
 		}
-		
-		/* 		- - - MOUSEDOWN - - -  */
 
-		holdingdiv.onmousedown = function() {
-/* 			location.hash = this.getAttribute("id") */
-			showpage(this, pagecontainer);
-		}
 		
 	}
 	
@@ -376,14 +370,6 @@ function addcats(cats, parent) {
 			}
 			highlighted = [];
 			this.className = "cat_item";
-		}
-		
-		/* 		- - - MOUSEDOWN - - -  */
-		
-		keydiv.onmousedown = function() {
-			pagecontainer.innerHTML = "";
-			showpage(this, pagecontainer);
-/* 			location.hash = this.getAttribute("id") */
 		}
 		
 	}
@@ -458,13 +444,6 @@ function addtags(tags, parent) {
 			this.style.backgroundColor = "#eee";
 		}
 		
-		/* 		- - - MOUSEDOWN - - -  */
-		
-		tdiv.onmousedown = function() {
-			pagecontainer.innerHTML = "";
-			showpage(this, pagecontainer);
-/* 			location.hash = this.getAttribute("id") */
-		}
 	}
 		
 	parent.style.height = parent.offsetHeight;
@@ -478,24 +457,28 @@ window.onpushstate = function() {
 //by looking at the items attribute of the given element
 //all items, cats and tags all have an items attribute, 
 //items themselves have one, which is themselves
-function showpage(element, parent, pushstate) {
-	hashset = element.getAttribute("id");
-	parent.innerHTML = "";
+function showpage(element) {
+/* 	hashset = element.getAttribute("id"); */
+	pagecontainer.innerHTML = "";
+	log("FIRED SHOWPAGE = " + element);
 	var is = element.getAttribute("items").split(",");
 	
 	for(var i = 0; i < is.length; i++) {
 		startedchange = true;
-		appendpage(is[i], parent);
+		appendpage(is[i], pagecontainer);
 	}
 	
 	//make a new history instance if we are moving forward...
 	///ie there is no 3rd argument
-	if(pushstate == "undefined") {
-		window.history.pushState("", "");
-	}
+/* 	if(pushstate == "undefined") { */
+		var obj = { "page": element.getAttribute("id") };
+/* 		history.pushState(obj, "", ""); */
+/* 		log("pushed ...." + pushstate); */
+/* 	} */
 	
 	//set the title to the id of the element that called this.
-	settitle(element.getAttribute("id"));
+/* 	settitle(element.getAttribute("id")); */
+	
 	
 	//scale the images, wait for them to load... 
 	//i think 0.8s is long enough
@@ -550,9 +533,9 @@ function checkhash() {
 	if(location.hash != "") {
 	
 		var elem = document.getElementById(location.hash.substr(2));
-		
+		log("FROM CHECKHASH");
 		if(elem) {
-			showpage(elem, pagecontainer);
+			showpage(elem);
 			return true;
 		}
 	}
@@ -561,9 +544,7 @@ function checkhash() {
 /* - - - INFO FOR PROMPT - - -  */
 
 var keyboardinfo =
-"<p>UNIX users, do what comes naturally</p> \
-- <br/> \
-<p>Format: &lt;command> &lt;argument><br/> </p>\
+"<p>Format: &lt;command> &lt;argument><br/> </p>\
 <p>e.g. open visual </p> \
 <p>Use tab to autocomplete both commands and arguments. \
 Arguments can be items, sections or tags.</p> \
