@@ -1,3 +1,7 @@
+# because pages are generated in JavaScript
+# not a lot happens here, this is mostly used
+# to serve Google with the correct page
+
 from mod_python import apache
 
 import os
@@ -9,10 +13,7 @@ def getfile(filename):
 	f = open(workingdir + filename, "r")
 	lines = f.readlines()
 	f.close()
-	return "".join(lines)
-
-
-######## MAIN #########
+	return "\n".join(lines)
 
 def index(req, _escaped_fragment_="nothing"):
 
@@ -20,13 +21,13 @@ def index(req, _escaped_fragment_="nothing"):
 		
 	#this is a user, using a browser
 	if _escaped_fragment_ == "nothing":	
-		return getfile("snaps/index.html")
+		return getfile("snaps/static/index.html")
 		
-	#this is for the homepage
+	#this is for the homepage, when Google requests
 	elif _escaped_fragment_ == '':
-		return getfile("snaps/crawl.html")
+		return getfile("snaps/static/crawl.html")
 		
-	#any otherpage
+	#any otherpage for Google
 	else:
 		
 		fragment = urllib2.unquote(_escaped_fragment_)
@@ -35,8 +36,5 @@ def index(req, _escaped_fragment_="nothing"):
 			return getfile("snaps/" + fragment + ".html")
 			
 		except:
-			return getfile("snaps/page_not_found.html")
+			return getfile("snaps/static/page_not_found.html")
 		
-		
-# 		return "'" + _escaped_fragment_ + "'" 
-		return os.path.dirname(__file__)

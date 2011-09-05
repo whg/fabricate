@@ -1,7 +1,6 @@
 
 import os
 
-
 cwd = os.getcwd() + "/"
 
 store = open(".store", "r")
@@ -68,7 +67,7 @@ with open("snaps/tosnap", 'w') as f:
 	f.close()
 
 		
-#close the store and open again this time for writing... from fresh
+#close the store and open again this time for writing...
 store.close()
 store = open(".store", 'w')
 

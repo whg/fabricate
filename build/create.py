@@ -29,13 +29,15 @@ def readfiles(directory):
 				f.close()
 	
 	return files
-	
+
+#make sure each file has the correct headers
 def checkfiles(files):
 	for lines in files:
 		assert lines[0][0:4] == "name"
 		assert lines[1][0:4] == "cats"
 		assert lines[2][0:4] == "tags"
-	
+
+#this creates the items JSON objects
 def additems(files):
 	
 	for lines	in files:			
@@ -81,7 +83,6 @@ def additems(files):
 
 	data.append(("items", items))
 		
-		
 
 #this creates a dictionary of each category and tag
 #with it's corresponding item(s)
@@ -108,16 +109,17 @@ def addtags():
 def writeJSON(content, filename):
 	with open(filename, 'w') as f:
 		json.dump(content, f, indent=True)
+		f.close()
 	
 #this creates a page that is very plain;
 #so we have a nice search result...
 def crawlablehomepage():
 	itemnames = [ i['name'] for i in items ]
 	
-	with open("snaps/homehead.html") as f:
+	with open("snaps/static/homehead.html") as f:
 		head = f.readlines()
 			
-	with open("snaps/crawl.html", 'w') as f:
+	with open("snaps/static/crawl.html", 'w') as f:
 	
 		for line in head:
 			f.write(line)
@@ -160,19 +162,12 @@ def makedepends():
 		
 if __name__ == "__main__":
 
-
-	files = readfiles(os.getcwd() + "/content/sections")
-	
+	files = readfiles(os.getcwd() + "/content/sections")	
 	checkfiles(files)
-	
 	additems(files)
-
 	addcatsandtags()
-	
 	crawlablehomepage()
-	
 	makeindex()
-	
 	makedepends()
 		
 	#all data is stored in one json file

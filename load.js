@@ -1,6 +1,10 @@
 
 var dev = true;
 
+//leave this... this is changed by sed when we make
+//snapshots for google... see makesnapshots.sh
+var snaps = false;
+
 /* - - - generic helper functions and shorcuts, etc - - -  */
 
 if(typeof console == "undefined" || typeof console.log == "undefined") {
@@ -12,7 +16,6 @@ function log(stuff) {
 		console.log(stuff);
 	}
 }
-
 
 
 head = document.getElementsByTagName("head")[0];
@@ -31,11 +34,6 @@ css.setAttribute("rel", "stylesheet");
 css.setAttribute("href", "css/stylesheet.css");
 head.appendChild(css);
 
-var fonts = document.createElement("link");
-fonts.setAttribute("rel", "stylesheet");
-fonts.setAttribute("href", "http://fonts.googleapis.com/css?family=Marvel")
-/* head.appendChild(fonts) */
-
 //apparently this helps with things in IE
 var iet = document.createElement("meta");
 iet.setAttribute("http-equiv", "X-UA-Compatible");
@@ -46,12 +44,15 @@ head.appendChild(iet);
 var maintitle = "wgallia";
 document.title = maintitle;
 
+//for testing purposes... remove...
 if(!("onhashchange" in window)) {
 	document.write("no onhashchange");
 }
 
-
 //add functions which in turn adds the script to call them...
 var funcs = document.createElement("script");
 funcs.src = "./js/functions.js";
-head.appendChild(funcs);
+if(!snaps) {
+	head.appendChild(funcs);
+}
+

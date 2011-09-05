@@ -1,20 +1,22 @@
 /* - - - - - - COMMAND LINE - - - - - -  */
 
 var open_commands = ["cd", "move", "goto", "open"];
-var misc_commands = ["help", "back", "forward"];
+var misc_commands = ["help", "back", "forward", "tags", "cats", "items"];
 var commands = open_commands.concat(misc_commands);
 
 commands = commands.sort();
 
+var input_history = [""];
+var ihp = 0; //input history pointer
 
-function autocomplete(input, result) {
+function autocomplete(command, result) {
 
 	//clear result
 	result.innerHTML = "";
 	var r = [];
 
 	//first split the command into tokens
-	var tokens = input.split(" ");
+	var tokens = command.split(" ");
 	
 	//base command :. autocomplete command
 	if(tokens.length == 1) {
@@ -23,7 +25,7 @@ function autocomplete(input, result) {
 		
 		//print out results...
 		if(r.length == 1) {
-			command.value = r[0] + " ";
+			input.value = r[0] + " ";
 		} 
 		else {
 			result.innerHTML = r.join(" ");
@@ -48,7 +50,7 @@ function autocomplete(input, result) {
 		}		
 		
 		//write the prompt, with either corrected or original
-		command.value = tokens.join(" ");
+		input.value = tokens.join(" ");
 
 	}
 	//this is some housework
@@ -86,7 +88,9 @@ function findcompletions(input_word, compare_against) {
 // - - -  process the command - - - 
 //takes the input and does stuff...
 
-function processcommand(input) {	
+function processcommand(input) {
+
+	
 	var tokens = input.split(" ");
 	
 	if(tokens[0] == "" && tokens.length == 1) {
@@ -150,11 +154,36 @@ function processcommand(input) {
 		}
 	}
 	
+	if(command == "help") {
+		showinfo();
+		return;
+	}
 	
-	//if we get here, command is not valid
+	/* 	- - - TAGS, CATS & ITEMS - - -  */
+	
+	if(command == "tags" || command == "cats" || command == "items") {
+		var elem = document.getElementById(lowercasenospace(argument));
+		if(elem) {
+			var attr = elem.getAttribute(command);
+			
+			if(attr) {
+				var things = attr.split(",");
+				commandresult.innerHTML = things.join(" ");
+			}
+			else {
+				commandresult.innerHTML = argument + ": argument not an valid";
+			}
+		}
+		else {
+			commandresult.innerHTML = argument + ": cannot find " + command.substring(0, command.length-1);
+		}
+		return;
+	}
+	
+	//if we get here, command is not valid 
 	commandresult.innerHTML = command + ": command not found";
 	
-	
+
 }
 
 /* - - - - - - CREATION - - - - - -  */
@@ -659,7 +688,13 @@ var createXMLHTTPObject = function () {
 }
 
 
-//now add the script to add all the content
+//now add the script to add all the content + analytics
 var go = document.createElement("script");
 go.src = "./js/open.js";
-head.appendChild(go);
+var analytics = document.createElement("script");
+analytics.src = "./js/analytics.js";
+
+if(!snaps) {
+	head.appendChild(go);
+	head.appendChild(analytics);
+}

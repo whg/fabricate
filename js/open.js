@@ -23,9 +23,9 @@ ps1.innerHTML = "$";
 ps1.className = "command_line";
 promptcontainer.appendChild(ps1);
 
-var command = document.createElement("input");
-command.className = "command_line";
-promptcontainer.appendChild(command);
+var input = document.createElement("input");
+input.className = "command_line";
+promptcontainer.appendChild(input);
 
 var promptinfo = document.createElement("div");
 promptinfo.setAttribute("id", "prompt_info");
@@ -80,7 +80,7 @@ performdata();
 var hashset = "";
 var startedchange = false;
 
-command.focus();
+input.focus();
 
 var disable_command = false;
 
@@ -89,28 +89,32 @@ document.onkeydown = function(e) {
 	if(disable_command && e.keyCode != 27) {
 		return true;
 	}
-	
 /* 	log(e.keyCode + " and " + e.charCode); */
 
+	input.focus();
 	
-	command.focus();
-	
-	
+	if(ihp == input_history.length -1 ) {
+		input_history[ihp] = input.value;
+	}
 
 	switch(e.keyCode) {
 	
 		case 13: //enter;
-			processcommand(command.value);
-			command.value = "";
+			processcommand(input.value);
+			log("iv = " + input.value);
+			input_history[input_history.length-1] = input.value;
+			input_history.push("");
+			ihp = input_history.length -1;
+			input.value = "";
 			break;
 			
 		case 9: //tab;
 			if(!disable_command) {
 				
-				autocomplete(command.value, commandresult);
+				autocomplete(input.value, commandresult);
 				
 				e.preventDefault() //this is for firefox
-				setTimeout(function() { command.focus() }, 100) //this is for opera
+				setTimeout(function() { input.focus() }, 100) //this is for opera
 				return false //this is for IE;
 				//not sure which one is for webkit browsers....
 				//don't we love web development
@@ -120,22 +124,36 @@ document.onkeydown = function(e) {
 		case 27: //esc;
 			if(!disable_command) {
 				disable_command = true;
-				command.blur();
+				input.blur();
 				log("disabled");
+				keyinstructions.innerHTML = "keyboard navigation has been disabled, press esc to resume functionality";
+				return;	
 			} 
 			else {
 				disable_command = false;;
-				command.focus();
+				input.focus();
 				log("enabled");
 			}
 			break;
 			
-	}
+		case 38: //up
+			if(ihp > 0) {
+				input.value = input_history[--ihp];
+			}
+
+			e.preventDefault();
+			break;
+		case 40: //down
+			if(ihp < input_history.length - 1) {
+				input.value = input_history[++ihp];
+			}
+			e.preventDefault();
+			break;
+	}	
+	
+	keyinstructions.innerHTML = "you can navigate this site with your keyboard";
 
 }
-
-
-
 
 window.onresize = function() {
 	scaleimages(pagecontainer);
