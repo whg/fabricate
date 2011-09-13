@@ -13,7 +13,7 @@ def getfile(filename):
 	f = open(workingdir + filename, "r")
 	lines = f.readlines()
 	f.close()
-	return "\n".join(lines)
+	return "".join(lines)
 
 def index(req, _escaped_fragment_="nothing"):
 

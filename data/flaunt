@@ -7,9 +7,11 @@
 </hgroup>
 
 
-<p>Flaunt is a server-side web application or CMS, which uses PHP to MySQL to store the content. It supports themes, which use a simple API to pull in content. All content is managed inside backend.</p>
+<p>Flaunt is a server-side web application or CMS, which uses PHP to present and MySQL to store the content. It supports themes, which use a simple API to pull in content. All content is managed inside backend. <a href="http://pedroandsybil.com">pedroandsybil.com</a> is built with it.</p>
 
-<p>The idea for this came when I wanted to make a portfolio website for myself, but it was never made until I had to document a project for a University project.</p>
+<p>The idea for this came when I wanted to make a portfolio website for myself, but it was never made until I had to document a project for a University project. It never was used for a personal website...</p>
+
+<p>Some of the cool features include:</p>
 
 <ul>
 <li>The order of the sidebar items can be ordered in the browser by dragging and dropping boxes.</li>
@@ -19,3 +21,7 @@
 </ul>
 
 <p>The source can be downloaded/viewed on <a href="https://github.com/whg/flaunt">github</a>, and I also made a profile on <a href="https://www.ohloh.net/p/flaunt">ohloh</a> for it, where you can see an analysis.</p>
+
+<p>Here is an example of the backend:</p>
+
+<img src="/content/images/flaunt_backend.png" class="fit" alt="Flaunt backend" />

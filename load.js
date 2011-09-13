@@ -1,5 +1,5 @@
 
-var dev = true;
+var dev = false;
 
 //leave this... this is changed by sed when we make
 //snapshots for google... see makesnapshots.sh
@@ -32,7 +32,7 @@ head.appendChild(charset);
 var css = document.createElement("link");
 css.setAttribute("rel", "stylesheet");
 css.setAttribute("href", "css/stylesheet.css");
-head.appendChild(css);
+//head.appendChild(css);
 
 //apparently this helps with things in IE
 var iet = document.createElement("meta");
@@ -41,7 +41,7 @@ iet.setAttribute("content", "IE=edge,chrome=1");
 head.appendChild(iet);
 
 //set title
-var maintitle = "wgallia";
+var maintitle = "Will Gallia";
 document.title = maintitle;
 
 //for testing purposes... remove...

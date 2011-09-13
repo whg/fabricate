@@ -58,8 +58,12 @@ for i in toadd:
 			line = f.readline()
 			name = line.split(':')[1]
 			if name.strip() in depends:
+				#add self
+				tosnap.add(name.strip())
+				#and all dependencies
 				for thing in depends[name.strip()].split(','):
 					tosnap.add(thing)
+				
 				
 with open("snaps/tosnap", 'w') as f:
 	for snap in tosnap:

@@ -1,0 +1,20 @@
+
+<hgroup>
+<h1>Flightpanel</h1>
+<h3>October 2010</h3>
+</hgroup>
+
+<p>In my old site I had a homepage where I displayed small ideas. This was one of them:</p>
+
+<p id="panel"></p>
+
+<script type="text/javascript">
+
+xhreq("http://http://willgallia.com/homepages/flightpanel/table.php", function(req){
+	
+	var panel = document.getElementById("panel");
+	panel.innerHTML = req.responseText;
+	log("dddaeafaesdfa");
+});
+log("ASdfasdadsfadsf");
+</script>

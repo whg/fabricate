@@ -152,7 +152,6 @@ document.onkeydown = function(e) {
 	}	
 	
 	keyinstructions.innerHTML = "you can navigate this site with your keyboard";
-
 }
 
 window.onresize = function() {

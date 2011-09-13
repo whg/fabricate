@@ -6,8 +6,8 @@
 
 <p>For my first year programming coursework, I had to write a game. I chose to Tetris.</p>
 
-<p>The game is written in <a href="http://processing.org">Processing</a> and the Java application can be played in the browser, <a href="">here</a>.</p>
+<p>The game is written in <a href="http://processing.org">Processing</a> and the Java application can be played in the browser, <a href="http://doc.gold.ac.uk/~ma901wg/processing/tetris/">here</a>.</p>
 
 <img class="fit" src="/content/images/tetriscomp.jpg" />
 
-<p>When I wrote this, I had been programming for 6 months.</p>
+<p>When I wrote this, I had been programming for 6 months. The Processing source can be downloaded <a href="http://download.fezz.in?tetris">here</a>.</p>

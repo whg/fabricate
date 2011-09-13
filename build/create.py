@@ -31,11 +31,14 @@ def readfiles(directory):
 	return files
 
 #make sure each file has the correct headers
+#if not, ignore and don't use
 def checkfiles(files):
-	for lines in files:
-		assert lines[0][0:4] == "name"
-		assert lines[1][0:4] == "cats"
-		assert lines[2][0:4] == "tags"
+	for i, lines in enumerate(files):
+		if (lines[0][0:4] != "name"
+				or lines[1][0:4] != "cats"
+				 or lines[2][0:4] != "tags"):
+			del files[i]
+			print "not adding", lines[0][6:].strip()
 
 #this creates the items JSON objects
 def additems(files):
@@ -68,6 +71,8 @@ def additems(files):
 			tags.add(tag.strip())
 			
 		tempitem.append(("tags", itemtags))
+		
+		print "added", itemname
 		
 		#now add temp item as a dictionary (json object)			
 		items.append(dict(tempitem))	
@@ -125,10 +130,10 @@ def crawlablehomepage():
 			f.write(line)
 		f.write("\n<h3>Projects include:</h3>\n")
 		for item in itemnames:
-			f.write('<a href="#!' + item.lower() + '">' + item + '</a>\n')			
+			f.write('<a href="/#!' + item.lower() + '">' + item + '</a>\n')			
 		f.write("<h3>Tags</h3>\n")
 		for tag in tags:
-			f.write('<a href="#!' + tag.lower() + '">' + tag + '</a>\n')
+			f.write('<a href="/#!' + tag.lower() + '">' + tag + '</a>\n')
 		f.write("</body>\n</html>")
 		
 		f.close()

@@ -3,9 +3,8 @@
 <div class="center"><img src="/content/images/av1logo.png" alt="AV1 Logo" class="logo" /></div>
 <h1>AV1</h1>
 <h2>A Musical Box</h2>
-<h3>April 2010</h3>
+<h3>March 2010</h3>
 </hgroup>
 
-<p>Inspired by John Whitney, I made this, an interactive audiovisual application. Written in <a href="http://processing.org">Processing</a>, using the Beads sound library.</p>
+<p>Inspired by John Whitney, I made this, an interactive audiovisual application. Written in <a href="http://processing.org">Processing</a>, using the Beads sound library. The implementation of the audio isn't great, but I like it for its audio visual qualities.</p>
 
-<p>Both different sounds and images can be selected, try the Java application <a href="http://av1.wgallia.com">here</a>.</p>

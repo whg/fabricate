@@ -6,9 +6,15 @@
 
 
 <h3 id="me">Me</h3>
-<p>Born in 1988 I am a male who lives in London. I am pretty interested in computers and programming, though I am usually interested in most things. At the moment (2011) I am a student. You can download my CV <a href="/CV.pdf">here</a>.</p>
+
+<p>I was born in 1988 and I live in London. I am pretty interested in computers and programming, though I am usually interested in most things. At the moment (2011) I am a student. You can download my CV <a href="http://download.fezz.in?cv">here</a>.</p>
+
+<p>If you want to get in touch, my email is wgallia@gmail.com</p>
 
 <h3 id="site">This Site</h3>
-<p>This site is built and maintained by <a>fabricate</a>, a small collection of JavaScript and Python which compiles and displays my work. The content on the client side is 100% dynamic, check out the source of this page to prove it.</p>
+
+<p>This site is built and maintained by <a href="/#!fabricate">fabricate</a>, a collection of JavaScript, Python and shell script which compiles and displays my work. The content on the client side is 100% dynamic, check out the source of this page.</p>
 
 <p>The site is hosted on a VPS with <a href="http://linode.com">Linode</a>.</p>
+
+<p>If you are looking for my old website, click <a href="http://fezz.in/whg/old_willgallia/">here</a>.</p>

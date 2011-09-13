@@ -143,7 +143,7 @@ function processcommand(input) {
 				//check for valid argument
 				if(argument == sections[j]) {
 					var elem = document.getElementById(lowercasenospace(argument));
-					showpage(elem);
+					//we only change the hash, the page change is done via onhashchange
 					location.hash = "!" + lowercasenospace(argument);
 					return;
 				}
@@ -234,7 +234,7 @@ function additems(items, parent) {
 		
 		//add name to table title: this is what 
 		//shows when the mouse hovers over the element...
-		itemtable.title = items[i].name;
+		holdingdiv.title = items[i].name;
 	
 		var row = document.createElement("tr");
 		
@@ -455,7 +455,6 @@ function addtags(tags, parent) {
 				highlighted.push(it);
 			}
 			
-/* 			this.className += " light" */
 			this.style.color = "white";
 			this.style.backgroundColor = "#c9c9c9";
 		}
@@ -468,14 +467,13 @@ function addtags(tags, parent) {
 			}
 			highlighted = [];
 			
-/* 			this.className = "tag_item" */
 			this.style.color = "black";
 			this.style.backgroundColor = "#eee";
 		}
 		
 	}
 		
-	parent.style.height = parent.offsetHeight;
+	parent.style.height = parent.offsetHeight + "px";
 }
 
 window.onpushstate = function() {
@@ -487,7 +485,8 @@ window.onpushstate = function() {
 //all items, cats and tags all have an items attribute, 
 //items themselves have one, which is themselves
 function showpage(element) {
-/* 	hashset = element.getAttribute("id"); */
+	
+	
 	pagecontainer.innerHTML = "";
 	log("FIRED SHOWPAGE = " + element);
 	var is = element.getAttribute("items").split(",");
@@ -495,19 +494,10 @@ function showpage(element) {
 	for(var i = 0; i < is.length; i++) {
 		startedchange = true;
 		appendpage(is[i], pagecontainer);
-	}
+	}	
 	
-	//make a new history instance if we are moving forward...
-	///ie there is no 3rd argument
-/* 	if(pushstate == "undefined") { */
-		var obj = { "page": element.getAttribute("id") };
-/* 		history.pushState(obj, "", ""); */
-/* 		log("pushed ...." + pushstate); */
-/* 	} */
-	
-	//set the title to the id of the element that called this.
-/* 	settitle(element.getAttribute("id")); */
-	
+	//set the title to the title, which is correctly formatted
+	settitle(element.getAttribute("title"));
 	
 	//scale the images, wait for them to load... 
 	//i think 0.8s is long enough
@@ -581,6 +571,8 @@ Arguments can be items, sections or tags.</p> \
 <p>To open a page, use either open, goto, cd or move</p> \
 <p>History navigation can be done with back and forward, \
 if an argument is given then it will move that number of pages.</p> \
+-<br/> \
+<p>Previous commands can be seen with up and down keys</p> \
 -<br/> \
 <p>To resume normal keyboard functionality in your browser, press ESC</p> \
 </p>";
