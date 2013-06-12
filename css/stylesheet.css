@@ -11,7 +11,6 @@ html {
 	letter-spacing: 0.1em;
 	font-size: 1em;
 	font-family: 'Marvel', 'Courier New', monospace;
-
 	height: 100%;
 	overflow-y: scroll;
 }
@@ -20,16 +19,18 @@ body {
 	text-align: center;
 	margin: 0px;
 	height: 100%;
+    background-color: #fdfdfd;
 }
 
 #container {
 	padding: 0px 50px;
 	max-width: 640px;
 	margin: 0 auto;
-	background-color: #fff;
+    background-color: #fdfdfd;
 	height: 100%;
 	color: #333;
 }
+
 
 
 /* - - - COLOUR CODES - - -  */
@@ -42,7 +43,7 @@ body {
 }
 
 .hardware {
-	background-color: #62ffa5;
+	background-color: #50db85;
 }
 
 .software {
@@ -53,8 +54,8 @@ body {
 	background-color: #4a71ff;
 }
 
-.sound {
-	background-color: #e473ff;
+.audio {
+	background-color: #bd60d4;
 }
 
 .info {	
@@ -79,6 +80,8 @@ nav {
 	margin: 0 auto;
 	white-space: normal;
 }
+
+table {}
 
 table.item {
 	line-height: 0.9em;
@@ -274,6 +277,7 @@ input {
 	margin-left: 5px;
 	width: inherit;
 	max-width: 300px;
+    background-color: #fdfdfd;
 }
 
 .command_line {
@@ -381,7 +385,34 @@ img.fits {
 	margin: 20px 0px;
 }
 
+article table {
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-top-width: 1px;
+	border-color: #1a1a1a;
+	border-style: none;
+	color: #121111;
+	background-color: #fdfdfd;
+	border-collapse: collapse;
+	border: none;
+}
 
+article table tr, article table tr td {
+	border-left-width: 0px; 	                    
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-top-width: 1px;
+	border-color: #e1e2d5;
+	border-style: solid;
+	padding: 5px;
+/* 	border: none; */
+}
+
+img.inline {
+	margin: 0px;
+	padding: 0px;
+}
 
 /*
 .span {

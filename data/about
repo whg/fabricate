@@ -11,10 +11,10 @@
 
 <p>If you want to get in touch, my email is wgallia@gmail.com</p>
 
+<p>You can also find me on <a href="https://vimeo.com/user2559854"><img src="/content/images/vimeologo.png" alt="Vimeo" class="inline"/></a> and <a href="http://soundcloud.com/whg"><img src="/content/images/soundcloud_logo.png" alt="SoundCloud" class="inline"/></a></p>
+
 <h3 id="site">This Site</h3>
 
 <p>This site is built and maintained by <a href="/#!fabricate">fabricate</a>, a collection of JavaScript, Python and shell script which compiles and displays my work. The content on the client side is 100% dynamic, check out the source of this page.</p>
 
 <p>The site is hosted on a VPS with <a href="http://linode.com">Linode</a>.</p>
-
-<p>If you are looking for my old website, click <a href="http://fezz.in/whg/old_willgallia/">here</a>.</p>

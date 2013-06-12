@@ -115,7 +115,8 @@ def writeJSON(content, filename):
 	with open(filename, 'w') as f:
 		json.dump(content, f, indent=True)
 		f.close()
-	
+
+#create index for search engines
 #this creates a page that is very plain;
 #so we have a nice search result...
 def crawlablehomepage():
@@ -128,13 +129,13 @@ def crawlablehomepage():
 	
 		for line in head:
 			f.write(line)
-		f.write("\n<h3>Projects include:</h3>\n")
-		for item in itemnames:
-			f.write('<a href="/#!' + item.lower() + '">' + item + '</a>\n')			
-		f.write("<h3>Tags</h3>\n")
-		for tag in tags:
-			f.write('<a href="/#!' + tag.lower() + '">' + tag + '</a>\n')
-		f.write("</body>\n</html>")
+# 		f.write("\n<h3>Projects include:</h3>\n")
+# 		for item in itemnames:
+# 			f.write('<a href="/#!' + item.lower() + '">' + item + '</a>\n')			
+# 		f.write("<h3>Tags</h3>\n")
+# 		for tag in tags:
+# 			f.write('<a href="/#!' + tag.lower() + '">' + tag + '</a>\n')
+# 		f.write("</body>\n</html>")
 		
 		f.close()
 		

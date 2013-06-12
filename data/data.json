@@ -2,6 +2,20 @@
  "items": [
   {
    "cats": [
+    "Software", 
+    "Image"
+   ], 
+   "link": "construct", 
+   "name": "Construct", 
+   "tags": [
+    "C++", 
+    "Objective-C", 
+    "3D Reconstruction", 
+    "Computer Vision"
+   ]
+  }, 
+  {
+   "cats": [
     "Hardware", 
     "Software", 
     "Image"
@@ -46,6 +60,33 @@
   }, 
   {
    "cats": [
+    "Audio", 
+    "Image"
+   ], 
+   "link": "avc", 
+   "name": "AVC", 
+   "tags": [
+    "real-time", 
+    "C++", 
+    "openFrameworks", 
+    "visuals"
+   ]
+  }, 
+  {
+   "cats": [
+    "Audio", 
+    "Software"
+   ], 
+   "link": "maxifrontend", 
+   "name": "maxiFrontEnd", 
+   "tags": [
+    "real-time", 
+    "C++", 
+    "openFrameworks"
+   ]
+  }, 
+  {
+   "cats": [
     "Software", 
     "Image"
    ], 
@@ -53,7 +94,8 @@
    "name": "Timelapser", 
    "tags": [
     "movie", 
-    "Objective-C"
+    "Objective-C", 
+    "Mac OSX"
    ]
   }, 
   {
@@ -105,6 +147,17 @@
   }, 
   {
    "cats": [
+    "Audio", 
+    "Hardware"
+   ], 
+   "link": "fca202", 
+   "name": "FCA202", 
+   "tags": [
+    "Interface"
+   ]
+  }, 
+  {
+   "cats": [
     "Software"
    ], 
    "link": "tetris", 
@@ -126,8 +179,8 @@
   }
  ], 
  "cats": {
-  "Hardware": [
-   "pedro&sybil"
+  "Info": [
+   "about"
   ], 
   "Web": [
    "flaunt", 
@@ -135,20 +188,30 @@
    "itoa"
   ], 
   "Image": [
+   "construct", 
    "pedro&sybil", 
+   "avc", 
    "timelapser", 
    "cubes&pyramids", 
    "itoa", 
    "adventuresinsine", 
    "panorama"
   ], 
-  "Info": [
-   "about"
+  "Hardware": [
+   "pedro&sybil", 
+   "fca202"
+  ], 
+  "Audio": [
+   "avc", 
+   "maxifrontend", 
+   "fca202"
   ], 
   "Software": [
+   "construct", 
    "pedro&sybil", 
    "flaunt", 
    "fabricate", 
+   "maxifrontend", 
    "timelapser", 
    "itoa", 
    "tetris"
@@ -157,6 +220,9 @@
  "tags": {
   "jQuery": [
    "flaunt"
+  ], 
+  "visuals": [
+   "avc"
   ], 
   "JavaScript": [
    "fabricate", 
@@ -171,6 +237,9 @@
   "CMS": [
    "flaunt"
   ], 
+  "graphics": [
+   "cubes&pyramids"
+  ], 
   "Python": [
    "fabricate", 
    "itoa"
@@ -182,8 +251,15 @@
    "adventuresinsine", 
    "tetris"
   ], 
-  "JSON": [
-   "fabricate"
+  "openFrameworks": [
+   "avc", 
+   "maxifrontend"
+  ], 
+  "Computer Vision": [
+   "construct"
+  ], 
+  "Interface": [
+   "fca202"
   ], 
   "C": [
    "pedro&sybil"
@@ -194,18 +270,29 @@
   "Illustrator": [
    "cubes&pyramids"
   ], 
+  "JSON": [
+   "fabricate"
+  ], 
   "photography": [
    "panorama"
   ], 
-  "C++": [
-   "pedro&sybil"
+  "3D Reconstruction": [
+   "construct"
   ], 
   "Objective-C": [
+   "construct", 
    "pedro&sybil", 
    "timelapser"
   ], 
-  "graphics": [
-   "cubes&pyramids"
+  "C++": [
+   "construct", 
+   "pedro&sybil", 
+   "avc", 
+   "maxifrontend"
+  ], 
+  "real-time": [
+   "avc", 
+   "maxifrontend"
   ], 
   "me": [
    "about"
@@ -215,6 +302,9 @@
   ], 
   "plotter": [
    "pedro&sybil"
+  ], 
+  "Mac OSX": [
+   "timelapser"
   ], 
   "AVR": [
    "pedro&sybil"

@@ -44,15 +44,17 @@ head.appendChild(iet);
 var maintitle = "Will Gallia";
 document.title = maintitle;
 
-//for testing purposes... remove...
+//if we don't support onhashchange, stop...
+var onhc = true;
 if(!("onhashchange" in window)) {
-	document.write("no onhashchange");
+	document.write("This website needs things your browser doesn't have. I would suggest using Chrome.");
+    onhc = false;
 }
 
 //add functions which in turn adds the script to call them...
 var funcs = document.createElement("script");
 funcs.src = "./js/functions.js";
-if(!snaps) {
+if(!snaps || !onhc) {
 	head.appendChild(funcs);
 }
 

@@ -7,16 +7,16 @@
 </hgroup>
 
 
-<p>Flaunt is a server-side web application or CMS, which uses PHP to present and MySQL to store the content. It supports themes, which use a simple API to pull in content. All content is managed inside backend. <a href="http://pedroandsybil.com">pedroandsybil.com</a> is built with it.</p>
+<p>Flaunt is a server-side web application or CMS, which uses PHP to present and MySQL to store the content. It supports themes, which use a simple API to pull in content. All content is managed inside a backend. <a href="http://pedroandsybil.wgallia.com">pedroandsybil.wgallia.com</a> is built with it.</p>
 
-<p>The idea for this came when I wanted to make a portfolio website for myself, but it was never made until I had to document a project for a University project. It never was used for a personal website...</p>
+<p>The idea for this came when I wanted to make a portfolio website for myself, but it was never made until I had to document a project for a University project. It was never used for a personal website...</p>
 
 <p>Some of the cool features include:</p>
 
 <ul>
 <li>The order of the sidebar items can be ordered in the browser by dragging and dropping boxes.</li>
 <li>All <span class="high">.css</span> and <span class="high">.js</span> files are automatically included when they are in the correct directory.</li>
-<li>The main stylesheet can be editing without any FTP/Terminal nonsense in the backend.</li>
+<li>The main stylesheet can be edited without any FTP/Terminal nonsense in the backend.</li>
 <li>Loads of others...</li>
 </ul>
 

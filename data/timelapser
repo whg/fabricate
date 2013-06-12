@@ -6,7 +6,7 @@
 <h3>June 2011</h3>
 </hgroup>
 
-<p>This is a very simple app with a very simple objective; with a collection of images, make a movie. Images are selected, a frame rate is chosen, if the images need scaling they can be and then a movie is make. The app is written in Objective-C and uses QTKit to write the movie.</p>
+<p>This is a very simple app with a very simple objective; with a collection of images, make a movie. Images are selected, a frame rate is chosen, images can be scaled if they need to be and then a movie is made. The app is written in Objective-C and uses QTKit to write the movie.</p>
 
 <p>It utilises multi-threading, pretty progress bars and tells you nice bits of information like how long the movie will be...</p>
 

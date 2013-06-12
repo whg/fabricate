@@ -30,7 +30,67 @@ tags: Python, JavaScript, shell, JSON
 
 <p>All content on the site is created dynamically with JavaScript using the JSON file, pages are collected using <tt>XMLHttpRequest</tt>s.</p>
 
-<p>Pages are served using <tt>mod_python</tt>, if Google visits the page, an HTML snapshot is served which has been produced using <a href="http://www.phantomjs.org/">phantomJS</a>.</p>
+<p>Pages are served using <tt>mod_python</tt>, because there is no normal crawlable content, if Google visits the page, an HTML snapshot is served which has been produced using <a href="http://www.phantomjs.org/">phantomJS</a>.</p>
+
+<p>If you're like me and you're always mad to know what and how much goes into projects, you might be interested to know this about Fabricate:</p>
+
+<table border="1px" cellspacing="5">
+<thead style="font-weight: bold">
+<tr>
+<td>Language</td>
+<td>Code</td>
+<td>Comment</td>
+<td>Comment %</td>
+<td>Blank</td>
+<td>Total</td>
+</tr>
+</thead>
+<tbody style="color: #656565">
+<tr>
+<td>JavaScript</td>
+<td>613</td>
+<td>130</td>
+<td>17.5%</td>
+<td>214</td>
+<td>957</td>
+</tr>
+<tr>
+<td>CSS</td>
+<td>274</td>
+<td>34</td>
+<td>11.0%</td>
+<td>82</td>
+<td>390</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>158</td>
+<td>37</td>
+<td>19.0%</td>
+<td>29</td>
+<td>264</td>
+</tr>
+<tr>
+<td>Make</td>
+<td>19</td>
+<td>0</td>
+<td>0.0%</td>
+<td>6</td>
+<td>25</td>
+</tr>
+</tbody>
+<tfoot style="color: #000">
+<tr>
+<td>Total</td>
+<td>1117</td>
+<td>216</td>
+<td>16.2%</td>
+<td>395</td>
+<td>1728</td>
+</tr>
+</tfoot>
+</table>
+
 
 <p>-</p>
 

@@ -564,7 +564,7 @@ function checkhash() {
 
 var keyboardinfo =
 "<p>Format: &lt;command> &lt;argument><br/> </p>\
-<p>e.g. open visual </p> \
+<p>e.g. open Image </p> \
 <p>Use tab to autocomplete both commands and arguments. \
 Arguments can be items, sections or tags.</p> \
 -<br/> \
@@ -622,11 +622,11 @@ function clickingascii() {
 		if(imgs[i].getAttribute("type") == "ascii") {
 			imgs[i].onmousedown = function() {
 				if(this.getAttribute("type") == "ascii")  {
-					this.src = "/new/images/atoi/" + this.name + "_img.jpg";
+					this.src = "/content/images/atoi/" + this.name + "_img.jpg";
 					this.setAttribute("type", "img");
 				}
 				else {
-					this.src = "/new/images/atoi/" + this.name + "_ascii.png";
+					this.src = "/content/images/atoi/" + this.name + "_ascii.png";
 					this.setAttribute("type", "ascii");
 				}	
 			}

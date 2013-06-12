@@ -11,7 +11,7 @@
 <h3>June 2011</h3>
 </hgroup>
 
-<p>During the summer of 2011 I wanted to learn Python and needed a small project, this was what I chose. Using a web interface you can submit an image, either on your filesystem or using a URL, and a ASCII representation is returned.</p>
+<p>During the summer of 2011 I wanted to learn Python and needed a small project, this was what I chose. Using a web interface you can submit an image, either on your filesystem or using a URL, and an ASCII representation is returned.</p>
 
 <p>You can try it with your own images <a href="http://itoa.wgallia.com">here</a>.</p>
 
@@ -19,7 +19,7 @@
 
 <p>The returned text can either be formatted to be viewed in the browser or in a text document, where the line height is different.</p>
 
-<p>Here are some examples, they are best viewed from a distance, click on the images to see the original images:</p>
+<p>Here are some examples, they are best viewed from a distance, click on the images to see the originals:</p>
 
 <img src="/content/images/atoi/ilica_ascii.png" alt="Ilica" class="fit" name="ilica" type="ascii"/>
 
@@ -29,5 +29,4 @@
 
 <img src="/content/images/atoi/drop_ascii.png" alt="Drop" class="fit" name="drop" type="ascii"/>
 
-
-</script>
+<p>As always, the source in on my <a href="https://github.com/whg/itoa">github</a></p>

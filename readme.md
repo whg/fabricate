@@ -3,6 +3,7 @@ fabricate
 
 A collection of JavaScript, Python and shell scripts that makes a website 
 -------------------------------------------------------------------------
+a.k.a a static site generator
 
 Fabricate reads a set of text files with headers containing their names and tags and them makes a JSON object that JavaScript can read and work with. Items can be associated with categories and tags. 
 

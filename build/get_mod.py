@@ -61,8 +61,8 @@ for i in toadd:
 				#add self
 				tosnap.add(name.strip())
 				#and all dependencies
-				for thing in depends[name.strip()].split(','):
-					tosnap.add(thing)
+                # for thing in depends[name.strip()].split(','):
+                #     tosnap.add(thing)
 				
 				
 with open("snaps/tosnap", 'w') as f:
