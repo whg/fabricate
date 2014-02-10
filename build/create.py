@@ -20,15 +20,22 @@ def lowercasenospace(word):
 #in the passed directory
 def readfiles(directory):
 	
-	files = []
-	
+	files = dict()
+#	files = []
 	for dirpath, dirnames, filenames in os.walk(directory):
 		for filename in filenames:
+			try:
+				int(filename.split('.')[0])
+			except:
+				continue
+
 			with open(dirpath + "/" + filename, 'r') as f:
-				files.append(f.readlines())
-				f.close()
-	
-	return files
+				files[filename] = f.readlines()
+				#files.append(f.readlines())
+#	print len(files)
+	#return files
+#	print [e[1] for e in sorted(files.items())]
+	return [e[1] for e in sorted(files.items())]#, key = lambda x: x[0]sorted(files)
 
 #make sure each file has the correct headers
 #if not, ignore and don't use

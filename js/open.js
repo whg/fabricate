@@ -5,9 +5,12 @@ document.body.appendChild(container);
 
 /* - - - command prompt - - -  */;
 
+
+
 var keyboardcontainer = document.createElement("section");
 keyboardcontainer.setAttribute("id", "keyboard");
 container.appendChild(keyboardcontainer);
+
 
 var keyinstructions = document.createElement("p");
 keyinstructions.className = "instructions";
@@ -37,6 +40,7 @@ var commandresult = document.createElement("div");
 commandresult.setAttribute("id", "command_result");
 commandresult.className = "command_line";
 keyboardcontainer.appendChild(commandresult);
+
 
 /*
 var commandhelp = document.createElement("p");
@@ -84,12 +88,12 @@ input.focus();
 
 var disable_command = false;
 
+
 document.onkeydown = function(e) {
 	
 	if(disable_command && e.keyCode != 27) {
 		return true;
 	}
-/* 	log(e.keyCode + " and " + e.charCode); */
 
 	input.focus();
 	
@@ -157,6 +161,7 @@ document.onkeydown = function(e) {
 window.onresize = function() {
 	scaleimages(pagecontainer);
 }
+
 
 //this event handles navigation...
 window.onhashchange = function(e) {

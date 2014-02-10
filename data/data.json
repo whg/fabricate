@@ -136,17 +136,6 @@
   }, 
   {
    "cats": [
-    "Image"
-   ], 
-   "link": "panorama", 
-   "name": "Panorama", 
-   "tags": [
-    "photography", 
-    "Photoshop"
-   ]
-  }, 
-  {
-   "cats": [
     "Audio", 
     "Hardware"
    ], 
@@ -154,16 +143,6 @@
    "name": "FCA202", 
    "tags": [
     "Interface"
-   ]
-  }, 
-  {
-   "cats": [
-    "Software"
-   ], 
-   "link": "tetris", 
-   "name": "Tetris", 
-   "tags": [
-    "Processing"
    ]
   }, 
   {
@@ -194,8 +173,7 @@
    "timelapser", 
    "cubes&pyramids", 
    "itoa", 
-   "adventuresinsine", 
-   "panorama"
+   "adventuresinsine"
   ], 
   "Hardware": [
    "pedro&sybil", 
@@ -213,8 +191,7 @@
    "fabricate", 
    "maxifrontend", 
    "timelapser", 
-   "itoa", 
-   "tetris"
+   "itoa"
   ]
  }, 
  "tags": {
@@ -248,8 +225,7 @@
    "timelapser"
   ], 
   "Processing": [
-   "adventuresinsine", 
-   "tetris"
+   "adventuresinsine"
   ], 
   "openFrameworks": [
    "avc", 
@@ -273,9 +249,6 @@
   "JSON": [
    "fabricate"
   ], 
-  "photography": [
-   "panorama"
-  ], 
   "3D Reconstruction": [
    "construct"
   ], 
@@ -296,9 +269,6 @@
   ], 
   "me": [
    "about"
-  ], 
-  "Photoshop": [
-   "panorama"
   ], 
   "plotter": [
    "pedro&sybil"
