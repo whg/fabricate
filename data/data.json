@@ -32,6 +32,16 @@
   }, 
   {
    "cats": [
+    "Image"
+   ], 
+   "link": "adventuresinsine", 
+   "name": "Adventures in Sine", 
+   "tags": [
+    "Processing"
+   ]
+  }, 
+  {
+   "cats": [
     "Software", 
     "Web"
    ], 
@@ -136,6 +146,17 @@
   }, 
   {
    "cats": [
+    "Image"
+   ], 
+   "link": "panorama", 
+   "name": "Panorama", 
+   "tags": [
+    "photography", 
+    "Photoshop"
+   ]
+  }, 
+  {
+   "cats": [
     "Audio", 
     "Hardware"
    ], 
@@ -144,22 +165,12 @@
    "tags": [
     "Interface"
    ]
-  }, 
-  {
-   "cats": [
-    "Info"
-   ], 
-   "link": "about", 
-   "name": "About", 
-   "tags": [
-    "site", 
-    "me"
-   ]
   }
  ], 
  "cats": {
-  "Info": [
-   "about"
+  "Hardware": [
+   "pedro&sybil", 
+   "fca202"
   ], 
   "Web": [
    "flaunt", 
@@ -169,15 +180,13 @@
   "Image": [
    "construct", 
    "pedro&sybil", 
+   "adventuresinsine", 
    "avc", 
    "timelapser", 
    "cubes&pyramids", 
    "itoa", 
-   "adventuresinsine"
-  ], 
-  "Hardware": [
-   "pedro&sybil", 
-   "fca202"
+   "adventuresinsine", 
+   "panorama"
   ], 
   "Audio": [
    "avc", 
@@ -205,9 +214,6 @@
    "fabricate", 
    "itoa"
   ], 
-  "site": [
-   "about"
-  ], 
   "MySQL": [
    "flaunt"
   ], 
@@ -225,6 +231,7 @@
    "timelapser"
   ], 
   "Processing": [
+   "adventuresinsine", 
    "adventuresinsine"
   ], 
   "openFrameworks": [
@@ -249,6 +256,9 @@
   "JSON": [
    "fabricate"
   ], 
+  "photography": [
+   "panorama"
+  ], 
   "3D Reconstruction": [
    "construct"
   ], 
@@ -267,8 +277,8 @@
    "avc", 
    "maxifrontend"
   ], 
-  "me": [
-   "about"
+  "Photoshop": [
+   "panorama"
   ], 
   "plotter": [
    "pedro&sybil"
