@@ -136,17 +136,6 @@
   }, 
   {
    "cats": [
-    "Image"
-   ], 
-   "link": "panorama", 
-   "name": "Panorama", 
-   "tags": [
-    "photography", 
-    "Photoshop"
-   ]
-  }, 
-  {
-   "cats": [
     "Audio", 
     "Hardware"
    ], 
@@ -184,8 +173,7 @@
    "timelapser", 
    "cubes&pyramids", 
    "itoa", 
-   "adventuresinsine", 
-   "panorama"
+   "adventuresinsine"
   ], 
   "Hardware": [
    "pedro&sybil", 
@@ -261,9 +249,6 @@
   "JSON": [
    "fabricate"
   ], 
-  "photography": [
-   "panorama"
-  ], 
   "3D Reconstruction": [
    "construct"
   ], 
@@ -284,9 +269,6 @@
   ], 
   "me": [
    "about"
-  ], 
-  "Photoshop": [
-   "panorama"
   ], 
   "plotter": [
    "pedro&sybil"
