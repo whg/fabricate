@@ -158,16 +158,6 @@
   }, 
   {
    "cats": [
-    "Software"
-   ], 
-   "link": "tetris", 
-   "name": "Tetris", 
-   "tags": [
-    "Processing"
-   ]
-  }, 
-  {
-   "cats": [
     "Info"
    ], 
    "link": "about", 
@@ -213,8 +203,7 @@
    "fabricate", 
    "maxifrontend", 
    "timelapser", 
-   "itoa", 
-   "tetris"
+   "itoa"
   ]
  }, 
  "tags": {
@@ -248,8 +237,7 @@
    "timelapser"
   ], 
   "Processing": [
-   "adventuresinsine", 
-   "tetris"
+   "adventuresinsine"
   ], 
   "openFrameworks": [
    "avc", 

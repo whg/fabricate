@@ -3,7 +3,7 @@ var dev = false;
 
 //leave this... this is changed by sed when we make
 //snapshots for google... see makesnapshots.sh
-var snaps = false;
+var snaps = true;
 
 /* - - - generic helper functions and shorcuts, etc - - -  */
 
