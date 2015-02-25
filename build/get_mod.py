@@ -18,11 +18,14 @@ for dirpath, dirnames, filenames in os.walk("./content"):
 		newfiles[path] =  int(stat.st_mtime)
 
 
+try:
 #get data from .store and put in dict
-lines = [l.strip() for l in store.readlines()]
-for line in lines:
-	path, time = line.split(" ")
-	oldfiles[path] = time
+    lines = [l.strip() for l in store.readlines()]
+    for line in lines:
+        path, time = line.split(" ")
+        oldfiles[path] = time
+except ValueError:
+    print "bad store"
 
 
 #check if file is new or modified
@@ -67,7 +70,7 @@ for i in toadd:
 				
 with open("snaps/tosnap", 'w') as f:
 	for snap in tosnap:
-		f.write(snap + "\n")
+		f.write(snap.replace(' ', '').lower()  + "\n")
 	f.close()
 
 		
