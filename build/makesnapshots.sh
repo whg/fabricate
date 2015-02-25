@@ -7,12 +7,12 @@
 #so we have some workaround here...
 
 #modify page so scripts get executed
-cp snaps/static/index.html snaps/static/bindex.html
-echo '<script src="js/functions.js"></script><script src="js/open.js"></script>' >> snaps/static/index.html
+# cp static/index.html static/bindex.html
+# echo '<script src="js/functions.js"></script><script src="js/open.js"></script>' >> static/index.html
 
-sed 's|snaps = false|snaps = true|' load.js >tmpload.js
-mv load.js bload.js
-mv tmpload.js load.js
+# sed 's|snaps = false|snaps = true|' load.js >tmpload.js
+# mv load.js bload.js
+# mv tmpload.js load.js
 
 i=0
 l=`cat snaps/tosnap | wc -l`
@@ -24,7 +24,8 @@ ext=".html"
 #that have been modified, only get snapshots of those...
 
 for item in `cat snaps/tosnap`; do
-	url="http://wgallia.local#!$item"
+	# url="http://wgallia.local#!$item"
+    url="http://wgallia.com#!$item"
 	printf "trying $url"
 	
 	#now call phantomjs with the right url...
@@ -36,6 +37,6 @@ for item in `cat snaps/tosnap`; do
 done
 
 #go back to normal
-mv snaps/static/bindex.html snaps/static/index.html
-mv bload.js load.js
-echo "put back to normal"
+# mv static/bindex.html static/index.html
+# mv bload.js load.js
+# echo "put back to normal"

@@ -129,10 +129,10 @@ def writeJSON(content, filename):
 def crawlablehomepage():
 	itemnames = [ i['name'] for i in items ]
 	
-	with open("snaps/static/homehead.html") as f:
+	with open("static/homehead.html") as f:
 		head = f.readlines()
 			
-	with open("snaps/static/crawl.html", 'w') as f:
+	with open("static/crawl.html", 'w') as f:
 	
 		for line in head:
 			f.write(line)
@@ -151,8 +151,10 @@ def crawlablehomepage():
 def makeindex():
 	allthings = []
 	allthings = [item["link"].lower() for item in items ]
-	allthings.extend([cat.lower() for cat in cats])
-	allthings.extend([tag.lower() for tag in tags])
+
+    # remove the cats and tags because 
+    # allthings.extend([cat.lower() for cat in cats])
+	# allthings.extend([tag.lower() for tag in tags])
 	
 	with open("data/index", 'w') as f:
 		for thing in allthings:

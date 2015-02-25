@@ -52,9 +52,9 @@ if(!("onhashchange" in window)) {
 }
 
 //add functions which in turn adds the script to call them...
-var funcs = document.createElement("script");
-funcs.src = "./js/functions.js";
-if(!snaps || !onhc) {
-	head.appendChild(funcs);
-}
+// var funcs = document.createElement("script");
+// funcs.src = "./js/functions.js";
+// if(!snaps || !onhc) {
+// 	head.appendChild(funcs);
+// }
 

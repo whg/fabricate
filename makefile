@@ -2,7 +2,7 @@
 
 all:
 	python build/create.py
-	bash build/install_core.sh
+	# bash build/install_core.sh
 	python build/get_mod.py
 	bash build/makesnapshots.sh
 	bash build/send_mod.sh
@@ -22,4 +22,5 @@ update:
 
 clean:
 	rm data/*
+	rm snaps/*
 	echo "nothing here" > .store
