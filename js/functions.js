@@ -681,12 +681,12 @@ var createXMLHTTPObject = function () {
 
 
 //now add the script to add all the content + analytics
-var go = document.createElement("script");
-go.src = "./js/open.js";
-var analytics = document.createElement("script");
-analytics.src = "./js/analytics.js";
+// var go = document.createElement("script");
+// go.src = "./js/open.js";
+// var analytics = document.createElement("script");
+// analytics.src = "./js/analytics.js";
 
-if(!snaps) {
-	head.appendChild(go);
-	head.appendChild(analytics);
-}
+// if(!snaps) {
+// 	head.appendChild(go);
+// 	head.appendChild(analytics);
+// }
