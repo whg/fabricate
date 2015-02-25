@@ -493,7 +493,11 @@ function showpage(element) {
 	
 	for(var i = 0; i < is.length; i++) {
 		startedchange = true;
-		appendpage(is[i], pagecontainer);
+		appendpage(is[i], pagecontainer, function() {
+            if (startedchange) {
+                scrollToContent();
+            }
+        });
 	}	
 	
 	//set the title to the title, which is correctly formatted
@@ -508,16 +512,72 @@ function showpage(element) {
 			
 			//this is something for the itoa section
 			clickingascii();
+
 		}, 800);
-		
+
+    // scrollToContent();
 	log("showed");
 }
 
-function appendpage(name, parent) {
+function range(startOrEnd, end) {
+    var r = [];
+    
+    var start = startOrEnd;
+    if (end === undefined) {
+        start = 0;
+        end = startOrEnd;
+    }
+    
+    for (var i = 0; i < n; i++) {
+        r.push(i+start);
+    }
+    
+    return r;
+}
+
+function exponetialPoints(from, to, n) {
+    var ret = [];
+    var range = to - from;
+    var space = range / n;
+    var normalisedspace = space / range;
+    for (var i = 0; i < n; i++) {
+        var x = (i+1) * normalisedspace;
+        var y = - Math.pow(-x+1, 3) + 1;
+        ret.push(from + y * range);
+    }
+    return ret;
+}
+
+function scrollToContent() {
+
+
+    var tags = document.querySelector("#tags").getBoundingClientRect();
+    var body = document.querySelector("body").getBoundingClientRect();
+
+    var current = -body.top;
+    var end = tags.top + tags.height - body.top;
+
+    var points = exponetialPoints(current, end, 50);
+    log(points);
+
+    var counter = 0;
+    var interval = setInterval(function() {
+        current = points[counter++];;
+        document.body.scrollTop = current; 
+        if (Math.abs(current - end) < 2) {
+            clearInterval(interval);
+            log("cleared" + current + ", " + end);
+        }
+    }, 10);
+}
+
+function appendpage(name, parent, cb) {
 	xhreq("data/" + name, function(req) {
 		var article = document.createElement("article");
 		article.innerHTML += req.responseText;
 		parent.appendChild(article);
+
+        cb.apply(null, []);
 		startedchange = false;
 	});
 }
