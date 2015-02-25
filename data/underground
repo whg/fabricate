@@ -1,0 +1,77 @@
+
+<hgroup>
+<div class="center"><img src="content/images/underground_logo.png" alt="Underground" class="logo" /></div>
+<h1>Underground</h1>
+<h3>2012-2014</h3>
+</hgroup>
+
+<p>This project was started in 2012, but was never finished until mid
+2014. The idea was to visualise real London Underground data on the tube
+map was we know it. I wanted to write all of the movement in a
+shader. Initially I thought I would have each journey (or person) to be
+one pixel in the final animation, using a GLSL pixel shader to move
+the pixel.</p>
+
+<p>The project had many phases. The first was to process the huge CSV
+file of journey data that TFL provides. I removed all journeys that
+were not on the Underground, so DLR, National Rail, etc. This was done
+with Unix command line tools such as grep. Each line of the CSV file looks like:</p>
+
+<pre>
+3,‘Tue’,‘LUL’,‘Uxbridge’,‘Holborn’,‘1001’,‘16:41’,‘1032’,‘17:12’
+</pre>
+
+<p>The next phase was to write a journey planner. For this I wrote a
+graph traversal algorithm in Python, I used a tuned version of a depth
+first search to find the shortest routes. Once I had a match with TFLs
+journey planner I considered it finished. After this, I wrote an
+extension to the journey planner; a route finder. This produces a list
+of points for every journey. This list of points is then written to a
+file for a Objective C program to read. The file was human readable in a format like:</p>
+
+<pre>
+line|start_time;start_pos_x,start_pos_y>(ntime;npos_x, npos_y)*12
+</pre>
+
+<p>As mentioned above, my initial idea was to use a pixel shader, so
+each point in the journey was one attribute in the shader (so a
+journey has maximum of 12 points to go through). I loaded all of the
+points into the shader via a pixel attribute array. This worked quite
+well, but my framerate was suffering and I wasn't happy with the look
+of a single pixel per journey. This were looking like this:</p>
+
+<a href="content/images/tubebeg.png"><img src="content/images/tubebeg.png" class="fit" alt="Early Underground" /></a>
+
+<p>The project was put on hold. It state can be seen at: <a href="https://github.com/whg/Visualising-the-London-Underground">https://github.com/whg/Visualising-the-London-Underground</a>.</p>
+
+<p>Fast forward one and a half years. At this point I knew quite a bit
+more about programming. I made a whole load of changes to create the
+speed of things. Firstly I worked on the journey planner to increase
+it's speed by about a factor of five. Now it could find a journey in
+about 0.2 seconds. Secondly, I saved all the route information in a
+binary file, so when loading into the C++ program things were far
+quicker. I was now also using openFrameworks, as before I was doing everything manually in OpenGL. Finally, I rewrote the shader to do all the computation in
+ the fragment shader. The result of the fragment shader isn't viewed,
+it's purely used for computing the position of a journey at a point in
+time.</p>
+
+<a href="content/images/tube1.png"><img src="content/images/tube1.png" class="fit" alt="" /></a>
+
+<p>Doing things in the fragment shader had a load of advantages; it
+made things much faster (~100k journeys at a single point in time at 30fps on a Macbook Air) and
+much more flexible. For example, could scrub through time and the
+animation was perfect. Secondly I could write everything to an FBO and
+then display the the texture from the buffer in more interesting
+ways. Lastly, it meant that I wasn't confined to using one pixel per
+journey, I could draw rectangles by loading all the data in to a VBO
+and drawing that.</p>
+
+<p>Finally, I used Photoshop to remove the lines from the Underground
+map image and laid that behind the journeys.</p>
+
+
+<a href="content/images/tube2.png"><img src="content/images/tube2.png" class="fit" alt="" /></a>
+
+<p>Here is a video of the whole thing in action:</p>
+
+<iframe src="//player.vimeo.com/video/111642149" width="640" height="422" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>

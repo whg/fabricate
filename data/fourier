@@ -1,0 +1,16 @@
+
+<hgroup>
+<div class="center"><img src="content/images/fourier_logo.png" alt="Fourier" class="logo" /></div>
+<h1>Fourier</h1>
+<h3>August 2014</h3>
+</hgroup>
+
+<p>I think the Fourier Transform is pretty incredible. I use it quite a lot in audio and I wondered what it would be like to low pass filter an image. This led me into a whole world of image manipulation using the FT. Here are a few examples using the image under the title above as the source.</p>
+
+<img src="content/images/fourier/col_186.png" class="fit" />
+<img src="content/images/fourier/from_i7.png" class="fit" />
+<img src="content/images/fourier/hi-freq6.png" class="fit" />
+<img src="content/images/fourier/img2.png" class="fit" />
+<img src="content/images/fourier/img34.png" class="fit" />
+<img src="content/images/fourier/row_12.png" class="fit" />
+

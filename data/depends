@@ -1,7 +1,11 @@
-Construct:software,image,c++,objective-c,3dreconstruction,computervision
-Pedro & Sybil:hardware,software,image,c++,c,objective-c,plotter,avr
-Adventures in Sine:image,processing
+Underground:image,software,openframeworks,c++,glsl,python
+Construct:software,image,c++,objective-c,3dreconstruction,computervision,opencv
+Pedro & Sybil:hardware,software,image,c++,c,objective-c,plotter,avr,computervision,opencv
+Fourier:image,python,fft
+Unleash:image,software,openframeworks,glsl,c++,3d
 Flaunt:software,web,php,mysql,cms,jquery
+AiS 1.2:image,glsl
+Hilbert:image,c++,openframeworks
 Fabricate:web,software,python,javascript,shell,json
 AVC:audio,image,real-time,c++,openframeworks,visuals
 maxiFrontEnd:audio,software,real-time,c++,openframeworks
@@ -9,5 +13,5 @@ Timelapser:software,image,movie,objective-c,macosx
 Cubes & Pyramids:image,illustrator,graphics
 ItoA:image,software,web,ascii,php,python,javascript
 Adventures in Sine:image,processing
-Panorama:image,photography,photoshop
 FCA202:audio,hardware,interface
+About:info,site,me

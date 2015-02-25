@@ -1,0 +1,20 @@
+
+<hgroup>
+<div class="center"><img src="content/images/hilbert_logo.png" alt="Hilbert" class="logo" /></div>
+<h1>Hilbert</h1>
+<h3>February 2014</h3>
+</hgroup>
+
+<p>At one point I became interested in <a href="http://en.wikipedia.org/wiki/Space-filling_curve">space filling curves</a>. The most prominent of these is the Hilbert curve. I wondered what it looked like when you migrated pixels along the Hilbert curve.</p>
+
+<img src="content/images/hilbert/h1.png" class="" />
+
+<p>The cool thing about the hilbert curve is that it gets to points
+where it tiles your image in interesting ways:</p>
+
+<img src="content/images/hilbert/h2.png" class="" />
+
+<p>I also wrote my own space filling curve (technically it isn't space filling, but I'm not a Mathematician), it looks like a spiral.</p>
+
+<img src="content/images/hilbert/h3.png" class="" />
+

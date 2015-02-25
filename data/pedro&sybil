@@ -2,7 +2,7 @@
 <hgroup>
 <div class="center">
 <a href="http://wgallia.pedroandsybil.com">
-<img src="/content/images/pedroandsybil_logo80.png" alt="Pedro & Sybil Logo" class="logo" />
+<img src="content/images/pedroandsybil_logo80.png" alt="Pedro & Sybil Logo" class="logo" />
 </a>
 </div>
 <h1>Pedro & Sybil</h1>
@@ -16,12 +16,12 @@
 
 <p><a href="http://pedroandsybil.wgallia.com/gallery.php">Pedro</a> is built from basic materials, either custom made or recycled from printers and has the drawing area of A3 sized paper, it can hold a variety of different pen sizes. Connection to the computer is via USB and the electronics are built from basic components, using an Atmel ATmega8 as the micro-controller, which has been programmed in C.</p>
 
-<a href="/content/images/pedro_main.jpg"><img src="/content/images/pedro_main.jpg" alt="Pedro" class="fit"/></a>
+<a href="content/images/pedro_main.jpg"><img src="content/images/pedro_main.jpg" alt="Pedro" class="fit"/></a>
 
 <p><a href="http://pedroandsybil.wgallia.com/overview.php">Sybil</a> is a native Mac OS X application written in C++ and Objective-C using openFrameworks. Users can add, preview and manipulate both text and image before sending the data to be plotted. Within Sybil, users can also issue commands to draw primitive shapes via a command line interface, rendered in OpenGL!</p>
 
-<a href="/content/images/sybil.png"><img src="/content/images/sybil.png" alt="Sybil" class="fit"/></a>
+<a href="content/images/sybil.png"><img src="content/images/sybil.png" alt="Sybil" class="fit"/></a>
 
 <p>As it was a University project there is extensive documentation of the project, all techniques and code is open and can be seen at <a href="http://pedroandsybil.wgallia.com">pedroandsybil.wgallia.com</a>.</p>
 
-<img src="/content/images/pands_together.png" alt="Pedro & Sybil together" />
+<img src="content/images/pands_together.png" alt="Pedro & Sybil together" />

@@ -2,6 +2,20 @@
  "items": [
   {
    "cats": [
+    "Image", 
+    "Software"
+   ], 
+   "link": "underground", 
+   "name": "Underground", 
+   "tags": [
+    "openFrameworks", 
+    "C++", 
+    "GLSL", 
+    "Python"
+   ]
+  }, 
+  {
+   "cats": [
     "Software", 
     "Image"
    ], 
@@ -11,7 +25,8 @@
     "C++", 
     "Objective-C", 
     "3D Reconstruction", 
-    "Computer Vision"
+    "Computer Vision", 
+    "OpenCV"
    ]
   }, 
   {
@@ -27,17 +42,34 @@
     "C", 
     "Objective-C", 
     "plotter", 
-    "AVR"
+    "AVR", 
+    "Computer Vision", 
+    "OpenCV"
    ]
   }, 
   {
    "cats": [
     "Image"
    ], 
-   "link": "adventuresinsine", 
-   "name": "Adventures in Sine", 
+   "link": "fourier", 
+   "name": "Fourier", 
    "tags": [
-    "Processing"
+    "Python", 
+    "FFT"
+   ]
+  }, 
+  {
+   "cats": [
+    "Image", 
+    "Software"
+   ], 
+   "link": "unleash", 
+   "name": "Unleash", 
+   "tags": [
+    "openFrameworks", 
+    "GLSL", 
+    "C++", 
+    "3D"
    ]
   }, 
   {
@@ -52,6 +84,27 @@
     "MySQL", 
     "CMS", 
     "jQuery"
+   ]
+  }, 
+  {
+   "cats": [
+    "Image"
+   ], 
+   "link": "ais1.2", 
+   "name": "AiS 1.2", 
+   "tags": [
+    "GLSL"
+   ]
+  }, 
+  {
+   "cats": [
+    "Image"
+   ], 
+   "link": "hilbert", 
+   "name": "Hilbert", 
+   "tags": [
+    "C++", 
+    "openFrameworks"
    ]
   }, 
   {
@@ -146,17 +199,6 @@
   }, 
   {
    "cats": [
-    "Image"
-   ], 
-   "link": "panorama", 
-   "name": "Panorama", 
-   "tags": [
-    "photography", 
-    "Photoshop"
-   ]
-  }, 
-  {
-   "cats": [
     "Audio", 
     "Hardware"
    ], 
@@ -165,12 +207,22 @@
    "tags": [
     "Interface"
    ]
+  }, 
+  {
+   "cats": [
+    "Info"
+   ], 
+   "link": "about", 
+   "name": "About", 
+   "tags": [
+    "site", 
+    "me"
+   ]
   }
  ], 
  "cats": {
-  "Hardware": [
-   "pedro&sybil", 
-   "fca202"
+  "Info": [
+   "about"
   ], 
   "Web": [
    "flaunt", 
@@ -178,15 +230,22 @@
    "itoa"
   ], 
   "Image": [
+   "underground", 
    "construct", 
    "pedro&sybil", 
-   "adventuresinsine", 
+   "fourier", 
+   "unleash", 
+   "ais1.2", 
+   "hilbert", 
    "avc", 
    "timelapser", 
    "cubes&pyramids", 
    "itoa", 
-   "adventuresinsine", 
-   "panorama"
+   "adventuresinsine"
+  ], 
+  "Hardware": [
+   "pedro&sybil", 
+   "fca202"
   ], 
   "Audio": [
    "avc", 
@@ -194,8 +253,10 @@
    "fca202"
   ], 
   "Software": [
+   "underground", 
    "construct", 
    "pedro&sybil", 
+   "unleash", 
    "flaunt", 
    "fabricate", 
    "maxifrontend", 
@@ -204,8 +265,17 @@
   ]
  }, 
  "tags": {
+  "GLSL": [
+   "underground", 
+   "unleash", 
+   "ais1.2"
+  ], 
   "jQuery": [
    "flaunt"
+  ], 
+  "real-time": [
+   "avc", 
+   "maxifrontend"
   ], 
   "visuals": [
    "avc"
@@ -214,16 +284,25 @@
    "fabricate", 
    "itoa"
   ], 
+  "site": [
+   "about"
+  ], 
+  "OpenCV": [
+   "construct", 
+   "pedro&sybil"
+  ], 
   "MySQL": [
    "flaunt"
   ], 
   "CMS": [
    "flaunt"
   ], 
-  "graphics": [
-   "cubes&pyramids"
+  "3D": [
+   "unleash"
   ], 
   "Python": [
+   "underground", 
+   "fourier", 
    "fabricate", 
    "itoa"
   ], 
@@ -231,15 +310,18 @@
    "timelapser"
   ], 
   "Processing": [
-   "adventuresinsine", 
    "adventuresinsine"
   ], 
   "openFrameworks": [
+   "underground", 
+   "unleash", 
+   "hilbert", 
    "avc", 
    "maxifrontend"
   ], 
   "Computer Vision": [
-   "construct"
+   "construct", 
+   "pedro&sybil"
   ], 
   "Interface": [
    "fca202"
@@ -256,9 +338,6 @@
   "JSON": [
    "fabricate"
   ], 
-  "photography": [
-   "panorama"
-  ], 
   "3D Reconstruction": [
    "construct"
   ], 
@@ -268,20 +347,25 @@
    "timelapser"
   ], 
   "C++": [
+   "underground", 
    "construct", 
    "pedro&sybil", 
+   "unleash", 
+   "hilbert", 
    "avc", 
    "maxifrontend"
   ], 
-  "real-time": [
-   "avc", 
-   "maxifrontend"
+  "graphics": [
+   "cubes&pyramids"
   ], 
-  "Photoshop": [
-   "panorama"
+  "me": [
+   "about"
   ], 
   "plotter": [
    "pedro&sybil"
+  ], 
+  "FFT": [
+   "fourier"
   ], 
   "Mac OSX": [
    "timelapser"

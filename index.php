@@ -15,7 +15,4 @@ else { //person not machine
     exit(file_get_contents('snaps/static/index.html'));
 }
 
-
-
-
 ?>

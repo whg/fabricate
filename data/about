@@ -1,6 +1,6 @@
 
 <hgroup>
-<div class="center"><img src="/content/images/wg_logo.png" alt="Will Gallia" class="logo" /></div>
+<!-- <div class="center"><img src="content/images/wg_logo.png" alt="Will Gallia" class="logo" /></div> -->
 <h1>Will Gallia</h1>
 </hgroup>
 
@@ -11,10 +11,10 @@
 
 <p>If you want to get in touch, my email is wgallia@gmail.com</p>
 
-<p>You can also find me on <a href="https://vimeo.com/user2559854"><img src="/content/images/vimeologo.png" alt="Vimeo" class="inline"/></a> and <a href="http://soundcloud.com/whg"><img src="/content/images/soundcloud_logo.png" alt="SoundCloud" class="inline"/></a></p>
+<p>You can also find me on <a href="https://vimeo.com/user2559854"><img src="content/images/vimeologo.png" alt="Vimeo" class="inline"/></a> and <a href="http://soundcloud.com/whg"><img src="content/images/soundcloud_logo.png" alt="SoundCloud" class="inline"/></a></p>
 
 <h3 id="site">This Site</h3>
 
 <p>This site is built and maintained by <a href="/#!fabricate">fabricate</a>, a collection of JavaScript, Python and shell script which compiles and displays my work. The content on the client side is 100% dynamic, check out the source of this page.</p>
 
-<p>The site is hosted on a VPS with <a href="https://www.linode.com/?r=4de698b75bcabac98954c24da35fa3473464f70f">Linode</a>.</p>
+<p>The site is hosted on a VPS with <a href="http://linode.com">Linode</a>.</p>
