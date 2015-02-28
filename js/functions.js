@@ -558,12 +558,12 @@ function scrollToContent() {
     var end = tags.top + tags.height - body.top;
 
     var points = exponetialPoints(current, end, 50);
-    log(points);
-
     var counter = 0;
+
     var interval = setInterval(function() {
         current = points[counter++];;
-        document.body.scrollTop = current; 
+        // document.body.scrollTop = current;
+        window.scrollTo(0, current);
         if (Math.abs(current - end) < 2) {
             clearInterval(interval);
             log("cleared" + current + ", " + end);
